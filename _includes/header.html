@@ -1,5 +1,4 @@
 <!-- Header Start -->
-{% include analytics.html %}
 <header>
 <div class="container">
   <div class="row">
@@ -34,4 +33,7 @@
       </div>
     </div>
   </div>
+{% if site.google_analytics and jekyll.environment == 'production' %}
+{% include analytics.html %}
+{% endif %}
 </header><!-- header close -->
