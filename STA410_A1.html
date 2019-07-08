@@ -72,7 +72,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -191,6 +193,8 @@ $(document).ready(function () {
 });
 </script>
 
+<div class="container-fluid main-container">
+
 <!-- tabsets -->
 
 <style type="text/css">
@@ -264,15 +268,6 @@ $(document).ready(function () {
 
 
 
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
@@ -282,7 +277,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Michal Malyska</a>
+      <a class="navbar-brand" href="index.html">Frequently Bayesian</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -429,298 +424,12 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Assignment 1</h1>
-<h4 class="author">Michal Malyska</h4>
+<h4 class="author"><em>Michal Malyska</em></h4>
 
 </div>
 
 
-<div id="handout" class="section level1">
-<h1>Handout</h1>
-<p>You can see the handout for this Assignment <a href="./STA410_A1_source/hmwk1.pdf">here</a></p>
-<p>The function fwht2d is provided by prof Knight <a href="./STA410_A1_source/fwt2d.txt">here</a></p>
-<p>The boats image is also provided in the Assignment <a href="./STA410_A1_source/boats.txt">here</a></p>
-</div>
-<div id="setup" class="section level1">
-<h1>Setup</h1>
-<pre class="r"><code>set.seed(2718)
 
-# Libraries
-library(tidyverse)
-
-# Function:
-source(&quot;./STA410_A1_source/fwht2d.txt&quot;)
-
-# Data
-boats &lt;- matrix(scan(&quot;./STA410_A1_source/boats.txt&quot;), ncol = 256, byrow = TRUE)</code></pre>
-</div>
-<div id="question-1" class="section level1">
-<h1>Question 1</h1>
-<p>##a) We have:</p>
-<p><span class="math display">\[ \hat{Z} = H_mZH_n \]</span></p>
-<p>And we know that:</p>
-<p><span class="math display">\[ H_mH_m^T = mI_m \]</span></p>
-<p>and</p>
-<p><span class="math display">\[ H_m = H_m^T \]</span></p>
-<p>Want to show:</p>
-<p><span class="math display">\[ Z = \frac{H_m\hat{Z}H_n}{mn} \]</span></p>
-<p>It’s easy to see that:</p>
-<p><span class="math display">\[ H_m\hat{Z}H_n = H_mH_mZH_nH_n = mI_mZI_nn= mnZ \]</span> Then all that is left is dividing by mn and we are done.</p>
-<div id="b" class="section level2">
-<h2>b)</h2>
-<pre class="r"><code>threshold &lt;- function(thresholding_type, data, threshold){
-    # Check inputs
-    if (!thresholding_type %in% c(&quot;soft&quot;, &quot;hard&quot;)) stop(&quot;Thresholding must either be soft or hard&quot;)
-    # Check data type
-    if (class(data) != &quot;matrix&quot;) stop(&quot;data must be a matrix type&quot;)
-    # soft thresholding
-    if (thresholding_type == &quot;soft&quot;) {
-        # apply the fwht2d
-        xhat &lt;- fwht2d(data)
-        # do soft thresholding
-        xhat_thr &lt;- sign(xhat)*(pmax(abs(xhat) - threshold, 0))
-        # get back to x
-        x &lt;- fwht2d(xhat_thr) / length(data)
-        # return
-        return(x)
-    }
-    # hard thresholding
-    else {
-        # apply the fwht2d
-        xhat &lt;- fwht2d(data)
-        # do hard thresholding
-        xhat_thr &lt;- ifelse(test = abs(xhat) &gt; threshold, yes = xhat, no = 0)
-        # get back to x
-        x &lt;- fwht2d(xhat_thr) / length(data)
-        return(x)
-    }
-}</code></pre>
-</div>
-<div id="c" class="section level2">
-<h2>c)</h2>
-<pre class="r"><code># to fix some plot issues:
-#my_plot_hook &lt;- function(x, options)
-#  paste(&quot;\n&quot;, knitr::hook_plot_tex(x, options), &quot;\n&quot;)
-#knitr::knit_hooks$set(plot = my_plot_hook)
-
-# original image:
-image(boats, axes = FALSE, col = grey(seq(0, 1, length = 256)))</code></pre>
-<p><img src="STA410_A1_files/figure-html/denoising%20the%20image-1.png" width="672" /></p>
-<pre class="r"><code>lambdas &lt;- c(1, 2.5, 5, 7.5, 10, 25, 50, 75, 100, 250, 500, 1000)
-boats_hard &lt;- threshold(&quot;hard&quot;, boats, 1)
-image(boats_hard, axes = FALSE, col = grey(seq(0, 1, length = 256)))</code></pre>
-<p><img src="STA410_A1_files/figure-html/denoising%20the%20image-2.png" width="672" /></p>
-<pre class="r"><code># plot all thresholded images:
-for (lambda in lambdas) {
-    boats_hard &lt;- threshold(&quot;hard&quot;, boats, lambda)
-    image(boats_hard, axes = FALSE, col = grey(seq(0, 1, length = 256)),
-          main = paste0(&quot;Denoised with hard threshold with lambda =&quot;, lambda))
-    boats_soft &lt;- threshold(&quot;soft&quot;, boats, lambda)
-    image(boats_soft, axes = FALSE, col = grey(seq(0, 1, length = 256)),
-          main = paste0(&quot;Denoised with soft threshold with lambda =&quot;, lambda))
-}</code></pre>
-<p><img src="STA410_A1_files/figure-html/denoising%20the%20image-3.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-4.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-5.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-6.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-7.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-8.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-9.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-10.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-11.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-12.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-13.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-14.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-15.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-16.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-17.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-18.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-19.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-20.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-21.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-22.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-23.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-24.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-25.png" width="672" /><img src="STA410_A1_files/figure-html/denoising%20the%20image-26.png" width="672" /></p>
-<p>So if you don’t like boats pick 1000, if you like whatever details can exist in a 256x256 pix image, pick 0, otherwise pick 25 with soft thresholding, maybe 50.</p>
-</div>
-</div>
-<div id="question-2" class="section level1">
-<h1>Question 2</h1>
-<div id="a-we-have" class="section level2">
-<h2>a) We have:</h2>
-<p><span class="math display">\[ X_{i} \sim F \]</span> <span class="math display">\[ N \sim poiss(\lambda) \]</span> <span class="math display">\[ Y = \sum_{i=1}^{N}{X_{i}} ~~ \text{and } ~ N=0 \implies Y=0 \]</span></p>
-<p>and <span class="math inline">\(N\)</span> and <span class="math inline">\(X_i\)</span> are independent.</p>
-<p>Now take <span class="math inline">\(\{ X_i \}\)</span> to be discrete, integer valued R.V’s with probability generating function:</p>
-<p><span class="math display">\[ \phi(s) = E(s^{X_{i}}) \]</span></p>
-<p>We want to show:</p>
-<p><span class="math display">\[ G_Y =  g(\phi(s)) = e^{-\lambda(1-\phi(s))} \]</span></p>
-<p>By using independence of X and N we can see the following:</p>
-<p><span class="math display">\[ G_Y(s) = E(e^{isY}) = E_N((E(e^{isX}))^N) = E((F(s))^N) = e^{\lambda (\phi(s) -1 )} \]</span></p>
-<p>Which is what we wanted to show.</p>
-</div>
-<div id="b-1" class="section level2">
-<h2>b)</h2>
-<p>Show that if <span class="math inline">\(P(N \geq m) \leq \epsilon\)</span> then <span class="math inline">\(P(Y \geq ml) \leq \epsilon\)</span> and so we can take <span class="math inline">\(M \geq ml\)</span>.</p>
-<p>First note that <span class="math inline">\(X_i \leq l\)</span> and so <span class="math inline">\(Y \leq Nl\)</span> Then:</p>
-<p><span class="math display">\[ Pr(Y \geq M) \leq Pr(Nl \geq M) = Pr(N \geq \frac{M}{l}) \]</span></p>
-<p>Then just see that :</p>
-<p><span class="math display">\[ \exists{m} ~~ s.t. ~~ Pr(N \geq m) \leq \epsilon \implies Pr(Y \geq ml) \leq \epsilon \]</span></p>
-</div>
-<div id="c-1" class="section level2">
-<h2>c)</h2>
-<p>For any given <span class="math inline">\(s &gt; 1\)</span> i.e. <span class="math inline">\(s \in S, S = \{ \mathbb{R}^+\setminus (0,1] \}\)</span> we can fix <span class="math inline">\(M_0\)</span> such that:</p>
-<p><span class="math display">\[ \frac{e^{-\lambda(1-\phi(s))}}{s^{M_0}} = \epsilon \]</span> Rearranging we get: <span class="math display">\[ M_0 = \frac{-log(\epsilon) - \lambda(1-\phi(s))}{log(s)} \]</span> Then: <span class="math display">\[ Pr(Y \geq M_0) \leq \epsilon \]</span> Since this works for any given s, we can take M to be the infimum of all options:</p>
-<p><span class="math display">\[ M = M_{min} = \inf_{s \in S} {(\frac{-log(\epsilon) - \lambda(1-\phi(s))}{log(s)})} \]</span></p>
-</div>
-<div id="d" class="section level2">
-<h2>d)</h2>
-<p>Computing M:</p>
-<pre class="r"><code># Define a function to compute M:
-
-compute_m &lt;- function(lambda, epsilon, px, s){
-    
-    # Check condition for c)
-    if (!min(s) &gt; 1) {stop(&quot;S needs to be greater than 1&quot;)}
-    
-    # compute the pgf (phi of s in the handout) -----------------------------------
-    
-    # initialize 
-    pgf &lt;- px[1]
-    
-    # iterate to get the values:
-    for (i in 1:(length(px) - 1)) {
-        pgf &lt;- pgf + px[i + 1]*s^i
-    }
-    
-    # compute M from formula in c) ------------------------------------------------
-    all_M &lt;- (-log(epsilon) - lambda*(1 - pgf)) / log(s)
-    M &lt;- min(all_M) 
-    
-    return(list(M, all_M))
-}</code></pre>
-<p>In our case:</p>
-<p><span class="math display">\[ \epsilon = 10^{-5} \]</span></p>
-<p><span class="math display">\[ \lambda = 3 \]</span></p>
-<p><span class="math display">\[ p(x) =  P(X_i = x) = \frac{11-x}{66}, ~~ 0 \leq x \leq 10 \]</span></p>
-<p>We need to choose a set of points s such that M is the true infimum. Let’s start with a plot of s from 1.001 to 10 by 0.001 and see the graph of the function we are minimizing.</p>
-<pre class="r"><code># define s:
-s &lt;- seq(from = 1.001, to = 10, by = 0.001)
-
-# all the other params
-epsilon = 10^-5
-lambda = 3
-px = (11 - c(0:10))/66
-
-# Get the values
-M_1 &lt;- compute_m(lambda = lambda, epsilon = epsilon, px = px, s = s)
-
-# Get all M&#39;s 
-ys &lt;- M_1[2][[1]]
-# Get the minimum M
-M_min &lt;- M_1[1][[1]]
-
-# Store in a tibble
-data &lt;- tibble(s = s, y = ys)
-
-# plot
-ggplot(data = data, aes(x = s, y = y)) +
-    geom_point()</code></pre>
-<p><img src="STA410_A1_files/figure-html/choosing%20s%20attempt%201-1.png" width="672" /></p>
-<pre class="r"><code># print for which S is the M minimal
-print(data %&gt;% filter(y == M_min))</code></pre>
-<pre><code>## # A tibble: 1 x 2
-##       s     y
-##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  1.35  67.2</code></pre>
-<p>We can clearly see that the function just diverges for large s, and there is a small range where it is highfor values close to 0. Somewhere in between 1 and 2 there is a minimum, so for safety let’s set s to be by 0.0001 between 1.0001 and 2.</p>
-<pre class="r"><code>s &lt;- seq(from = 1.0001, to = 2, by = 0.0001)
-# Get the values
-M_1 &lt;- compute_m(lambda = lambda, epsilon = epsilon, px = px, s = s)
-# Get all M&#39;s 
-ys &lt;- M_1[2][[1]]
-# Get the minimum M:
-M_min &lt;- M_1[1][[1]]
-
-# Store in a tibble
-data &lt;- tibble(s = s, y = ys)
-
-# plot
-ggplot(data = data, aes(x = s, y = y)) +
-    geom_point()</code></pre>
-<p><img src="STA410_A1_files/figure-html/choosing%20s%20attempt%202-1.png" width="672" /></p>
-<pre class="r"><code># print for which S is the M minimal
-print(data %&gt;% filter(y == M_min))</code></pre>
-<pre><code>## # A tibble: 1 x 2
-##       s     y
-##   &lt;dbl&gt; &lt;dbl&gt;
-## 1  1.35  67.2</code></pre>
-<p>So the optimal M is close to 67, which is a prime, which is horrible. At this point we have a choice of brining M to be the closest power of 2: 128 or just rounding it to <span class="math inline">\(68 = 2* 2* 17\)</span>. I will choose the latter.</p>
-<p>Let’s define the compound poisson function:</p>
-<pre class="r"><code>cpdpoiss &lt;- function(lambda, px, M) {
-    # compute for padding
-    n &lt;- length(px) - 1
-    # pad px with zeros
-    px &lt;- c(px, rep(0, M - n - 1))
-    # compute the FFT of px
-    px_hat &lt;- fft(px)
-    # compute py_hat
-    py_hat &lt;- exp(-lambda*(1 - px_hat))
-    # compute py
-    probs &lt;- Re(fft(py_hat, inverse = TRUE))/M
-    
-    return(list(y = c(0:(M - 1)), probs = probs))
-}</code></pre>
-<p>Let’s compute the values we get and plot the result:</p>
-<pre class="r"><code># compute
-result &lt;- cpdpoiss(lambda, px, 68)
-# convert to tibble
-result &lt;- tibble(y = result$y, probabilities = result$probs )
-
-# ggplot the result
-ggplot(data = result, aes(x = y, y = probabilities)) +
-    geom_point() +
-    labs(title = &quot;Compound Poisson Distribution&quot;) +
-    theme_bw() +
-    geom_area(fill = &quot;gray&quot;, alpha = 0.5)</code></pre>
-<p><img src="STA410_A1_files/figure-html/compute%20the%20cpdpoiss%20for%20our%20values-1.png" width="672" /></p>
-<p>The moral of the story is we could have gotten away with picking <span class="math inline">\(M = 64\)</span></p>
-</div>
-</div>
-<div id="q2-d-check" class="section level1">
-<h1>Q2 d) Check</h1>
-<p>For the sake of my sanity I will generate a bunch of observations from this distribution manually to check if it is close to what I have:</p>
-<pre class="r"><code># define a function to generate observations
-
-rcpdpoiss &lt;- function(n, lambda, px) {
-    # initialize the integers for px
-    Xs &lt;- c(0:(length(px) - 1))
-    # initialize the results vector
-    results &lt;- c(NULL)
-    for (i in 1:n) {
-        # roll a poisson distribution with mean lambda:
-        N &lt;- rpois(n = 1, lambda = lambda)
-        # sample N x&#39;s and add them up:
-        # if result is 0 then set 0
-        if (N == 0) {
-            Y &lt;- 0
-        }
-        # otherwise sample N according to px
-        else {
-            X_i &lt;- sample(x = Xs, size = N, replace = TRUE, prob = px)
-            Y = sum(X_i)
-        }
-        # add to the vector of results
-        results &lt;- c(results, Y)
-    }
-    return(results)
-}
-
-
-# number of observations to generate = 20k
-n &lt;- 20000
-# Generate the data for our compound poisson
-check &lt;- rcpdpoiss(n, lambda, px)
-# store in a tibble
-emp_data &lt;- tibble(y = check)
-
-# create proportions data
-emp_data &lt;- emp_data %&gt;% group_by(y) %&gt;% summarize(count = n()) %&gt;% ungroup()
-emp_data$prop &lt;- emp_data$count / n
-
-# Create a comparison between observed and calculated
-
-comparison &lt;- left_join(result, emp_data, by = c(&quot;y&quot;)) %&gt;% dplyr::select(-count) %&gt;%
-    replace_na(list(prop = 0))
-
-ggplot(data = comparison, aes(y)) +
-    geom_point(aes(x = y, y = probabilities),color = &quot;red&quot;) +
-    geom_area(aes(x = y, y = probabilities),fill = &quot;red&quot;, alpha = 0.5) +
-    geom_point(aes(x = y, y = prop), color = &quot;blue&quot;) + 
-    geom_area(aes(x = y, y = prop), fill = &quot;blue&quot;, alpha = 0.5) +
-    scale_y_continuous(limits = c(0, 0.1)) +
-    ggtitle(&quot;Comparison of empirical (blue) vs calculated (red) distribution&quot;) +
-    theme_bw()</code></pre>
-<p><img src="STA410_A1_files/figure-html/manually%20generate%20the%20observations-1.png" width="672" /></p>
-<p>I am very happy with that.</p>
-</div>
 
 
 

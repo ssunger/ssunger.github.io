@@ -1,7 +1,7 @@
 
 name: FrequentlyBayesianWebsite
 navbar:
-  title: FrequentlyBayesian
+  title: Frequently Bayesian
   left:
     - text: Home
       icon: fa-home

@@ -75,7 +75,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -194,6 +196,8 @@ $(document).ready(function () {
 });
 </script>
 
+<div class="container-fluid main-container">
+
 <!-- tabsets -->
 
 <style type="text/css">
@@ -267,15 +271,6 @@ $(document).ready(function () {
 
 
 
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
@@ -285,7 +280,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Michal Malyska</a>
+      <a class="navbar-brand" href="index.html">Frequently Bayesian</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -432,262 +427,13 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">STA410 Assignment 2</h1>
-<h4 class="author">Michal Malyska</h4>
-<h4 class="date">2018-10-16</h4>
+<h4 class="author"><em>Michal Malyska</em></h4>
+<h4 class="date"><em>2018-10-16</em></h4>
 
 </div>
 
 
-<pre class="r"><code>library(tidyverse)
-set.seed(271828)</code></pre>
-<p>#Question 1</p>
-<p>##a)</p>
-<p>It is enough to show that the inverse CDF has a closed from, and then we can just plug in the randomly generated unifrom(0,1) to get the distribution as mentioned in the inverse method alogrithms.</p>
-<p><span class="math display">\[ \int g(x;s) = G(x;s) = \frac{1}{1+e^{\frac{x}{s}}} \]</span></p>
-<p><span class="math display">\[G(x;s) = \frac{1}{1+e^{-\frac{x}{s}}} \Rightarrow\]</span> <span class="math display">\[\Rightarrow G^{-1}(x;s) =  (\frac{1}{1+e^{-\frac{x}{s}}})^{-1} \Leftrightarrow\]</span> <span class="math display">\[ \Leftrightarrow \frac{1}{G^{-1}(x;s)} - 1 = \exp{\left( -\frac{x}{s} \right)} \Leftrightarrow\]</span> <span class="math display">\[ \Leftrightarrow X = s \log \left( \frac{G^{-1}(x;s)}{1+G^{-1}(x;s)} \right)\]</span> Now we plug in the U as <span class="math inline">\(G^{-1}(x;s)\)</span> to get:</p>
-<p><span class="math display">\[ X = s \log \left( \frac{U}{1+U} \right) \]</span></p>
-<p>##b)</p>
-<p>In this part of the question, consider the region <span class="math inline">\(s \geq \frac{1}{\sqrt{2}}\)</span>.</p>
-<p>We approach the problem by minimizing the log of <span class="math inline">\(M(s)\)</span> since log is monotone.</p>
-<p><span class="math display">\[\max_x M(s,x) = \frac{f(x)}{g(x;s)} \Rightarrow \max \log M(s,x) = \log f(x) - \log g(x;s) \]</span></p>
-<p>We plug in the definition of each function and simplify in order to obtain:</p>
-<p><span class="math display">\[ \log M(s,x) = -\frac{x^2}{s} - \frac{x}{s} + 2 \log( 1 + e^{ \left(\frac{x}{s} \right)} ) \Rightarrow\]</span></p>
-<p><span class="math display">\[ \Rightarrow \frac{d}{dx}\log M(s,x) = -x - \frac{1}{s} + \frac{2 e^{ \left(\frac{x}{s} \right) }}{s (1 + e^{ \left(\frac{x}{s} \right)})} \Rightarrow \]</span></p>
-<p><span class="math display">\[\frac{d^2}{dx^2}\log M(s,x) = -1 + \frac{2}{s}\frac{\frac{1}{s} e^{ \left(\frac{x}{s} \right)}(1 + e^{ \left(\frac{x}{s} \right)}) - \frac{1}{2} (e^{ \left(\frac{x}{s} \right)})^2}{(1+ e^ {\left(\frac{x}{s} \right)})^2} \]</span></p>
-<p>Now evaluate the derivative at <span class="math inline">\(x=0\)</span> and see that:</p>
-<p><span class="math display">\[ \frac{d}{dx}\log M(s) \mid_{x=0} = 0 \]</span></p>
-<p>Hence <span class="math inline">\(x=0\)</span> is a critical value. Evaluating the second derivative at the same point we get that:</p>
-<p><span class="math display">\[ \frac{d^2}{dx^2}\log M(s) \mid_{x=0} = 1- \frac{1}{2s^2} \]</span></p>
-<p>This is positive for <span class="math inline">\(s \geq \frac{1}{\sqrt{2}}\)</span>.</p>
-<p>So <span class="math inline">\(s = \frac{1}{\sqrt{2}}\)</span> minimizes <span class="math inline">\(M(s,x)\)</span> in that region.</p>
-<p>##c)</p>
-<p>We can just do a grid search over all the values of x and s in some range and plot contours narrowing down. Since we know the minimum in the region of <span class="math inline">\(s \geq \frac{1}{\sqrt{2}}\)</span>, we can consider points only outside of that region.</p>
-<pre class="r"><code>M_base &lt;- dnorm(0) / dlogis(0, scale = (1/sqrt(2)))
 
-# generate a set of (x,s)
-s &lt;- seq(from = 0.01, to = 1/sqrt(2), length.out = 100)
-x &lt;- seq(from = -5, to = 5, length.out = 100)
-
-# Get values of M
-vals &lt;- as.tibble(expand.grid(s,x)) %&gt;% rename(s = Var1, x = Var2)
-vals$M &lt;- (dnorm(vals$x)/dlogis(vals$x, location = 0, scale = vals$s))
-
-# Filter the ones lower than base
-vals &lt;- vals %&gt;% filter(M &lt; M_base) %&gt;% arrange(M)
-
-# Plot contours
-ggplot(data = vals, aes(x = x, y = s, z = M)) +
-    geom_contour(bins = 30, aes(colour = stat(level)))</code></pre>
-<p><img src="STA410_A2_files/figure-html/Numerical%20Optimization-1.png" width="672" /></p>
-<p>We can see that the function is clearly symmetric in x. Let’s consider then only values of 0 &lt; x &lt; 2.5 and eliminate s &lt; 0.4.</p>
-<pre class="r"><code># Update criteria
-vals &lt;- vals %&gt;% filter(x &gt; 0, x &lt; 2.5, s &gt; 0.4)
-# Plot
-ggplot(data = vals, aes(x = x, y = s, z = M)) +
-    geom_contour(bins = 100, aes(colour = stat(level)))</code></pre>
-<p><img src="STA410_A2_files/figure-html/Numerical%20Optimization%20ctd.-1.png" width="672" /></p>
-<p>We can see that the optimum is around x = 1 and s ~ 0.65 Let’s narrow down on a square around that:</p>
-<pre class="r"><code># Re-generate a denser subsetin that square
-s &lt;- seq(from = 0.6, to = 0.7, length.out = 100)
-x &lt;- seq(from = 0.5, to = 1.5, length.out = 100)
-
-# Compute the values:
-vals &lt;- as.tibble(expand.grid(s,x)) %&gt;% rename(s = Var1, x = Var2)
-vals$M &lt;- (dnorm(vals$x)/dlogis(vals$x, location = 0, scale = vals$s))
-
-# Plot:
-ggplot(data = vals, aes(x = x, y = s, z = M)) +
-    geom_contour(bins = 10, aes(colour = stat(level)))</code></pre>
-<p><img src="STA410_A2_files/figure-html/Numerical%20Optimization%20ctd%202-1.png" width="672" /></p>
-<p>The value at the apparent minimum is M = 1.0808554</p>
-<p>#Question 2</p>
-<p>##a)</p>
-<p>Our goal is to minimize the Loss with respect to <span class="math inline">\(\theta_j\)</span>.</p>
-<p><span class="math display">\[\text{Loss}=\sum_{i=1}^n (y_i-\theta_i)^2 + \lambda \sum_{i=2}^{n-1} (\theta_{i+1} -2\theta_i +\theta_{i-1})^2\]</span></p>
-<p>So we begin by differentiating the loss with respect to <span class="math inline">\(\theta_j\)</span>, i.e. taking the gradient. Thankfully a lot of the terms cancel.</p>
-<p><span class="math display">\[\frac{d}{d\theta_j} \{(y_j - \theta_j)^2 + (\theta_j - 2\theta_{j-1} + \theta_{j-2})^2 + (\theta_{j+1} - 2\theta_{j} + \theta_{j-1})^2 + (\theta_{j+2} - 2\theta_{j+1} + \theta_{j})^2 \}\]</span></p>
-<p>To find the minimum we have to set the gradient to be 0.</p>
-<p><span class="math display">\[0 = \frac{d}{d\theta_j}(\text{Loss})\]</span> <span class="math display">\[ 0 = -2(y_j - \theta_j)+ 2\lambda\left( (\theta_j - 2\theta_{j-1} + \theta_{j-2}) -2(\theta_{j+1} - 2\theta_{j} + \theta_{j-1}) + 2(\theta_{j+2} - 2\theta_{j+1} + \theta_{j}) \right) \]</span></p>
-<p>This is where we need to split into cases because of the indexing on the smoothing portion of the loss. To get the <span class="math inline">\(y_1\)</span> we need to look at index <span class="math inline">\(i=2\)</span> on the second term in order to get <span class="math inline">\(\theta_1\)</span>. Simplifying the above equations yields the following results:</p>
-<p><span class="math display">\[
-\begin{array}{rcl}
-         (1+\lambda)\hat{\theta}_1 - 2 \lambda\hat{\theta}_2 + \lambda\hat{\theta}_3 &amp; = y_1 \\
-         -2\lambda \hat{\theta}_1 + (1+5\lambda)\hat{\theta}_2 - 4\lambda\hat{\theta}_3 + \lambda\hat{\theta}_4 &amp; = y_2\\
-         \lambda\hat{\theta}_{j-2} -4\lambda\hat{\theta}_{j-1} + (1+6\lambda)\hat{\theta}_j -4\lambda\hat{\theta}_{j+1} + \lambda\hat{\theta}_{j+2} &amp; = y_j &amp; 2 &lt; j &lt;n-1 \\
-         -2\lambda \hat{\theta}_n + (1+5\lambda)\hat{\theta}_{n-1} - 4\lambda\hat{\theta}_{n-2} + \lambda\hat{\theta}_{n-3} &amp;  = y_{n-1} \\
-         (1+\lambda)\hat{\theta}_n - 2 \lambda\hat{\theta}_{n-1} + \lambda\hat{\theta}_{n-2} &amp; =y_n
-    \end{array}.
-\]</span></p>
-<p>Which is what we wanted to show.</p>
-<p>We can also rewrite the above in matrix notation to get that <span class="math inline">\(y = A_\lambda \hat{\theta}\)</span> .</p>
-<p>##b)</p>
-<p>We want to show that if <span class="math inline">\(y_i\)</span> are linear then <span class="math inline">\(\hat{\theta}_i = y_i\)</span>.</p>
-<p>One thing we know is that the Loss function is bounded from below by 0, since it’s a sum of squares.</p>
-<p>Then if we plug in <span class="math inline">\(\hat{\theta}_i = i*a + b\)</span>, and noting that the first term is <span class="math inline">\(0\)</span> for all <span class="math inline">\(i\)</span>:</p>
-<p><span class="math display">\[\text{Loss} = \lambda \sum_{i = 2}^{n-1} \left((1+i)a + b - 2ia - 2b +(i-1)a + b \right) = 0\]</span> And since loss is bounded from below by 0 this is the best we can get threfore it is the optimum.</p>
-<p>##c)</p>
-<p>We notice that A is very sparse (at most 5 non-zero entries per row), but note that <span class="math inline">\(A = I + B\)</span>, where <span class="math inline">\(I\)</span> is the identity. And <span class="math inline">\(B\)</span> is such that <span class="math inline">\(B \theta\)</span> is the second term in the loss Equation. Consider <span class="math inline">\(C = B^{\frac{1}{2}}\)</span> i.e. A matrix such that:</p>
-<p><span class="math display">\[\theta^T C \theta = B\theta\]</span> Since the second term of the loss is strictly non-negative (since it’s the sum of squares), and since all <span class="math inline">\(\lambda_i &gt; 0\)</span>, we know that C is positive definite. We also know that the identity is positive definite. Since C is positive definite we also know that <span class="math inline">\(C^{2}\)</span> is positive definite but that is just <span class="math inline">\(B\)</span> so we conclude that A is positive definite. And so the algorithm will converge.</p>
-<p>##d)</p>
-<pre class="r"><code># This is a template of an R function used to estimate the parameters 
-
-seidel &lt;- function(y, lambda, theta, max.iter = 50, eps = 1.e-6) {
-    
-    n &lt;- length(y)
-    
-    # Define initial estimates if unspecified 
-    if (missing(theta)) theta &lt;- y
-    
-    # Compute objective function for initial estimates
-    obj &lt;- sum((y - theta)^2) + lambda * sum(diff(diff(theta))^2)
-    
-    # The function diff(diff(theta)) computes second differences of the vector 
-    # theta
-    converged &lt;- FALSE
-    
-    # You will need to define convergence (no.conv==F) somehow - either in
-    # terms of the objective function or in terms of the estimates
-    # Do Gauss-Seidel iteration until convergence or until max.iter iterations
-    iter &lt;- 0
-    
-    theta_old &lt;- theta
-    
-    while (!converged) {  
-        theta[1] &lt;- (y[1] + 2 * lambda * theta[2] - lambda * theta[3])/(1 + lambda) 
-        
-        theta[2] &lt;- (y[2] + 2 * lambda * theta[1] +
-                        4 * lambda * theta[3] - 
-                        lambda * theta[4])/(1 + 5*lambda)
-        
-        # Update theta[2],..., theta[n-1]
-        for (j in 3:(n - 2)) {
-            theta[j] &lt;- (y[j] -
-                            lambda*theta[j - 2] + 
-                            4 * lambda * theta[j - 1] +
-                            4 * lambda*theta[j + 1] -
-                            lambda*theta[j + 2]
-                         ) / (1 + 6 * lambda) 
-        }
-        
-        theta[n - 1] &lt;- (y[n - 1] -
-                            lambda * theta[n - 3] -
-                            4 * lambda * theta[n - 2] +
-                            2 * lambda * theta[n]
-                         ) / (1 + 5 * lambda)
-        
-        theta[n] &lt;- (y[n] -
-                        lambda * theta[n - 2] -
-                        2 * theta[n - 1]
-                     ) / (1 + lambda)
-        
-        # Compute new objective function for current estimates
-        obj_new &lt;- sum((y - theta)^2) + lambda * sum(diff(diff(theta))^2)
-        
-        # Update the iterator
-        iter &lt;- iter + 1
-        # Now set converged to TRUE if either convergence or iter=max.iter
-        # and update the value of the objective function variable obj
-        if (abs(obj_new - obj) &lt; eps) converged &lt;- TRUE
-        if (iter == max.iter) converged &lt;- TRUE
-        obj &lt;- obj_new
-        theta_old &lt;- theta
-    }
-    
-    r &lt;- list(y = y, theta = theta, obj = obj, niters = iter)
-    return(r)
-}
-
-# take 1000 points to transform into our RV
-
-x &lt;- c(1:1000)/1000
-
-y &lt;- cos(6*pi*x)*exp(-2*x) + rnorm(1000,0,0.05)
-
-# estimates for various smoothing parameters (powers of 5 cause why not)
-r0 &lt;- seidel(y,lambda = 0)
-
-r5 &lt;- seidel(y, lambda = 5, theta = r0$theta, max.iter = 1000)
-
-r25 &lt;- seidel(y,lambda = 25, theta = r5$theta, max.iter = 1000)
-
-r125 &lt;- seidel(y,lambda = 125, theta = r25$theta, max.iter = 10000)
-
-# create a tibble for plots 
-gs_result &lt;- tibble(index = c(1:1000),
-                    RV = y,
-                    sol0 = r0$theta,
-                    sol5 = r5$theta,
-                    sol25 = r25$theta,
-                    sol125 = r125$theta) 
-
-# Plot
-g_complete &lt;- ggplot() +
-    # plot the real points
-    geom_point(data = gs_result, 
-               aes(x = index, y = RV),
-               alpha = 0.4) + 
-    # plot the first result (no smoothing)
-    geom_line(data = gs_result, 
-              aes(x = index, y = sol0, color = &quot;red&quot;),
-              alpha = 0.7) + 
-    geom_line(data = gs_result,
-              aes(x = index, y = sol5, color = &quot;blue&quot;),
-              alpha = 0.7) +
-    geom_line(data = gs_result,
-              aes(x = index, y = sol25, color = &quot;green&quot;), 
-              alpha = 0.7) + 
-    geom_line(data = gs_result,
-              aes(x = index, y = sol125, color = &quot;black&quot;),
-              alpha = 0.7) +
-    theme_minimal() + 
-    labs(title = expression(&quot;Estimation of smoothed &quot; ~ theta ~&quot; under various smoothing parameters&quot;),
-         x = &quot;Index&quot;,
-         y = &quot;Random Variable&quot;) + 
-    scale_color_discrete(name = &quot;Y series&quot;, 
-                         labels = c(&quot;Lambda = 0 &quot;,
-                                    &quot;Lambda = 5&quot;,
-                                    &quot;Lambda = 25&quot;,
-                                    &quot;Lambda = 125&quot;))
-
-g_complete</code></pre>
-<p><img src="STA410_A2_files/figure-html/GS%20function-1.png" width="672" /></p>
-<p>From the graph above we see that as the smoothing parameter lambda increasing, the estimated function becomes smoother (not as many oscillations). This is to say it is not as sensitive to fluctations around the true value.</p>
-<p>In particular when zooming between the indices 250 and 350:</p>
-<pre class="r"><code># Shorten
-gs_result &lt;- gs_result %&gt;% filter(index &gt; 249, index &lt; 351)
-
-# Plot
-g_short &lt;- ggplot() +
-    # plot the real points
-    geom_point(data = gs_result, 
-               aes(x = index, y = RV),
-               alpha = 0.4) + 
-    # plot the first result (no smoothing)
-    geom_line(data = gs_result, 
-              aes(x = index, y = sol0, color = &quot;red&quot;),
-              alpha = 0.7) + 
-    geom_line(data = gs_result,
-              aes(x = index, y = sol5, color = &quot;blue&quot;),
-              alpha = 0.7) +
-    geom_line(data = gs_result,
-              aes(x = index, y = sol25, color = &quot;green&quot;), 
-              alpha = 0.7) + 
-    geom_line(data = gs_result,
-              aes(x = index, y = sol125, color = &quot;black&quot;),
-              alpha = 0.7) +
-    theme_minimal() + 
-    labs(title = expression(&quot;Estimation of smoothed &quot; ~ theta ~&quot; under various smoothing parameters&quot;),
-         x = &quot;Index&quot;,
-         y = &quot;Random Variable&quot;) + 
-    scale_color_discrete(name = &quot;Y series&quot;, 
-                         labels = c(&quot;Lambda = 0 &quot;,
-                                    &quot;Lambda = 5&quot;,
-                                    &quot;Lambda = 25&quot;,
-                                    &quot;Lambda = 125&quot;))
-
-g_short</code></pre>
-<p><img src="STA410_A2_files/figure-html/Plotting%202-1.png" width="672" /></p>
-<p>There is not very much difference between lambdas above 5. It could be interesting to look over a grid of lambdas between 0 and 5.</p>
 
 
 

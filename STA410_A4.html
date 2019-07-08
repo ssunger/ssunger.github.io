@@ -74,7 +74,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -193,6 +195,8 @@ $(document).ready(function () {
 });
 </script>
 
+<div class="container-fluid main-container">
+
 <!-- tabsets -->
 
 <style type="text/css">
@@ -266,15 +270,6 @@ $(document).ready(function () {
 
 
 
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
@@ -284,7 +279,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Michal Malyska</a>
+      <a class="navbar-brand" href="index.html">Frequently Bayesian</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -431,317 +426,12 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">STA410 Assignment 4</h1>
-<h4 class="author">Michal Malyska</h4>
+<h4 class="author"><em>Michal Malyska</em></h4>
 
 </div>
 
 
 
-<pre class="r"><code>library(tidyverse)
-library(mixtools)
-
-buffalo &lt;- scan(&quot;buffsnow.txt&quot;)</code></pre>
-<div id="question-1" class="section level1">
-<h1>Question 1</h1>
-<div id="a" class="section level2">
-<h2>a)</h2>
-<p>It is very straightforward to see that:</p>
-<p><span class="math display">\[
-\theta_k = \theta_1 + (\theta_2 - \theta_1) + (\theta_3 - \theta_2) + \dots +
-(\theta_k - \theta_{k-1})\]</span></p>
-<p><span class="math display">\[
-\text{Since each of the brackets is just } \phi_{j}
-\]</span></p>
-<p><span class="math display">\[
-\theta_1 + \sum_{i=2}^{k}\phi_i
-\]</span></p>
-</div>
-<div id="b" class="section level2">
-<h2>b)</h2>
-<p>We compute partial derivative for <span class="math inline">\(g(\theta)\)</span> <span class="math display">\[
-\frac{\partial g(.)}{\partial {\theta_1}} = -2 \sum_{i = 1}^n \left( y_i - \theta_1 + \sum_{j=2}^i \phi_j \right)
-\]</span> <span class="math display">\[
-\text{Setting to zero:   } \frac{\partial g(.)}{\partial {\theta_1}} = 0
-\]</span> <span class="math display">\[
-\text{We obtain: } \theta_1 = \frac{1}{n} \sum_{i = 1}^k \left(y_i-\sum_{j=2}^i\phi_j \right)
-\]</span></p>
-</div>
-<div id="c" class="section level2">
-<h2>c)</h2>
-<p><span class="math display">\[
-\frac{\partial g(.)}{\partial {\phi_j}} \left( \sum_{i = 1}^n \left(y_i - \theta_1 - \sum_{j=2}^i \phi_j \right)^2 + \lambda \sum_{j = 2}^n | \phi_j |  \right) =
--2  \sum_{i = j}^n \left(y_i - \theta_1 - \sum_{k=2}^i \phi_k \right) +\lambda \frac{\partial | \phi_j | }{\partial {\phi_j}} 
-\]</span></p>
-<p>Where the <span class="math inline">\(\frac{\partial | \phi_j | }{\partial {\phi_j}}\)</span> will be replaced by a subgradient of the absolute value.</p>
-<p><span class="math display">\[
-\lambda \frac{\partial | \phi_j | }{\partial {\phi_j}}  = \begin{cases} \lambda &amp; \phi_j &gt; 0 \\ [- \lambda, \lambda] &amp; \phi_j = 0  \\ - \lambda &amp; \phi_j &lt; 0 \end{cases}
-\]</span></p>
-<p>Since this is zero only on the set of <span class="math inline">\([-\lambda, \lambda]\)</span>, we know that the overall function is going to be zero only this set as well. Applying that constraint we see:</p>
-<p><span class="math display">\[
--2  \sum_{i = j}^n \left(y_i - \theta_1 - \sum_{k=2}^i \phi_k \right) \in [-\lambda, \lambda] \\
-\iff \\
-\left| \sum_{i = j}^n \left(y_i - \theta_1 - \sum_{k=2}^i \phi_k \right) \right| &lt; \frac{\lambda}{2}
-\]</span></p>
-<p>Now, if <span class="math inline">\(\phi_j \neq 0\)</span> we can see that:</p>
-<p><span class="math display">\[ \phi_j = \frac{1}{n-j+1} \left(  \sum_{i = j}^n \left(y_i - \theta_1 - \sum_{k=2, k \neq j}^i \phi_k \right) - \frac{\lambda}{2} \right) \mbox{for} \sum_{i = j}^n \left(y_i - \theta_1 - \sum_{k=2, k \neq j}^i \phi_k \right) &gt; \frac{\lambda}{2}\]</span></p>
-<p>and the opposite case:</p>
-<p><span class="math display">\[ \phi_j = \frac{1}{n-j+1} \left(  \sum_{i = j}^n \left(y_i - \theta_1 - \sum_{k=2, k \neq j}^i \phi_k \right) + \frac{\lambda}{2} \right) \mbox{for} \sum_{i = j}^n \left(y_i - \theta_1 - \sum_{k=2, k \neq j}^i \phi_k \right) &lt; \frac{\lambda}{2}\]</span></p>
-</div>
-</div>
-<div id="question-2" class="section level1">
-<h1>Question 2</h1>
-<div id="a-1" class="section level2">
-<h2>a)</h2>
-<p>Let <span class="math inline">\(\theta\)</span> represent the vector of parameters.</p>
-<p>First we want to find the loglikelihood: <span class="math display">\[
-\log(L(\theta)) = \sum_{i=1}^n \sum_{k=1}^m u_{ik} \log f_k(x_i) + \sum_{i=1}^n \sum_{k=1}^m u_{ik} \log(\lambda_k)
-\]</span></p>
-<p>It is only the right sum that depends on the lambda, and solving this problem under the constraint that <span class="math inline">\(\sum_{k=1}^{m}\lambda_k = 1\)</span> It’s easy to see that: <span class="math display">\[
-\hat{\lambda_k} = \frac{1}{n}\sum_{i=1}^n u_{ik}
-\]</span></p>
-<p>Similarily, plugging in the Normal density for <span class="math inline">\(f_k(.)\)</span> and solving for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> we obtain the other two results:</p>
-<p><span class="math display">\[
-\frac{\partial l(\theta)}{\partial \mu_k} = \frac{1}{\sigma^2_k} \sum_{i=1}^{n}u_{ik}(x_i - \mu_k) 
-\]</span></p>
-<p><span class="math display">\[
-\frac{\partial l(\theta)}{\partial \sigma^2_k} = - \frac{1}{2 \sigma_k^2} \sum_{i=1}^{n}u_{ik} +
-\frac{1}{2(\sigma^2_k)^2}\sum_{i=1}^{n}u_{ik}(x_i - \mu_k)^2
-\]</span></p>
-<p>Setting both to 0 and solving produces:</p>
-<p><span class="math display">\[
-\hat{\mu_k} = \frac{\sum_{i=1}^n u_{ik} x_i}{\sum_{i=1}^n u_{ik}}
-\]</span></p>
-<p><span class="math display">\[
-\hat{\sigma_k^2} = \frac{\sum_{i=1}^n u_{ik} (x_i - \hat{\mu}_k)^2}{\sum_{i=1}^n u_{ik}}
-\]</span></p>
-</div>
-<div id="b-implement-the-em-algorithm-for-the-model-above." class="section level2">
-<h2>b) Implement the EM algorithm for the model above.</h2>
-<pre class="r"><code>normalmixture &lt;- function(x,k,mu,sigma,lambda,em.iter=50, eps = 10^-5, debug = FALSE) {
-    n &lt;- length(x)
-    # Add a tiny perturbation to x
-    x &lt;- x + rnorm(length(x), mean = 0, sd = eps)
-    x &lt;- sort(x)
-    vars &lt;- sigma^2
-    means &lt;- mu
-    lam &lt;- lambda/sum(lambda)
-    delta &lt;- matrix(rep(0,n*k),ncol = k)
-    loglik &lt;- NULL
-    converged = FALSE
-    iter = 0
-    while (!converged) {
-        loglik_new &lt;- 0
-        for (i in 1:n) {
-            xi &lt;- x[i]
-            for (j in 1:k) {
-                mj &lt;- means[j]
-                varj &lt;- vars[j]
-                denom &lt;- 0
-                for (u in 1:k) {
-                    mu &lt;- means[u]
-                    varu &lt;- vars[u]
-                    denom &lt;- denom + lam[u]*dnorm(xi,mu,sqrt(varu))
-                }
-                delta[i,j] &lt;- lam[j]*dnorm(xi,mj,sqrt(varj))/denom
-            }
-            loglik_new &lt;- loglik_new + log(denom)  
-        }
-        for (j in 1:k) {
-            deltaj &lt;- as.vector(delta[,j])
-            lambda[j] &lt;- mean(deltaj)
-            means[j] &lt;- weighted.mean(x = x, w = deltaj)
-            vars[j] &lt;- weighted.mean((x - means[j])^2, w = deltaj)
-        }
-        # Standardize lambdas
-        lambda &lt;- lambda / sum(lambda)
-        lam &lt;- lambda 
-        
-        # Iterate again
-        iter &lt;- iter + 1
-        
-        # Print iterations for debugging
-        if (debug) {cat(&quot;Iteration: &quot;, iter, &quot;\n&quot;, &quot;Log Likelihood: &quot;, loglik_new, &quot;\n&quot;)}
-        
-        # Update the first  log likelihood
-        if (is.null(loglik)) {
-            if (debug) {print(&quot;loglik empty reached&quot;)}
-            loglik = loglik_new
-        }
-        
-        # Check for convergence
-        else if (abs(tail(loglik, n = 1) - loglik_new) &lt; eps) {
-            if (debug) {print(&quot;convergence reached&quot;)}
-            converged &lt;- TRUE
-        }
-        
-        # Check for num interations
-        if (iter == em.iter) {
-            print(&quot;Number of iterations reached&quot;)
-            converged &lt;- TRUE}
-        
-        # If likelihood is infinite then print the params
-        if (is.infinite(loglik_new)) {
-            cat(&quot;Infinite Likelihood&quot;, &quot;\n&quot;)
-            r &lt;- list(mu = means,
-              var = vars,
-              delta = delta,
-              lambda = lambda,
-              loglik = loglik,
-              iterations = iter)
-            return(r)
-        }
-        
-        # Update the log likelihood
-        loglik &lt;- c(loglik, loglik_new)
-    }
-    # return
-    r &lt;- list(mu = means,
-              var = vars,
-              delta = delta,
-              lambda = lambda,
-              loglik = loglik,
-              iterations = iter)
-    return(r)
-}</code></pre>
-</div>
-<div id="c-1" class="section level2">
-<h2>c)</h2>
-<pre class="r"><code>df &lt;- tibble(x = buffalo)
-
-df %&gt;% ggplot(aes(x = x, ..density..)) +
-    geom_density(bw = 5, fill = &quot;red&quot;, alpha = 0.3) +
-    labs(title = &quot;Density plot&quot;)</code></pre>
-<p><img src="STA410_A4_files/figure-html/Kernel%20vs%20EM-1.png" width="672" /></p>
-<pre class="r"><code># From density plot:
-breaks2 &lt;- c(95)
-breaks3 &lt;- c(65, 105)
-
-# Split into normals:
-df &lt;- df %&gt;% mutate(bin2 = if_else(x &lt; breaks2[1], 1, 2),
-                    bin3 = if_else(x &lt; breaks3[1], 1,
-                                   if_else(x &lt; breaks3[2], 2, 3)))
-
-# Calculate the means and variances of each component normals:
-norms2 &lt;- df %&gt;% group_by(bin2) %&gt;% summarize(mu = mean(x),
-                                              sd = sqrt(var(x)),
-                                              count = n())
-
-norms3 &lt;- df %&gt;% group_by(bin3) %&gt;% summarize(mu = mean(x),
-                                              sd = sqrt(var(x)),
-                                              count = n())
-
-
-# run this on m = 2
-mu_start &lt;- as.vector(norms2$mu)
-var_start &lt;- as.vector(norms2$sd)
-lambda_start &lt;- as.vector(norms2$count) / length(df$x)
-
-density2 &lt;- normalmixture(df$x, 2, mu_start, var_start, lambda_start, em.iter = 1000, debug = FALSE)
-
-# run this on m = 3 
-mu_start &lt;- as.vector(norms3$mu)
-var_start &lt;- as.vector(norms3$sd)
-lambda_start &lt;- as.vector(norms3$count) / length(df$x)
-
-density3 &lt;- normalmixture(df$x, 3, mu_start, var_start, lambda_start, em.iter = 1000, debug = FALSE)
-
-# Create comparison plot against standard density estimate
-density1 &lt;- density(df$x)
-
-## new data: 
-df2 &lt;- tibble( x = seq(from = min(df$x), to = max(df$x), length.out = 10000))
-df2$density2 &lt;- density2$lambda[1] * dnorm(df2$x, mean = density2$mu[1], sd = sqrt(density2$var[1])) +
-    density2$lambda[2] * dnorm(df2$x, mean = density2$mu[2], sd = sqrt(density2$var[2]))
-df2$density3 &lt;- density3$lambda[1] * dnorm(df2$x, mean = density3$mu[1], sd = sqrt(density3$var[1])) +
-    density3$lambda[2] * dnorm(df2$x, mean = density3$mu[2], sd = sqrt(density3$var[2])) +
-    density3$lambda[3] * dnorm(df2$x, mean = density3$mu[3], sd = sqrt(density3$var[3]))
-
-# Make the plot:
-ggplot(data = df2, aes(x = df2$x)) +
-    geom_point(aes(y = df2$density2), color = &quot;red&quot;) +
-    geom_point(aes(y = df2$density3), color = &quot;blue&quot;) +
-    geom_density(data = df, mapping = aes(x = x), fill = &quot;green&quot;, alpha = 0.5) +
-    labs(main = &quot;Density Estimates at m = 2 (red) and m = 3 (blue)&quot;)</code></pre>
-<p><img src="STA410_A4_files/figure-html/Kernel%20vs%20EM-2.png" width="672" /></p>
-<p>This tiny “hand” looks weird so I will do a sanity check with the mixtools package to see if my work seems reasonable.</p>
-<pre class="r"><code>mu_start &lt;- as.vector(norms2$mu)
-var_start &lt;- as.vector(norms2$sd)
-lambda_start &lt;- as.vector(norms2$count) / length(df$x)
-
-density4 &lt;- mixtools::normalmixEM(df$x, k = 2,
-                                  mu = mu_start,
-                                  sigma = var_start,
-                                  lambda = lambda_start)</code></pre>
-<pre><code>## number of iterations= 431</code></pre>
-<pre class="r"><code>mu_start &lt;- as.vector(norms3$mu)
-var_start &lt;- as.vector(norms3$sd)
-lambda_start &lt;- as.vector(norms3$count) / length(df$x)
-
-density5 &lt;- mixtools::normalmixEM(df$x, k = 3,
-                                  mu = mu_start,
-                                  sigma = var_start,
-                                  lambda = lambda_start)</code></pre>
-<pre><code>## number of iterations= 609</code></pre>
-<pre class="r"><code>print(&quot;Mixture of two parameter comparison (mine vs mixtools)&quot;)</code></pre>
-<pre><code>## [1] &quot;Mixture of two parameter comparison (mine vs mixtools)&quot;</code></pre>
-<pre class="r"><code>cat(&quot;Mean \n&quot;,
-    density2$mu, &quot;\n&quot;,
-    density4$mu, &quot;\n&quot;)</code></pre>
-<pre><code>## Mean 
-##  82.33512 150.314 
-##  82.41374 153.7458</code></pre>
-<pre class="r"><code>cat(&quot;Variance \n&quot;,
-    density2$var, &quot;\n&quot;,
-    density4$sigma^2, &quot;\n&quot;)</code></pre>
-<pre><code>## Variance 
-##  581.1774 1173.335 
-##  583.5366 1079.92</code></pre>
-<pre class="r"><code>cat(&quot;Lambda \n&quot;,
-    density2$lambda, &quot;\n&quot;,
-    density4$lambda, &quot;\n&quot;)</code></pre>
-<pre><code>## Lambda 
-##  0.9681888 0.03181124 
-##  0.970787 0.02921304</code></pre>
-<pre class="r"><code>print(&quot;Mixture of three parameter comparison (mine vs mixtools)&quot;)</code></pre>
-<pre><code>## [1] &quot;Mixture of three parameter comparison (mine vs mixtools)&quot;</code></pre>
-<pre class="r"><code>cat(&quot;Mean \n&quot;,
-    density3$mu, &quot;\n&quot;,
-    density5$mu, &quot;\n&quot;)</code></pre>
-<pre><code>## Mean 
-##  77.98207 112.3513 120.9678 
-##  78.01955 112.3522 121.6513</code></pre>
-<pre class="r"><code>cat(&quot;Variance \n&quot;,
-    density3$var, &quot;\n&quot;,
-    density5$sigma^2, &quot;\n&quot;)</code></pre>
-<pre><code>## Variance 
-##  471.8441 3.386749 1403.283 
-##  473.245 3.383962 1396.149</code></pre>
-<pre class="r"><code>cat(&quot;Lambda \n&quot;,
-    density3$lambda, &quot;\n&quot;,
-    density5$lambda, &quot;\n&quot;)</code></pre>
-<pre><code>## Lambda 
-##  0.8340415 0.07175839 0.09420006 
-##  0.836254 0.0716751 0.09207088</code></pre>
-<p>Looks good to me.</p>
-</div>
-<div id="d" class="section level2">
-<h2>d)</h2>
-<p>Comparison by AIC:</p>
-<p><span class="math display">\[
-AIC = 2k-2loglikelihood
-\]</span></p>
-<p>for <span class="math inline">\(m = 2\)</span> we have <span class="math inline">\(2\)</span> means, <span class="math inline">\(2\)</span> variances, and <span class="math inline">\(1\)</span> mixing parameter (since the other one is just 1- the first one) for a total of <span class="math inline">\(k = 5\)</span>.</p>
-<p>for <span class="math inline">\(m = 3\)</span> we get <span class="math inline">\(k = 8\)</span></p>
-<p>Then AIC for both models is:</p>
-<p><span class="math display">\[
-AIC_2 = 10 + 2 \cdot 628.5453 =  1267.091
-\]</span></p>
-<p><span class="math display">\[
-AIC_3 =  16 + 2 \cdot 624.3508 = 1264.702
-\]</span></p>
-<p>Since the AIC has pretty much no difference we can say that both are very comparable. However given the shape of the plots I would prefer the mixture of 2 as it seems to be a much more smooth curve. The fit is also significantly faster.</p>
-</div>
-</div>
 
 
 
