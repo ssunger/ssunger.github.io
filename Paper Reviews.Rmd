@@ -1,6 +1,0 @@
----
-title: "Paper Reviews"
-output: 
-  html_document: 
-    theme: flatly 
----
