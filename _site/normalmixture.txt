@@ -1,0 +1,48 @@
+normalmixture <- function(x,k,mu,sigma,lambda,em.iter=50) {
+#  This function inputs the data (x) and the number of components (k)
+# as well as initials estimates for the means (mu), std deviations (sigma),
+# and probabilities (lambda).  You should also include arguments for 
+# determining convergence although here I just have a fixed number of
+# iterations (em.iter) of the EM algorithm with a default of 50 iterations
+         n <- length(x)
+         x <- sort(x)
+         vars <- sigma^2
+         means <- mu
+         lam <- lambda/sum(lambda)  # guarantee that lambdas sum to 1
+         delta <- matrix(rep(0,n*k),ncol=k) 
+# In this template, we have a fixed number of EM iterations; you may want 
+# to have a more refined convergence criterion 
+         for (s in 1:em.iter) {
+# compute updates of deltas 
+             for (i in 1:n) {
+                xi <- x[i]
+                for (j in 1:k) {
+                   mj <- means[j]
+                   varj <- vars[j]
+                   denom <- 0
+                   for (u in 1:k) {
+                      mu <- means[u]
+                      varu <- vars[u]
+                      denom <- denom + lam[u]*dnorm(xi,mu,sqrt(varu))
+                      }
+                   delta[i,j] <- lam[j]*dnorm(xi,mj,sqrt(varj))/denom
+                   }
+                   }
+# compute updated estimates of means, variances, and probabilities - the 
+# function weighted.mean may be useful here for computing the estimates of
+# the means and variances.
+              for (j in 1:k) {
+                  deltaj <- as.vector(delta[,j])
+                  lambda[j] <- .....
+                  means[j] <- .....
+                  vars[j] <- ....
+                  }
+             }
+# Log-likelihood computation - you may want to compute this after each EM
+# iteration (i.e. within the outer loop)
+        loglik <- .....        
+        r <- list(mu=means,var=vars,delta=delta,lambda=lambda,loglik=loglik)
+        r
+     }
+                
+             

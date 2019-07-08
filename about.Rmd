@@ -1,0 +1,22 @@
+---
+title: "About the Author" 
+output: 
+  html_document: 
+    theme: flatly 
+---
+
+I'm currently a Masters student in Statistics at the University of Toronto.
+My BSc was a specialist degree in statistics (also from UofT)
+which is essentially a double major in applied
+statistics and theoretical statistics. I am a research assistant at RiskLab,
+and a teaching assistant in the deparment of statistical sciences. 
+
+My research interests are split between the application of Machine Learning to 
+finance (hence my work at RiskLab), and MCMC methods, focusing on convergence
+rates and computational efficiency. 
+
+In the past I've worked at Intact Financial on the Belairdirect team,
+and at Deloitte Canada on the Actuarial, Rewards & Analytics team, focusing
+on analytics and predictive modelling.
+
+

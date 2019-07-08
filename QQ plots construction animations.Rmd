@@ -1,0 +1,172 @@
+---
+title: "QQ plots Construction animations"
+author: "Michal Malyska"
+date: "08/06/2019"
+output: html_document
+---
+
+How are normal Q-Q plots constructed?
+
+Let's start with trying to analyze a [dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ToothGrowth.html)
+of tooth growth of Guinea Pigs based on the Vitamin C dosage. We start with a
+scatterplot of tooth length vs the dosage.
+
+We will begin by checking whether our variable Y - len,
+is normally distributed.
+
+```{r Animation 1 - Projecting onto Y axis, echo=FALSE}
+# Fix data
+dfa1 <- rbind(ToothGrowth, ToothGrowth) %>% select(-supp)
+dfa1 <- dfa1 %>%
+	mutate(ID = rep(1:60,2), # Keep ID
+		   frame = as_factor(c(rep(0,60), rep(1,60))), # Add Frames
+		   color = c(rep("black", 60), rep("red", 60)), # Change color between frames
+		   dose = if_else(frame != 0, 0, dose) # Projection
+		   )
+
+# gganimate
+# gp1 <- ggplot(data = dfa1, mapping = aes(x = dose, y = len, group = 1)) +
+# 	geom_point() +
+# 	transition_states(frame, transition_length = 1, wrap = FALSE) +
+# 	theme_minimal() +
+# 	ease_aes('linear') +
+# 	enter_grow() +
+# 	exit_shrink()
+
+# Plotly
+pp1 <- dfa1 %>% plot_ly(
+	x = ~dose,
+	y = ~len,
+	hoverinfo = 'text',
+	text = ~paste("Length:", len),
+	frame = ~frame,
+	color = I("red"),
+	ids = ~ID,
+	type = "scatter",
+	mode = "markers"
+) %>%
+	animation_opts(1000, transition = 1000, easing = "cubic-in-out", redraw = TRUE) %>%
+	animation_slider(hide = TRUE) 
+pp1
+```
+
+That means our goal is to compare the distribution of Y = "len",
+to that of a standard normal distribution. I'm gonna switch to putting it on the
+horizontal axis, but it's still the same numbers. (I am just practicing
+making animations).
+
+```{r Animation 2 - Flipping the axes, echo=FALSE}
+df <- dfa1
+# Swap Variables
+dfa2 <- dfa1 %>% filter(frame != 0) 
+dfa1 <- dfa1 %>% filter(frame != 0) %>% mutate(frame = 0)
+dfa2$len <- dfa1$dose
+dfa2$dose <- dfa1$len
+# Merge
+dfa2 <- rbind(dfa1, dfa2) %>% mutate(hover = len + dose)
+# For hovering
+
+pp2 <- dfa2 %>% plot_ly(
+	x = ~dose,
+	y = ~len,
+	hoverinfo = 'text',
+	text = ~paste("Length:", hover),
+	frame = ~frame,
+	color = I("red"),
+	ids = ~ID,
+	type = "scatter",
+	mode = "markers"
+) %>%
+	layout(xaxis = list(title = "Length"), yaxis = list(title = "Dose")) %>%
+	animation_opts(1000, transition = 1000, easing = "bounce", redraw = TRUE) %>%
+	animation_slider(hide = TRUE) 
+pp2
+
+```
+
+```{r Animation 2 - Flipping the axes, echo=FALSE}
+df <- dfa1
+# Swap Variables
+dfa2 <- dfa1 %>% filter(frame != 0) 
+dfa1 <- dfa1 %>% filter(frame != 0) %>% mutate(frame = 0)
+dfa2$len <- dfa1$dose
+dfa2$dose <- dfa1$len
+# Merge
+dfa2 <- rbind(dfa1, dfa2) %>% mutate(hover = len + dose)
+# For hovering
+
+pp2 <- dfa2 %>% plot_ly(
+	x = ~dose,
+	y = ~len,
+	hoverinfo = 'text',
+	text = ~paste("Length:", hover),
+	frame = ~frame,
+	color = I("red"),
+	ids = ~ID,
+	type = "scatter",
+	mode = "markers"
+) %>%
+	layout(xaxis = list(title = "Length"), yaxis = list(title = "Dose")) %>%
+	animation_opts(1000, transition = 1000, easing = "bounce", redraw = TRUE) %>%
+	animation_slider(hide = TRUE) 
+pp2
+
+```
+
+
+```{r 1-5 Animations in gganimate, echo= FALSE}
+# Six Frames
+
+dfa1_5 <- rbind(ToothGrowth, ToothGrowth, ToothGrowth,
+				ToothGrowth, ToothGrowth, ToothGrowth) %>% select(-supp)
+
+# Adjust dose for better frame 1
+
+dfa1_5 <- dfa1_5 %>% 
+	mutate(dose = (dose/sd(dose)) * sd(len))
+
+# Stuff for the "histogram"
+midpoints <- seq(from = min(dfa1_5$len), to = max(dfa1_5$len), length.out = 10)
+counts <- c(2, 6, 8, 4, 9, 5, 10, 12, 3, 2)
+
+hist_df <- tibble(ID = NA,
+				  frame = as_factor(c(rep(0,10), rep(1,10), rep(2,10),
+		   					rep(3,10), rep(4,10), rep(5,10)))
+				  ) %>%
+	mutate(hist_x =  rep(midpoints, 6),
+		   hist_y = rep(counts, 6)) %>%
+	mutate(hist_y = if_else(frame %in% c(0,1,2), 0, hist_y))
+
+dfa1_5 <- dfa1_5 %>%
+	mutate(ID = rep(1:60,6), # Keep ID
+		   frame = as_factor(c(rep(0,60), rep(1,60), rep(2,60),
+		   					rep(3,60), rep(4,60), rep(5,60))), # Add Frames
+		   length_var = if_else(frame == 0, dose, # Frame 0 - flipped coords
+		   					 if_else(frame == 1, 0,# Frame 1 - 0
+		   					 		len)), # All other Frames - Lenght
+		   dose_var = if_else(frame == 0, len, # Frame 0 - flipped coords
+		   				   if_else(frame == 1, len, # Frame 1 - Projection
+		   				   		0)) # All other Frames - 0
+		   )
+
+df_test <- rbind(dfa1_5, hist_df)
+
+ggplot(data = dfa1_5 %>% filter(frame == 2), mapping = aes(x = length_var, group = 1)) +
+	geom_histogram(bins = 10, fill = "white", color = "black") +
+	theme_minimal() +
+	scale_x_continuous(breaks = 1:45)
+
+
+gp1 <- ggplot(data = dfa1_5, mapping = aes(x = length_var, y = dose_var, group = 1)) +
+	geom_point() +
+	geom_histogram() +
+	transition_states(frame, transition_length = 1, wrap = FALSE) +
+	theme_minimal() +
+	ease_aes('linear') +
+	enter_grow() +
+	exit_shrink() +
+	theme(axis.title.x = element_blank(),
+		  axis.title.y = element_blank()) # Remove axis labels
+		  
+gp1
+```

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Michal Malyska" />
+
+
+<title>STA410 Assignment 3</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Michal Malyska</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-university"></span>
+     
+    Teaching
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="STA220.html">
+        <span class="fa fa-book"></span>
+         
+        STA220 - The Practice of Statistics I
+      </a>
+    </li>
+    <li>
+      <a href="STA314.html">
+        <span class="fa fa-book"></span>
+         
+        STA314 - Machine Learning I
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+    Course Work
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Coursework_Summary.html">
+        <span class="fa fa-book"></span>
+         
+        Coursework Summary
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A1.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 1
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A2.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 2
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A3.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 3
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A4.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 4
+      </a>
+    </li>
+    <li>
+      <a href="STA447_A2.html">
+        <span class="fa fa-code"></span>
+         
+        STA447 - Stochastic Processes - Assignment 2
+      </a>
+    </li>
+    <li>
+      <a href="STA_490_ReactionTimes_Project.html">
+        <span class="fa fa-code"></span>
+         
+        STA490 - Stats Consulting and Collaboration
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-pencil"></span>
+     
+    Personal Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ASNA2019CC_datacreation.html">
+        <span class="fa fa-code"></span>
+         
+        ASNA2019 Case Competition
+      </a>
+    </li>
+    <li>
+      <a href="Kaggle.html">
+        <span class="fa fa-code"></span>
+         
+        Kaggle Competitions
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About me
+  </a>
+</li>
+<li>
+  <a href="resume.pdf">
+    <span class="fa fa-file-pdf-o"></span>
+     
+    Resume
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">STA410 Assignment 3</h1>
+<h4 class="author">Michal Malyska</h4>
+
+</div>
+
+
+<pre class="r"><code>suppressMessages(library(tidyverse))
+suppressMessages(library(splines))
+set.seed(271828)</code></pre>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
+<div id="a" class="section level2">
+<h2>a)</h2>
+<p>Since <span class="math inline">\(V_i\)</span> are independent with mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(1\)</span> we know that <span class="math display">\[
+\mathbb{E}[V_iV_jV_kV_l] = 0 (i \neq j,k,l) \text{ or } 1(i=j,k=l) \text{ unless } i=j=k=l
+\]</span></p>
+<p>Then combining all the 3 cases we can see that:</p>
+<p><span class="math display">\[
+\mathbb{E}[(V^TAV)^2] = \sum_{i=1}^na_{ii}^2\mathbb{E}(V_i^4) + \text{constant}
+\]</span> Then note that:</p>
+<p><span class="math display">\[
+\mathbb{E}(V_i^4) = Var(V_i^2) + 1
+\]</span> Since we want to minimize this function we can note that <span class="math inline">\(Var(V_i^2)\)</span> is 0.</p>
+<p>And then note that for the probability provided:</p>
+<p><span class="math display">\[Var(V_i^2) = E(V_i^4) - E(V_i^2)^2 = \\
+= (\frac{1}{2} + \frac{1}{2}) - (\frac{1}{2}+\frac{1}{2})^2 = 1-1=0
+\]</span></p>
+<p>Which means taking entries of V to be <span class="math inline">\(\pm1\)</span> with probability <span class="math inline">\(\frac{1}{2}\)</span> minimizes <span class="math inline">\(Var(\hat{tr}(A))\)</span>.</p>
+</div>
+<div id="b" class="section level2">
+<h2>b)</h2>
+<p><span class="math display">\[
+H \left[ \begin{array}{c} V \\ 0 \end{array} \right] =
+\left[ \begin{array} {cc} H_{11} &amp; H_{12} \\ H_{21} &amp; H_{22} \end{array} \right]
+\left[ \begin{array}{c} V \\ 0 \end{array} \right] = 
+\left[ \begin{array}{c} H_{11}V \\ H_{21}V \end{array} \right]
+\]</span></p>
+<p>For <span class="math inline">\(k\)</span>:</p>
+<p><span class="math display">\[
+H\left[ \begin{array}{c} H_{11}^{k-1}V \\ 0 \end{array} \right] =
+\left[ \begin{array} {cc} H_{11} &amp; H_{12} \\ H_{21} &amp; H_{22} \end{array} \right] 
+\left[ \begin{array}{c} H_{11}^{k-1}V \\ 0 \end{array} \right] =
+\left[ \begin{array}{c} H_{11}^{k}V \\ H_{21}H_{11}^{k}V \end{array} \right]
+\]</span></p>
+<p>Then note that it clearly works for <span class="math inline">\(k = 2\)</span></p>
+<p>Then see that assuming it works for k, we can see that it will work for k+1:</p>
+<p><span class="math display">\[
+H\left[ \begin{array}{c} H_{11}^{k+1-1}V \\ 0 \end{array} \right] =
+\left[ \begin{array} {cc} H_{11} &amp; H_{12} \\ H_{21} &amp; H_{22} \end{array} \right] 
+\left[ \begin{array}{c} H_{11}^{k}V \\ 0 \end{array} \right] =
+\left[ \begin{array}{c} H_{11}^{k+1}V \\ H_{21}H_{11}^{k+1}V \end{array} \right]
+\]</span></p>
+<p>Then by induction it’s true.</p>
+</div>
+<div id="c" class="section level2">
+<h2>c)</h2>
+<pre class="r"><code>leverage &lt;- function(x,y,w,r=10, k = 100) {
+                # Do QR factorization
+               qr_x &lt;- qr(x)
+               qr_y &lt;- qr(y)
+                # Store number of rows
+               n &lt;- nrow(x)
+               m &lt;- nrow(y)
+                # Initialize Leverages
+               levx &lt;- NULL
+               levy &lt;- NULL
+                # Loop
+               for (i in 1:m) {
+                   v &lt;- ifelse(runif(n) &gt; 0.5,1,-1)
+                   v[-w] &lt;- 0
+                   v0 &lt;- qr.fitted(qr_x,v)
+                   v1 &lt;- qr.fitted(qr_y,v)
+                   f &lt;- v0
+                   g &lt;- v1
+                   for (j in 2:r) {
+                      v0[-w] &lt;- 0
+                      v1[-w] &lt;- 0
+                      v0 &lt;- qr.fitted(qr_x,v0)
+                      v1 &lt;- qr.fitted(qr_y,v1)
+                      f &lt;- f + v0/j
+                      g &lt;- g + v1/j
+                      }
+                   levx &lt;- c(levx,sum(v*f))
+                   levy &lt;- c(levy,sum(v*g))
+                   }
+                std.err.x &lt;- exp(-mean(levx)) * sd(levx)/sqrt(k)
+                std.err.y &lt;- exp(-mean(levy)) * sd(levy)/sqrt(k)
+                levx &lt;- 1 - exp(-mean(levx))
+                levy &lt;- 1 - exp(-mean(levy))
+                r &lt;- list(levx = levx,std.err.x = std.err.x,
+                          levy = levy,std.err.y = std.err.y)
+                return(r)
+}</code></pre>
+<pre class="r"><code>x &lt;- c(1:1000)/1000
+X1 &lt;- 1
+for (i in 1:10) {
+    X1 &lt;- cbind(X1, x^i)
+}
+
+X2 &lt;- cbind(1, bs(x,df = 10))
+
+leverages &lt;- leverage(X1, X2, 1:100)
+
+cat(&quot; The leverages are&quot;, leverages$levx, &quot;and&quot;, leverages$levy, &quot;\n&quot;,
+    &quot;The difference is&quot;, leverages$levx - leverages$levy, &quot;\n&quot;,
+    &quot;The larger leverage is for the design: &quot;, if_else(leverages$levx &gt; leverages$levy,
+                                                       true = &quot;Normal (non-splines) Design&quot;,
+                                                       false = &quot;Splines Design&quot;))</code></pre>
+<pre><code>##  The leverages are 0.9968716 and 0.9944505 
+##  The difference is 0.002421114 
+##  The larger leverage is for the design:  Normal (non-splines) Design</code></pre>
+</div>
+</div>
+<div id="question-2" class="section level1">
+<h1>Question 2</h1>
+<div id="a-1" class="section level2">
+<h2>a)</h2>
+<p>Method of moments estimates:</p>
+<p><span class="math display">\[ \mu =\frac{\alpha}{\lambda}; \sigma^2 = \frac{\alpha}{\lambda^2} \Rightarrow \\
+\lambda = \frac{\mu}{\sigma^2}
+\]</span> Then by substituting into the equation for <span class="math inline">\(\sigma^2\)</span> we get: <span class="math display">\[ \alpha = \frac{\mu^2}{\sigma^2}
+\]</span></p>
+<p>Now using the sample mean and variance instead of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span></p>
+<p><span class="math display">\[
+\alpha = \frac{\bar{X}^2}{S^2}
+\]</span> <span class="math display">\[
+\lambda = \frac{\bar{X}}{S^2}   
+\]</span></p>
+</div>
+<div id="b-1" class="section level2">
+<h2>b)</h2>
+<p><span class="math display">\[
+L(\alpha, \lambda) = \prod_{i=1}^n{\frac{\lambda^\alpha x_i^{\alpha-1}e^{-\lambda x_i}}{\Gamma(\alpha)}}
+\]</span></p>
+<p><span class="math display">\[
+l(\alpha, \lambda) = \alpha \log(\lambda) + (\alpha - 1)\sum_{i=1}^n{\log(x_i)} - \lambda\sum_{i=1}^nx_i-n \log(\Gamma(\alpha)) \]</span></p>
+<p><span class="math display">\[\frac{\delta l}{\delta \alpha} = n log(\lambda) +\sum_{i=1}^n \log(x_i) - n\psi(\alpha)\]</span></p>
+<p><span class="math display">\[\frac{\delta l}{\delta \lambda} = \frac{n \alpha}{\lambda} - \sum_{i=1}^n{x_i}\]</span> <span class="math display">\[
+\frac{\delta^2 l}{\delta \alpha^2} = -n \psi_1(\alpha)\]</span> <span class="math display">\[
+\frac{\delta^2 l}{\delta \lambda^2} = -\frac{n \alpha}{\lambda^2}\]</span> <span class="math display">\[
+\frac{\delta^2l}{\delta \alpha \delta\lambda} = \frac{n}{\lambda}
+\]</span></p>
+<p>Where <span class="math inline">\(\psi\)</span> is the digamma and <span class="math inline">\(\psi_1\)</span> is the trigamma function.</p>
+<p>Then the score is:</p>
+<p><span class="math display">\[
+\left( \begin{array}
+{cc}
+\sum_{i=1}^n \log(x_i) + n(\log(\lambda) - \psi(\alpha))\\
+\frac{n \alpha}{\lambda} - \sum_{i=1}^nx_i
+\end{array} \right)
+\]</span></p>
+<p>And the Fisher information matrix is:</p>
+<p><span class="math display">\[
+\left[ \begin{array}
+{cc}
+n\psi_1(\alpha) &amp; -\frac{n}{\lambda} \\
+-\frac{n}{\lambda} &amp; \frac{n \alpha}{\lambda^2}
+\end{array} \right]
+\]</span></p>
+<div id="create-the-function" class="section level3">
+<h3>Create the function</h3>
+<pre class="r"><code>gmle &lt;- function(data, epsilon = 10^-6){
+    # Check that data is a vector
+    if (!is.vector(data)) stop(&quot;data needs to be a vector&quot;)
+    
+    # Get the length of data
+    n &lt;- length(data)
+    
+    # Check that the length is not zero 
+    if (n == 0) stop(&quot;data vector cannot be empty&quot;)
+    
+    # Start with MoM estimates:
+    alpha_start &lt;- (mean(data))^2/(var(data))
+    lambda_start &lt;- mean(data)/var(data)
+    
+    # Initialize the interators and put them in a vector:
+    alpha &lt;- alpha_start
+    lambda &lt;- lambda_start
+    params &lt;- c(alpha, lambda)
+    
+    # Define the score
+    score1 &lt;- sum(log(data)) + n*(log(params[2]) - digamma(params[1]))
+    score2 &lt;- n*(params[1]/params[2]) - sum(data)
+    score &lt;- c(score1, score2)
+    
+    # Define the Hessian (Fisher Info)
+    hessian11 &lt;- n*trigamma(params[1])
+    hessian12 &lt;- -n/params[2]
+    hessian22 &lt;- n*params[1]/(params[2])^2
+    
+    hessian &lt;- matrix(data = c(hessian11, hessian12,
+                               hessian12, hessian22), 
+                      nrow = 2, ncol = 2, byrow = TRUE)
+    
+    # Define the iteration variable
+    iter &lt;- 0
+    
+    while (max(abs(score)) &gt; epsilon) {
+        # Solve for new params
+        params_new &lt;- params + solve(hessian, score)
+        
+        # Store new params
+        alpha_new &lt;- params_new[1]
+        lambda_new &lt;- params_new[2]
+        
+        # Compute new Score
+        score1_new &lt;- sum(log(data)) + n*(log(params_new[2]) - digamma(params_new[1]))
+        score2_new &lt;- n*(params_new[1]/params_new[2]) - sum(data)
+        score_new &lt;- c(score1_new, score2_new)
+        
+        # Compute new Hessian
+        hessian11_new &lt;- n*trigamma(params_new[1])
+        hessian12_new &lt;- -n/params_new[2]
+        hessian22_new &lt;- n*params_new[1]/(params_new[2])^2
+        hessian_new &lt;- matrix(data = c(hessian11_new, hessian12_new,
+                                       hessian12_new, hessian22_new), 
+                      nrow = 2, ncol = 2, byrow = TRUE)
+        
+        # Overwrite the old variables
+        params &lt;- params_new
+        score &lt;- score_new
+        hessian &lt;- hessian_new
+        
+        # Add the iterator
+        iter &lt;- iter + 1
+        
+        if (iter &gt; 10000) stop(&quot;iteration limit reached at 10000&quot;)
+        
+    }
+    final &lt;- list(mle = params, varcov = solve(hessian), iter = iter)
+    return(final)
+}</code></pre>
+<p>Now let’s test the function:</p>
+<pre class="r"><code># Create a tibble with 10 different columns each being rgamma with a unique shape and scale combination
+
+testing_data &lt;- tibble(A = rgamma(1000, shape = 0.5, scale = 1),
+                       B = rgamma(1000, shape = 0.3, scale = 1),
+                       C = rgamma(1000, shape = 0.1, scale = 1),
+                       D = rgamma(1000, shape = 1, scale = 1),
+                       E = rgamma(1000, shape = 1, scale = 0.5),
+                       `F` = rgamma(1000, shape = 1, scale = 0.3),
+                       G = rgamma(1000, shape = 1, scale = 0.1),
+                       H = rgamma(1000, shape = 0.1, scale = 0.1))
+write_csv(x = testing_data, path = &quot;Testing_Data.csv&quot;)
+
+A &lt;- gmle(testing_data$A)$mle
+B &lt;- gmle(testing_data$B)$mle
+C &lt;- gmle(testing_data$C)$mle
+D &lt;- gmle(testing_data$D)$mle
+E &lt;- gmle(testing_data$E)$mle
+`F` &lt;- gmle(testing_data$`F`)$mle
+G &lt;- gmle(testing_data$G)$mle
+H &lt;- gmle(testing_data$H)$mle
+
+results &lt;- as_tibble(x = list(A = A,B = B,C = C,D = D,E = E,`F` = `F`,G = G,H = H))
+
+results</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["A"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["B"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["C"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["D"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["E"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["F"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["G"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["H"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.4922510","2":"0.3113746","3":"0.1005766","4":"1.002299","5":"0.9632378","6":"1.018961","7":"1.066743","8":"0.1011112"},{"1":"0.9442052","2":"1.0579826","3":"0.9355571","4":"1.014402","5":"1.8701141","6":"3.314144","7":"11.274284","8":"8.1013280"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Looks pretty good.</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Michal Malyska" />
+
+
+<title>STA314 Materials</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="site_libs/viz-0.3/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="site_libs/grViz-binding-1.0.0/grViz.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Michal Malyska</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-university"></span>
+     
+    Teaching
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="STA220.html">
+        <span class="fa fa-book"></span>
+         
+        STA220 - The Practice of Statistics I
+      </a>
+    </li>
+    <li>
+      <a href="STA314.html">
+        <span class="fa fa-book"></span>
+         
+        STA314 - Machine Learning I
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+    Course Work
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Coursework_Summary.html">
+        <span class="fa fa-book"></span>
+         
+        Coursework Summary
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A1.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 1
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A2.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 2
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A3.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 3
+      </a>
+    </li>
+    <li>
+      <a href="STA410_A4.html">
+        <span class="fa fa-code"></span>
+         
+        STA410 - Computational Statistics - Assignment 4
+      </a>
+    </li>
+    <li>
+      <a href="STA447_A2.html">
+        <span class="fa fa-code"></span>
+         
+        STA447 - Stochastic Processes - Assignment 2
+      </a>
+    </li>
+    <li>
+      <a href="STA_490_ReactionTimes_Project.html">
+        <span class="fa fa-code"></span>
+         
+        STA490 - Stats Consulting and Collaboration
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-pencil"></span>
+     
+    Personal Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ASNA2019CC_datacreation.html">
+        <span class="fa fa-code"></span>
+         
+        ASNA2019 Case Competition
+      </a>
+    </li>
+    <li>
+      <a href="Kaggle.html">
+        <span class="fa fa-code"></span>
+         
+        Kaggle Competitions
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About me
+  </a>
+</li>
+<li>
+  <a href="resume.pdf">
+    <span class="fa fa-file-pdf-o"></span>
+     
+    Resume
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">STA314 Materials</h1>
+<h4 class="author">Michal Malyska</h4>
+
+</div>
+
+
+<div id="preamble" class="section level1">
+<h1>Preamble</h1>
+<p>Most of the work in this file is the edited version of solutions provided by Prof. Daniel Simpson who is the instructor for this course.</p>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/machine_learning.png" alt="Source: XKCD" />
+<p class="caption">Source: <a href="https://xkcd.com">XKCD</a></p>
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<p>There is a number of resources available for you to learn and master the tidyverse package. It’s technically not required for the course but it will make your life a lot easier.</p>
+<p><a href="http://r4ds.had.co.nz/">Learn R with tidyverse</a> - this on it’s own should give you good enough background to handle most of the coding</p>
+<p><a href="https://adv-r.hadley.nz/">Advanced R with tidyverse</a> - most likely far beyond the scope of what’s needed for the course</p>
+<p><a href="https://www.rstudio.com/resources/cheatsheets/">Cheatsheets</a> - very useful set of cheatsheets</p>
+<p>There is a bunch more teaching materials avaialble on Alex’s webiste:</p>
+<p><a href="https://awstringer1.github.io/leaf2018/">Additional Labs</a></p>
+<p>If you are interested in catching up on some machine learning news, there is a great podcast available - <a href="https://twimlai.com/">TWIMLAI</a>. If you have some time to spare I highly recommend looking over some of the archival episodes, <a href="https://twimlai.com/twiml-talk-96-composing-graphical-models-neural-networks-david-duvenaud/">one of them</a> features a Professor here at UofT Stats - David Duvenaud. It should be very accessible even without a very strong machine learning background. They also have monthly online “meetups” with paper authors discussing stuff in more detail.</p>
+</div>
+<div id="library-load" class="section level2">
+<h2>Library Load</h2>
+<p>These are all the libraries we will be using in the course and some additional ones for the extra work done from the R for Data Science textbook:</p>
+<pre class="r"><code>library(gridExtra)
+library(MASS)
+library(ISLR)
+library(car)
+library(modelr)
+library(gapminder)
+library(broom)
+library(ggdendro)
+library(dendextend)
+library(e1071)
+library(summarytools)
+library(xgboost)
+library(pROC)
+
+# tidyverse goes last so that nothing overwrites the functions
+library(tidyverse)
+set.seed(217828)</code></pre>
+</div>
+</div>
+<div id="week-1" class="section level1">
+<h1>Week 1</h1>
+<p>Week 1 had no tutorials.</p>
+</div>
+<div id="week-2" class="section level1">
+<h1>Week 2</h1>
+<p>In the first tutorial we went over the great data notebook by Alex Stringer:</p>
+<p><a href="https://awstringer1.github.io/leaf2018/prediction-rossman-store-sales.html">Week 1 Tutorial</a></p>
+</div>
+<div id="week-3" class="section level1">
+<h1>Week 3</h1>
+<div id="question-2" class="section level2">
+<h2>Question 2</h2>
+<pre class="r"><code>my_kmeans &lt;- function(data, k, n_starts) {
+    
+done = FALSE # Initialize the condition vector
+n = dim(data)[1] #data is a matrix, where each row is one data point
+
+if (k == 1) {
+    cluster = rep(1, n) #this vector says which cluster each point is in
+    
+    centers = apply(
+        X = data,
+        MARGIN = 2,
+        FUN = mean
+        ) # Calculate the average distance
+    
+    cost = sum((data - centers[cluster]) ^ 2) # Compute the cost function for the single cluster
+    
+    return(list(cluster = cluster, cost = cost)) # Returns a list of [cluster, cost]
+}
+
+cluster_old = rep(1, n) # initialize clusters
+cost_old = Inf # initialize cost
+
+for (run in 1:n_starts) {
+    cluster = rep(1, n) #this vector says which cluster each point is in
+    #uniformly choose initial cluster centers
+    centers = data[sample(
+        x = 1:n,
+        size = k,
+        replace = FALSE)
+    , ] # Sampling datapoints to be cluster centers
+    
+    while (!done) {
+        # Do Step 2.1
+        d = matrix(nrow = n, ncol = k) #initialize a matrix of size nxk
+        for (j in 1:k) {
+            d[, j] = apply(
+            X = data,
+            MARGIN = 1, #MARGIN = 1 =&gt; Rowwise
+            FUN = function(d) sum((d - centers[j, ]) ^ 2)
+        ) # Computes the cost function for each point for each cluster center
+            
+        }
+        cluster_new = apply(
+            X = d,
+            MARGIN = 1,
+            FUN = which.min
+            ) # Take the minimum of the costs
+        
+# Throw an error if there is a cluster with no points in it
+if (length(unique(cluster_new)) &lt; k) stop(&quot;Empty cluster!&quot;) 
+
+        
+# Do Step 2.2
+        for (i in 1:k) {
+            centers[i, ] = apply(
+                X = data[cluster_new == i, ],
+                MARGIN = 2, #MARGIN = 2 =&gt; Columnwise
+                FUN = mean) # Computes mean of the cluster for each cluster
+        }
+        
+# Check if the cluster assignements changed. If they have, set done=TRUE
+        if (all(cluster == cluster_new)) {
+            done = TRUE
+        }
+        
+        # Update step 
+        cluster = cluster_new
+    } #end of while not done
+    
+cost = sum((data - centers[cluster, ]) ^ 2) # Compute the cost
+
+if (cost_old &lt; cost) {
+    cluster = cluster_old
+    cost = cost_old
+    }
+    
+    cost_old = cost
+    cluster_old = cluster
+} # if the cost increased, undo
+
+return(list(cluster = cluster, cost = cost))
+}</code></pre>
+<div id="task-use-this-algorithm-to-make-a-4-clustering-of-the-data-set-in-question2.rdata.-comment-on-the-clustering." class="section level3">
+<h3>Task : Use this algorithm to make a 4 clustering of the data set in question2.RData. Comment on the clustering.</h3>
+<pre class="r"><code># Load the data from a data file 
+load(&quot;~/Desktop/University/Statistics/TA-ing/STA314/T2/question2.RData&quot;)
+
+# Load the data from a csv file
+#data_q2 &lt;- read_csv(&quot;Question2_data.csv&quot;)
+
+
+out = my_kmeans(dat_q2 #data 
+                , 4 # number of clusters
+                , 2 # number of runs
+                )
+
+dat_q2$cluster = out$cluster # Assign to the column &quot;cluster&quot; in dat_q2 the column &quot;cluster&quot; in out
+
+dat_q2 %&gt;% ggplot(aes(x = x,y = y)) +
+    geom_point(aes(colour = factor(cluster))) #plot</code></pre>
+<p><img src="STA314_files/figure-html/Q2%20continued-1.png" width="672" /></p>
+<p>Depending on how many times the kmeans algorithm is run, it sometimes doesn’t find all four distinct clusters. This is due to the uniform intial sampling and the fact that the bottom left and top right clusters are much smaller than the other two. Try increasing the number of runs!</p>
+</div>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question 3</h2>
+<pre class="r"><code># Input the data
+d = matrix(c(0, 0.3, 0.4, 0.7,
+0.3, 0, 0.5, 0.8,
+0.4, 0.5, 0.0, 0.45,
+0.7, 0.8, 0.45, 0.0), nrow = 4)
+
+
+# Set it as distance
+d = as.dist(d)</code></pre>
+<pre class="r"><code># Plot the clusters with complete linkage:
+plot(hclust(d,method = &quot;complete&quot;))</code></pre>
+<p><img src="STA314_files/figure-html/Q3%20Complete%20Linkage-1.png" width="672" /></p>
+<pre class="r"><code># Plot the clusters with complete linkage:
+plot(hclust(d,method = &quot;single&quot;))</code></pre>
+<p><img src="STA314_files/figure-html/Q3%20Single%20Linkage-1.png" width="672" /></p>
+<pre class="r"><code>plot(hclust(d,method = &quot;average&quot;))</code></pre>
+<p><img src="STA314_files/figure-html/Q3%20Average%20Linkage-1.png" width="672" /></p>
+<p>Comparing the two dendrograms, we see that the two clustering from the complete linkage is {1,2}, {3,4}, while the two clustering from the single linkage is {1,2,3}, {4}.</p>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<p>For part a) there is not enough information. If the two linkages are equal, then they will fuse at the same hight. Otherwise, the single linkage dendrogram will merge at a lower hight as it only requires one nearby point and not all of the points to be close.</p>
+<p>For part b) They’ll merge at the same hight because when you’re just merging single leaves, the linkages all reduce to the distance and are therefore equal.</p>
+</div>
+</div>
+<div id="week-4" class="section level1">
+<h1>Week 4</h1>
+<div id="lab-2" class="section level2">
+<h2>Lab 2</h2>
+<p>Medium house value (medv) for 506 neighborhoods in Boston. Includes 13 predictors such as: Avg number of rooms in the house, Avg age of houses, socioeconomic status.</p>
+<pre class="r"><code># Load the data: (from the MASS package)
+data(Boston)
+
+# Check names of variables:
+names(Boston)</code></pre>
+<pre><code>##  [1] &quot;crim&quot;    &quot;zn&quot;      &quot;indus&quot;   &quot;chas&quot;    &quot;nox&quot;     &quot;rm&quot;      &quot;age&quot;    
+##  [8] &quot;dis&quot;     &quot;rad&quot;     &quot;tax&quot;     &quot;ptratio&quot; &quot;black&quot;   &quot;lstat&quot;   &quot;medv&quot;</code></pre>
+<p>Let’s try fitting a linear model of medv ~ lstat (socioeconomic status)</p>
+<pre class="r"><code># Results in an error - doesn&#39;t know where to get the data from.
+# lm_fit &lt;- lm(medv ~ lstat)
+
+# Need to specify data = , this is good practice as opposed to following the 
+# order set by R inside of the functions most of the time.
+lm_fit &lt;- lm(data = Boston, formula = medv ~ lstat)</code></pre>
+<p>Now let’s see what the result of the lm function looks like:</p>
+<pre class="r"><code># Basic information:
+lm_fit</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ lstat, data = Boston)
+## 
+## Coefficients:
+## (Intercept)        lstat  
+##       34.55        -0.95</code></pre>
+<pre class="r"><code># More comprehensive:
+summary(lm_fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ lstat, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.168  -3.990  -1.318   2.034  24.500 
+## 
+## Coefficients:
+##             Estimate Std. Error t value            Pr(&gt;|t|)    
+## (Intercept) 34.55384    0.56263   61.41 &lt;0.0000000000000002 ***
+## lstat       -0.95005    0.03873  -24.53 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.216 on 504 degrees of freedom
+## Multiple R-squared:  0.5441, Adjusted R-squared:  0.5432 
+## F-statistic: 601.6 on 1 and 504 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<pre class="r"><code># What are the contents of lm?
+names(lm_fit)</code></pre>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<pre class="r"><code># Extracting p-values:
+
+## Save the summary(lm) as an object! 
+sum_lm &lt;- summary(lm_fit)
+
+## P-values are stored with coefficients in the fourth column:
+### Intercept P-value:
+sum_lm$coefficients[,4][1]</code></pre>
+<pre><code>##                                                                                                                                                                                                                                          (Intercept) 
+## 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003743081</code></pre>
+<pre class="r"><code>### lstat P-value:
+sum_lm$coefficients[,4][2]</code></pre>
+<pre><code>##                                                                                            lstat 
+## 0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000005081103</code></pre>
+<pre class="r"><code># Or you can just call it directly:
+summary(lm_fit)$coefficients[,4][1]</code></pre>
+<pre><code>##                                                                                                                                                                                                                                          (Intercept) 
+## 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003743081</code></pre>
+<p>Now how about predicting and plotting the data:</p>
+<pre class="r"><code># Find the intervals for new data
+
+# Confidence intervals:
+predict(lm_fit, data.frame(lstat = c(5, 10, 15)),
+        interval = &#39;confidence&#39;)</code></pre>
+<pre><code>##        fit      lwr      upr
+## 1 29.80359 29.00741 30.59978
+## 2 25.05335 24.47413 25.63256
+## 3 20.30310 19.73159 20.87461</code></pre>
+<pre class="r"><code># Prediction interals: 
+predict(lm_fit, data.frame(lstat = c(5, 10, 15)),
+        interval = &#39;prediction&#39;)</code></pre>
+<pre><code>##        fit       lwr      upr
+## 1 29.80359 17.565675 42.04151
+## 2 25.05335 12.827626 37.27907
+## 3 20.30310  8.077742 32.52846</code></pre>
+<pre class="r"><code># Plotting:
+plot(Boston$lstat, Boston$medv)
+abline(lm_fit)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-1.png" width="672" /></p>
+<pre class="r"><code># Playing around with base graphics
+plot(Boston$lstat, Boston$medv)
+abline(lm_fit ,lwd = 3)
+abline(lm_fit ,lwd = 3,col = &quot;red&quot;)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-2.png" width="672" /></p>
+<pre class="r"><code>plot(Boston$lstat ,Boston$medv ,col = &quot;red&quot;)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-3.png" width="672" /></p>
+<pre class="r"><code>plot(Boston$lstat ,Boston$medv ,pch = 20)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-4.png" width="672" /></p>
+<pre class="r"><code>plot(Boston$lstat ,Boston$medv ,pch = &quot;+&quot;)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-5.png" width="672" /></p>
+<pre class="r"><code># Some available symbols:
+plot(1:20, 1:20, pch = 1:20)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-6.png" width="672" /></p>
+<pre class="r"><code># Plotting multiple plots on the same line
+par(mfrow = c(2,2))
+
+# plot diagnostics
+plot(lm_fit)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-7.png" width="672" /></p>
+<pre class="r"><code># revert back to 1 plot per plot
+par(mfrow = c(1,1))
+
+plot(predict(lm_fit), residuals(lm_fit))</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-8.png" width="672" /></p>
+<pre class="r"><code>plot(predict(lm_fit), rstudent(lm_fit)) # standardized residuals</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-9.png" width="672" /></p>
+<pre class="r"><code># We observe non-linearity - compute the leverage stats and see which one has the largest
+plot(hatvalues(lm_fit))</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.4%20-%20predicting%20and%20plotting%20(base)-10.png" width="672" /></p>
+<pre class="r"><code># Which observation has the highest leverage:
+which.max(hatvalues(lm_fit))</code></pre>
+<pre><code>## 375 
+## 375</code></pre>
+<pre class="r"><code># Or plotting using ggplot:
+p &lt;- ggplot(data = Boston, aes(x = lstat, y = medv))
+p &lt;- p + geom_point()
+p &lt;- p + geom_smooth(method = &quot;lm&quot;, colour = &quot;red&quot;)
+p &lt;- p + theme_bw()
+p</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.5%20-%20plotting%20using%20ggplot-1.png" width="672" /></p>
+<pre class="r"><code># We can add age to our model (without the interaction)
+lm_fit2 &lt;- lm(medv ~ lstat + age, data = Boston)
+summary(lm_fit2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ lstat + age, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.981  -3.978  -1.283   1.968  23.158 
+## 
+## Coefficients:
+##             Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept) 33.22276    0.73085  45.458 &lt; 0.0000000000000002 ***
+## lstat       -1.03207    0.04819 -21.416 &lt; 0.0000000000000002 ***
+## age          0.03454    0.01223   2.826              0.00491 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.173 on 503 degrees of freedom
+## Multiple R-squared:  0.5513, Adjusted R-squared:  0.5495 
+## F-statistic:   309 on 2 and 503 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<pre class="r"><code># We can use all the variables available:
+lm_fit3 &lt;- lm(medv ~ ., data = Boston)
+summary(lm_fit3)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ ., data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.595  -2.730  -0.518   1.777  26.199 
+## 
+## Coefficients:
+##                Estimate  Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)  36.4594884   5.1034588   7.144    0.000000000003283 ***
+## crim         -0.1080114   0.0328650  -3.287             0.001087 ** 
+## zn            0.0464205   0.0137275   3.382             0.000778 ***
+## indus         0.0205586   0.0614957   0.334             0.738288    
+## chas          2.6867338   0.8615798   3.118             0.001925 ** 
+## nox         -17.7666112   3.8197437  -4.651    0.000004245643808 ***
+## rm            3.8098652   0.4179253   9.116 &lt; 0.0000000000000002 ***
+## age           0.0006922   0.0132098   0.052             0.958229    
+## dis          -1.4755668   0.1994547  -7.398    0.000000000000601 ***
+## rad           0.3060495   0.0663464   4.613    0.000005070529023 ***
+## tax          -0.0123346   0.0037605  -3.280             0.001112 ** 
+## ptratio      -0.9527472   0.1308268  -7.283    0.000000000001309 ***
+## black         0.0093117   0.0026860   3.467             0.000573 ***
+## lstat        -0.5247584   0.0507153 -10.347 &lt; 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.745 on 492 degrees of freedom
+## Multiple R-squared:  0.7406, Adjusted R-squared:  0.7338 
+## F-statistic: 108.1 on 13 and 492 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<pre class="r"><code># We can use all the variables but one:
+lm_fit4 &lt;- lm(medv ~ . -age, data = Boston)
+summary(lm_fit4)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ . - age, data = Boston)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15.6054  -2.7313  -0.5188   1.7601  26.2243 
+## 
+## Coefficients:
+##               Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)  36.436927   5.080119   7.172   0.0000000000027155 ***
+## crim         -0.108006   0.032832  -3.290             0.001075 ** 
+## zn            0.046334   0.013613   3.404             0.000719 ***
+## indus         0.020562   0.061433   0.335             0.737989    
+## chas          2.689026   0.859598   3.128             0.001863 ** 
+## nox         -17.713540   3.679308  -4.814   0.0000019671100076 ***
+## rm            3.814394   0.408480   9.338 &lt; 0.0000000000000002 ***
+## dis          -1.478612   0.190611  -7.757   0.0000000000000503 ***
+## rad           0.305786   0.066089   4.627   0.0000047505389684 ***
+## tax          -0.012329   0.003755  -3.283             0.001099 ** 
+## ptratio      -0.952211   0.130294  -7.308   0.0000000000010992 ***
+## black         0.009321   0.002678   3.481             0.000544 ***
+## lstat        -0.523852   0.047625 -10.999 &lt; 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.74 on 493 degrees of freedom
+## Multiple R-squared:  0.7406, Adjusted R-squared:  0.7343 
+## F-statistic: 117.3 on 12 and 493 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<pre class="r"><code># Can also update the previous model variables to exclude age:
+update(lm_fit3, ~ . -age)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ crim + zn + indus + chas + nox + rm + dis + 
+##     rad + tax + ptratio + black + lstat, data = Boston)
+## 
+## Coefficients:
+## (Intercept)         crim           zn        indus         chas  
+##   36.436927    -0.108006     0.046334     0.020562     2.689026  
+##         nox           rm          dis          rad          tax  
+##  -17.713540     3.814394    -1.478612     0.305786    -0.012329  
+##     ptratio        black        lstat  
+##   -0.952211     0.009321    -0.523852</code></pre>
+<pre class="r"><code>summary(lm_fit3)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ ., data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.595  -2.730  -0.518   1.777  26.199 
+## 
+## Coefficients:
+##                Estimate  Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)  36.4594884   5.1034588   7.144    0.000000000003283 ***
+## crim         -0.1080114   0.0328650  -3.287             0.001087 ** 
+## zn            0.0464205   0.0137275   3.382             0.000778 ***
+## indus         0.0205586   0.0614957   0.334             0.738288    
+## chas          2.6867338   0.8615798   3.118             0.001925 ** 
+## nox         -17.7666112   3.8197437  -4.651    0.000004245643808 ***
+## rm            3.8098652   0.4179253   9.116 &lt; 0.0000000000000002 ***
+## age           0.0006922   0.0132098   0.052             0.958229    
+## dis          -1.4755668   0.1994547  -7.398    0.000000000000601 ***
+## rad           0.3060495   0.0663464   4.613    0.000005070529023 ***
+## tax          -0.0123346   0.0037605  -3.280             0.001112 ** 
+## ptratio      -0.9527472   0.1308268  -7.283    0.000000000001309 ***
+## black         0.0093117   0.0026860   3.467             0.000573 ***
+## lstat        -0.5247584   0.0507153 -10.347 &lt; 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.745 on 492 degrees of freedom
+## Multiple R-squared:  0.7406, Adjusted R-squared:  0.7338 
+## F-statistic: 108.1 on 13 and 492 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<p>One big problem with multiple regression is Multicolinearity, to investigate if this is an issue with our models we will be using the car package.</p>
+<pre class="r"><code># print Variance Inflation Factors: Common cutoffs are 10 or 5
+vif(lm_fit3)</code></pre>
+<pre><code>##     crim       zn    indus     chas      nox       rm      age      dis 
+## 1.792192 2.298758 3.991596 1.073995 4.393720 1.933744 3.100826 3.955945 
+##      rad      tax  ptratio    black    lstat 
+## 7.484496 9.008554 1.799084 1.348521 2.941491</code></pre>
+<p>The interpretation of VIF is that if say VIF(tax) = ~9, then the standard error for the coefficient associated with tax is $  = 3 $ times as large as it would be if the variables were uncorrelated.</p>
+<pre class="r"><code># If we want to include the interactions between variables we use the * symbol 
+summary(lm(medv ~ lstat * age, data = Boston))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ lstat * age, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.806  -4.045  -1.333   2.085  27.552 
+## 
+## Coefficients:
+##               Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept) 36.0885359  1.4698355  24.553 &lt; 0.0000000000000002 ***
+## lstat       -1.3921168  0.1674555  -8.313 0.000000000000000878 ***
+## age         -0.0007209  0.0198792  -0.036               0.9711    
+## lstat:age    0.0041560  0.0018518   2.244               0.0252 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.149 on 502 degrees of freedom
+## Multiple R-squared:  0.5557, Adjusted R-squared:  0.5531 
+## F-statistic: 209.3 on 3 and 502 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<pre class="r"><code># it automatically includes the variables themselves in the call!
+
+# We can also add non-linear transformations of predictors:
+lm_fit_square &lt;- lm(medv ~ lstat + I(lstat^2), data = Boston)
+summary(lm_fit_square)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ lstat + I(lstat^2), data = Boston)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15.2834  -3.8313  -0.5295   2.3095  25.4148 
+## 
+## Coefficients:
+##              Estimate Std. Error t value            Pr(&gt;|t|)    
+## (Intercept) 42.862007   0.872084   49.15 &lt;0.0000000000000002 ***
+## lstat       -2.332821   0.123803  -18.84 &lt;0.0000000000000002 ***
+## I(lstat^2)   0.043547   0.003745   11.63 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.524 on 503 degrees of freedom
+## Multiple R-squared:  0.6407, Adjusted R-squared:  0.6393 
+## F-statistic: 448.5 on 2 and 503 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<pre class="r"><code>plot(lm_fit_square)</code></pre>
+<p><img src="STA314_files/figure-html/Question%202.8%20-%20Interactions-1.png" width="672" /><img src="STA314_files/figure-html/Question%202.8%20-%20Interactions-2.png" width="672" /><img src="STA314_files/figure-html/Question%202.8%20-%20Interactions-3.png" width="672" /><img src="STA314_files/figure-html/Question%202.8%20-%20Interactions-4.png" width="672" /></p>
+<pre class="r"><code># Test if the model with a square is better than the simpler one:
+anova(lm_fit, lm_fit_square)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: medv ~ lstat
+## Model 2: medv ~ lstat + I(lstat^2)
+##   Res.Df   RSS Df Sum of Sq     F                Pr(&gt;F)    
+## 1    504 19472                                             
+## 2    503 15347  1    4125.1 135.2 &lt; 0.00000000000000022 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code># We can include higher polynomials:
+summary(lm(medv ~ poly(lstat, 10), data = Boston))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ poly(lstat, 10), data = Boston)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.5340  -3.0286  -0.7507   2.0437  26.4738 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)         22.5328     0.2311  97.488 &lt; 0.0000000000000002 ***
+## poly(lstat, 10)1  -152.4595     5.1993 -29.323 &lt; 0.0000000000000002 ***
+## poly(lstat, 10)2    64.2272     5.1993  12.353 &lt; 0.0000000000000002 ***
+## poly(lstat, 10)3   -27.0511     5.1993  -5.203          0.000000288 ***
+## poly(lstat, 10)4    25.4517     5.1993   4.895          0.000001331 ***
+## poly(lstat, 10)5   -19.2524     5.1993  -3.703             0.000237 ***
+## poly(lstat, 10)6     6.5088     5.1993   1.252             0.211211    
+## poly(lstat, 10)7     1.9416     5.1993   0.373             0.708977    
+## poly(lstat, 10)8    -6.7299     5.1993  -1.294             0.196133    
+## poly(lstat, 10)9     8.4168     5.1993   1.619             0.106116    
+## poly(lstat, 10)10   -7.3351     5.1993  -1.411             0.158930    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.199 on 495 degrees of freedom
+## Multiple R-squared:  0.6867, Adjusted R-squared:  0.6804 
+## F-statistic: 108.5 on 10 and 495 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<pre class="r"><code># As we can see up to the 5th power all are statistically significant!
+
+# We can also include different functions:
+summary(lm(medv ~ log(lstat), data = Boston))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ log(lstat), data = Boston)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.4599  -3.5006  -0.6686   2.1688  26.0129 
+## 
+## Coefficients:
+##             Estimate Std. Error t value            Pr(&gt;|t|)    
+## (Intercept)  52.1248     0.9652   54.00 &lt;0.0000000000000002 ***
+## log(lstat)  -12.4810     0.3946  -31.63 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.329 on 504 degrees of freedom
+## Multiple R-squared:  0.6649, Adjusted R-squared:  0.6643 
+## F-statistic:  1000 on 1 and 504 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+<div id="r-for-data-science-chapter-25-many-models" class="section level2">
+<h2>R for data science chapter 25: Many Models</h2>
+<p>This is beyond the scope of what we teach, but you might find it very useful in practice:</p>
+<pre class="r"><code># We will be using the modelr and gapminder libraries for this part
+gapminder</code></pre>
+<pre><code>## # A tibble: 1,704 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 1,694 more rows</code></pre>
+<pre class="r"><code># plot life expectancy over time by country
+gapminder %&gt;% 
+  ggplot(aes(x = year, y = lifeExp, group = country)) +
+    geom_line(alpha = 1/3)</code></pre>
+<p><img src="STA314_files/figure-html/CH25:%20First%20Plot-1.png" width="672" /></p>
+<p>It’s really hard to see what is going on!</p>
+<p>Solution: Do it by country and nest all of the results in a table</p>
+<pre class="r"><code># Create a tibble that separates each country&#39;s data into a separate tibble:
+by_country &lt;- gapminder %&gt;% 
+  group_by(country, continent) %&gt;% 
+  nest()
+# We group by country and continent since for a country continent is fixed and we 
+# want to carry on another variable
+
+# View the data:
+by_country</code></pre>
+<pre><code>## # A tibble: 142 x 3
+##    country     continent data             
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;           
+##  1 Afghanistan Asia      &lt;tibble [12 × 4]&gt;
+##  2 Albania     Europe    &lt;tibble [12 × 4]&gt;
+##  3 Algeria     Africa    &lt;tibble [12 × 4]&gt;
+##  4 Angola      Africa    &lt;tibble [12 × 4]&gt;
+##  5 Argentina   Americas  &lt;tibble [12 × 4]&gt;
+##  6 Australia   Oceania   &lt;tibble [12 × 4]&gt;
+##  7 Austria     Europe    &lt;tibble [12 × 4]&gt;
+##  8 Bahrain     Asia      &lt;tibble [12 × 4]&gt;
+##  9 Bangladesh  Asia      &lt;tibble [12 × 4]&gt;
+## 10 Belgium     Europe    &lt;tibble [12 × 4]&gt;
+## # … with 132 more rows</code></pre>
+<p>In this dataset each row is the complete dataset for a country, instead of being just one of the observations.</p>
+<p>Now we want to fit a separate model for each of those rows:</p>
+<pre class="r"><code># First we define the function that creates a linear model:
+country_model &lt;- function(df) {
+  lm(lifeExp ~ year, data = df)
+}
+
+# Then we can abuse the purrr package to apply that function to each of 
+# the elements of a list:
+by_country &lt;- by_country %&gt;%
+    mutate(model = map(data, country_model))
+
+# Now the column &quot;model&quot; in the by_country tibble contains all of the linear models we just fit!
+by_country</code></pre>
+<pre><code>## # A tibble: 142 x 4
+##    country     continent data              model   
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;            &lt;list&gt;  
+##  1 Afghanistan Asia      &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  2 Albania     Europe    &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  3 Algeria     Africa    &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  4 Angola      Africa    &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  5 Argentina   Americas  &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  6 Australia   Oceania   &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  7 Austria     Europe    &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  8 Bahrain     Asia      &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+##  9 Bangladesh  Asia      &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+## 10 Belgium     Europe    &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+## # … with 132 more rows</code></pre>
+<p>Now we want to look at the residuals, acessing models stored within tibbles is a hassle, so we can unnest the models:</p>
+<pre class="r"><code>by_country &lt;- by_country %&gt;% 
+  mutate(
+    resids = map2(data, model, add_residuals)
+  )
+
+# Let&#39;s unnest the residuals:
+resids &lt;- unnest(by_country, resids)
+
+# Plot the residuals:
+resids %&gt;% 
+  ggplot(aes(year, resid)) +
+    geom_line(aes(group = country), alpha = 1 / 3) + 
+    geom_smooth(se = FALSE)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="STA314_files/figure-html/CH25:%20Unnesting-1.png" width="672" /></p>
+<pre class="r"><code># Let&#39;s see the residuals by continent:
+resids %&gt;% 
+  ggplot(aes(year, resid, group = country)) +
+    geom_line(alpha = 1 / 3) + 
+    facet_wrap(~continent)</code></pre>
+<p><img src="STA314_files/figure-html/CH25:%20Unnesting-2.png" width="672" /></p>
+</div>
+</div>
+<div id="week-5" class="section level1">
+<h1>Week 5</h1>
+<div id="principal-component-analysis" class="section level2">
+<h2>Principal Component Analysis</h2>
+<p><strong>With thanks to Alex Stringer for teaching me this in STA414</strong></p>
+<div id="motivation" class="section level3">
+<h3>Motivation:</h3>
+<p>Sometimes we are given a dataset containing a much larger number of features than what we like for analysis. (We will see this specifically in lab 3). <em>Principal Component Analysis</em> is one way of reducing the number of features while maintaining as much information about the original data as possible.</p>
+</div>
+<div id="procedure" class="section level3">
+<h3>Procedure:</h3>
+<p>Given a <span class="math inline">\(n\)</span> datapoints with <span class="math inline">\(p\)</span> features each, PCA tries to find a low-dimensional <span class="math inline">\(d &lt; p\)</span> factorization of the data matrix <span class="math inline">\(X\)</span> that preserves the maximum possible variance.</p>
+<p><span class="math display">\[ X = UZ \]</span> <span class="math display">\[ X \in \mathbb{R}^{n \times p} \]</span> <span class="math display">\[ Z \in \mathbb{R}^{d \times p} \]</span> <span class="math display">\[ U \in \mathbb{R}^{n \times d} \]</span></p>
+<p>We estimate <span class="math inline">\(U\)</span> from the data, and call the associated <span class="math inline">\(Z\)</span> the principal components of <span class="math inline">\(X\)</span>.</p>
+<p>PCA is thus states as follows:</p>
+<center>
+<p>for <span class="math inline">\(j = 1, ..., d\)</span></p>
+</center>
+<p><span class="math display">\[ \mathbf{u}_j = argmax(Var(\mathbf{u}^T\mathbf{x})) = argmax(\mathbf{u}^T\mathbf{Su}) \]</span></p>
+<center>
+<p>subject to:</p>
+</center>
+<p><span class="math display">\[ \mathbf{u}^T\mathbf{u} = 1 ,~~ \text{and } ~ \mathbf{u} \perp \mathbf{u}_k ~~ \text{for} ~~ k &lt; j \]</span></p>
+<p>Where S is the sample covariance matrix: <span class="math display">\[ \mathbf{S} = \frac{1}{n}\sum_{i = 1}^{n}{(\mathbf{x_i} - \mathbf{\bar{x}})(\mathbf{x_i} - \mathbf{\bar{x}}) ^T} \]</span></p>
+<p>Using lagrange multipliers we see the solution to the above problem must satisfy:</p>
+<p><span class="math display">\[ \mathbf{S}\mathbf{u}_1 = \lambda \mathbf{u}_1 \]</span> Which means that <span class="math inline">\(\mathbf{u}_1\)</span> is an eigenvector of S with the eigenvalue <span class="math inline">\(\lambda\)</span>.</p>
+<p>By definition of the problem <span class="math inline">\(\lambda\)</span> must be the largest eigenvalue. This is since it doesn’t the second constraint (as there is no previously selected vectors)</p>
+<p>Solving this constrained optimization problem gives us an orthonormal basis where the basis vectors point in the directions of the principal axes of the sample covariance matrix, in decreasing order of length.</p>
+<p>It’s equivalent to the rotation in the original input space!</p>
+<p>We then proceed to “chop off” the <span class="math inline">\(d-p\)</span> dimensions with least variance. And call this the basis for our <span class="math inline">\(d\)</span> dimensional space.</p>
+<p>So, the solution to the PCA problem is:</p>
+<ol style="list-style-type: decimal">
+<li><p>Choose <span class="math inline">\(\mathbf{u}_j\)</span> to be normalized eigenvector of <span class="math inline">\(\mathbf{S}\)</span> corresponding to the <span class="math inline">\(j\)</span>-th highest eigenvalue.</p></li>
+<li><p>Choose <span class="math inline">\(\mathbf{U}\)</span> to be the matrix of orthonormal eigenvectors of S, so that <span class="math inline">\(\mathbf{U}^T\mathbf{U} = \mathbf{I}\)</span></p></li>
+<li><p>Then <span class="math inline">\(\mathbf{Z} = \mathbf{XU}^T\)</span>.</p></li>
+<li><p>Keep only the first d columns of <span class="math inline">\(\mathbf{Z}\)</span> and the corresponding <span class="math inline">\(d \times d\)</span> submatrix of <span class="math inline">\(\mathbf{U}\)</span></p></li>
+<li><p>Reconstruct the data as <span class="math inline">\(\mathbf{X}^* = \mathbf{Z}^*\mathbf{U}^*\)</span></p></li>
+</ol>
+</div>
+</div>
+<div id="lab-1-pca" class="section level2">
+<h2>Lab 1: PCA</h2>
+<pre class="r"><code># See variable names
+colnames(USArrests)</code></pre>
+<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
+<pre class="r"><code># Display means of each row
+USArrests %&gt;% summarize_all(funs(mean))</code></pre>
+<pre><code>##   Murder Assault UrbanPop   Rape
+## 1  7.788  170.76    65.54 21.232</code></pre>
+<pre class="r"><code># Display means and variances of each row
+USArrests %&gt;% summarize_all(.funs = c(Mean = mean, Variance = var))</code></pre>
+<pre><code>##   Murder_Mean Assault_Mean UrbanPop_Mean Rape_Mean Murder_Variance
+## 1       7.788       170.76         65.54    21.232        18.97047
+##   Assault_Variance UrbanPop_Variance Rape_Variance
+## 1         6945.166          209.5188      87.72916</code></pre>
+<p>There is a built-in function in R to do the principal component analysis:</p>
+<p>It automatically scales the data to have the mean of 0</p>
+<p>There is an added parameter <em>scale</em> which will also scale the standard deviation to 1.</p>
+<p>In general there are at most <span class="math inline">\(min(n-1,p)\)</span> informative principal components.</p>
+<pre class="r"><code># compute the PCA
+pca_out = prcomp(USArrests , scale = TRUE)
+# output the rotation matrix
+pca_out$rotation</code></pre>
+<pre><code>##                 PC1        PC2        PC3         PC4
+## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
+## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
+## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
+## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
+<pre class="r"><code># output the reconstructed data in the new coordinates:
+pca_out$x</code></pre>
+<pre><code>##                        PC1         PC2         PC3          PC4
+## Alabama        -0.97566045  1.12200121 -0.43980366  0.154696581
+## Alaska         -1.93053788  1.06242692  2.01950027 -0.434175454
+## Arizona        -1.74544285 -0.73845954  0.05423025 -0.826264240
+## Arkansas        0.13999894  1.10854226  0.11342217 -0.180973554
+## California     -2.49861285 -1.52742672  0.59254100 -0.338559240
+## Colorado       -1.49934074 -0.97762966  1.08400162  0.001450164
+## Connecticut     1.34499236 -1.07798362 -0.63679250 -0.117278736
+## Delaware       -0.04722981 -0.32208890 -0.71141032 -0.873113315
+## Florida        -2.98275967  0.03883425 -0.57103206 -0.095317042
+## Georgia        -1.62280742  1.26608838 -0.33901818  1.065974459
+## Hawaii          0.90348448 -1.55467609  0.05027151  0.893733198
+## Idaho           1.62331903  0.20885253  0.25719021 -0.494087852
+## Illinois       -1.36505197 -0.67498834 -0.67068647 -0.120794916
+## Indiana         0.50038122 -0.15003926  0.22576277  0.420397595
+## Iowa            2.23099579 -0.10300828  0.16291036  0.017379470
+## Kansas          0.78887206 -0.26744941  0.02529648  0.204421034
+## Kentucky        0.74331256  0.94880748 -0.02808429  0.663817237
+## Louisiana      -1.54909076  0.86230011 -0.77560598  0.450157791
+## Maine           2.37274014  0.37260865 -0.06502225 -0.327138529
+## Maryland       -1.74564663  0.42335704 -0.15566968 -0.553450589
+## Massachusetts   0.48128007 -1.45967706 -0.60337172 -0.177793902
+## Michigan       -2.08725025 -0.15383500  0.38100046  0.101343128
+## Minnesota       1.67566951 -0.62590670  0.15153200  0.066640316
+## Mississippi    -0.98647919  2.36973712 -0.73336290  0.213342049
+## Missouri       -0.68978426 -0.26070794  0.37365033  0.223554811
+## Montana         1.17353751  0.53147851  0.24440796  0.122498555
+## Nebraska        1.25291625 -0.19200440  0.17380930  0.015733156
+## Nevada         -2.84550542 -0.76780502  1.15168793  0.311354436
+## New Hampshire   2.35995585 -0.01790055  0.03648498 -0.032804291
+## New Jersey     -0.17974128 -1.43493745 -0.75677041  0.240936580
+## New Mexico     -1.96012351  0.14141308  0.18184598 -0.336121113
+## New York       -1.66566662 -0.81491072 -0.63661186 -0.013348844
+## North Carolina -1.11208808  2.20561081 -0.85489245 -0.944789648
+## North Dakota    2.96215223  0.59309738  0.29824930 -0.251434626
+## Ohio            0.22369436 -0.73477837 -0.03082616  0.469152817
+## Oklahoma        0.30864928 -0.28496113 -0.01515592  0.010228476
+## Oregon         -0.05852787 -0.53596999  0.93038718 -0.235390872
+## Pennsylvania    0.87948680 -0.56536050 -0.39660218  0.355452378
+## Rhode Island    0.85509072 -1.47698328 -1.35617705 -0.607402746
+## South Carolina -1.30744986  1.91397297 -0.29751723 -0.130145378
+## South Dakota    1.96779669  0.81506822  0.38538073 -0.108470512
+## Tennessee      -0.98969377  0.85160534  0.18619262  0.646302674
+## Texas          -1.34151838 -0.40833518 -0.48712332  0.636731051
+## Utah            0.54503180 -1.45671524  0.29077592 -0.081486749
+## Vermont         2.77325613  1.38819435  0.83280797 -0.143433697
+## Virginia        0.09536670  0.19772785  0.01159482  0.209246429
+## Washington      0.21472339 -0.96037394  0.61859067 -0.218628161
+## West Virginia   2.08739306  1.41052627  0.10372163  0.130583080
+## Wisconsin       2.05881199 -0.60512507 -0.13746933  0.182253407
+## Wyoming         0.62310061  0.31778662 -0.23824049 -0.164976866</code></pre>
+<pre class="r"><code># To get the variance explained by each of the prinicpal components we take the 
+# square of the std deviation:
+pca_var &lt;- pca_out$sdev^2
+pca_var</code></pre>
+<pre><code>## [1] 2.4802416 0.9897652 0.3565632 0.1734301</code></pre>
+<pre class="r"><code># To get the proportion of variance explained we just need to divide by the sum:
+pca_varprop &lt;- pca_var / sum(pca_var)
+pca_varprop</code></pre>
+<pre><code>## [1] 0.62006039 0.24744129 0.08914080 0.04335752</code></pre>
+<pre class="r"><code># Plots using base R:
+plot(pca_varprop , xlab = &quot; Principal Component &quot;,
+     ylab = &quot;Proportion of Variance Explained &quot;,
+     ylim = c(0,1), type = &quot;b&quot;)</code></pre>
+<p><img src="STA314_files/figure-html/plots-1.png" width="672" /></p>
+<pre class="r"><code>plot(cumsum(pca_varprop), xlab = &quot;Principal Component &quot;,
+     ylab = &quot;Cumulative Proportion of Variance Explained&quot;,
+     ylim = c(0,1), type = &quot;b&quot;)</code></pre>
+<p><img src="STA314_files/figure-html/plots-2.png" width="672" /></p>
+<pre class="r"><code># Plots using ggplot:
+## Create the combined dataset:
+df &lt;- tibble(PCA = 1:4, VarianceProportion = pca_varprop)
+
+ggplot(data = df, aes(x = PCA, y = VarianceProportion)) +
+    geom_line() +
+    geom_point() +
+    labs(x = &quot;Principal Component&quot;, y = &quot;Proportion of Variance Explained&quot;) +
+    geom_text(aes(label = round(VarianceProportion,2)), vjust = -1) +
+    scale_y_continuous(limits = c(0, 1))</code></pre>
+<p><img src="STA314_files/figure-html/plots-3.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = df, aes(x = PCA, y = cumsum(VarianceProportion))) +
+    geom_line() +
+    geom_point() +
+    labs(x = &quot;Principal Component&quot;, y = &quot;Cumulative Proportion of Variance Explained&quot;) +
+    geom_text(aes(label = round(cumsum(VarianceProportion),2)), vjust = 2) +
+    scale_y_continuous(limits = c(0, 1))</code></pre>
+<p><img src="STA314_files/figure-html/plots-4.png" width="672" /></p>
+<pre class="r"><code># standardize all the variables
+USArrests_std &lt;- USArrests %&gt;% mutate_all(.funs = (scale))
+
+varcov_matrix &lt;- cor(USArrests_std)
+varcov_matrix</code></pre>
+<pre><code>##              Murder   Assault   UrbanPop      Rape
+## Murder   1.00000000 0.8018733 0.06957262 0.5635788
+## Assault  0.80187331 1.0000000 0.25887170 0.6652412
+## UrbanPop 0.06957262 0.2588717 1.00000000 0.4113412
+## Rape     0.56357883 0.6652412 0.41134124 1.0000000</code></pre>
+<pre class="r"><code># look at the eigenvectors and eigenvalues of the var cov matrix
+e &lt;- eigen(varcov_matrix)
+e</code></pre>
+<pre><code>## eigen() decomposition
+## $values
+## [1] 2.4802416 0.9897652 0.3565632 0.1734301
+## 
+## $vectors
+##            [,1]       [,2]       [,3]        [,4]
+## [1,] -0.5358995  0.4181809 -0.3412327  0.64922780
+## [2,] -0.5831836  0.1879856 -0.2681484 -0.74340748
+## [3,] -0.2781909 -0.8728062 -0.3780158  0.13387773
+## [4,] -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
+<pre class="r"><code># Compute the eigenvector transformation
+
+for (i in 1:length(names(USArrests_std))) {
+    assign(paste0(&quot;PC&quot;, i), 
+    as.vector(USArrests_std$Murder * e$vectors[1,i] +
+    USArrests_std$Assault * e$vectors[2,i] + 
+    USArrests_std$UrbanPop * e$vectors[3,i] +
+    USArrests_std$Rape * e$vectors[4,i]))
+}
+
+manual_PCA &lt;- tibble(PC1 = PC1, PC2 = PC2, PC3 = PC3, PC4 = PC4)
+auto_PCA &lt;- as.tibble(pca_out$x)</code></pre>
+<pre><code>## Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+## This warning is displayed once per session.</code></pre>
+<pre class="r"><code>difference = manual_PCA - auto_PCA
+difference</code></pre>
+<pre><code>##                          PC1                       PC2
+## 1  -0.0000000000000005551115 -0.0000000000000008881784
+## 2   0.0000000000000006661338 -0.0000000000000008881784
+## 3   0.0000000000000011102230 -0.0000000000000019984014
+## 4  -0.0000000000000008326673  0.0000000000000002220446
+## 5   0.0000000000000022204460 -0.0000000000000024424907
+## 6   0.0000000000000017763568 -0.0000000000000011102230
+## 7   0.0000000000000000000000  0.0000000000000008881784
+## 8   0.0000000000000001665335 -0.0000000000000004996004
+## 9   0.0000000000000013322676 -0.0000000000000030808689
+## 10 -0.0000000000000002220446 -0.0000000000000013322676
+## 11  0.0000000000000006661338  0.0000000000000006661338
+## 12 -0.0000000000000008881784  0.0000000000000016375790
+## 13  0.0000000000000006661338 -0.0000000000000016653345
+## 14 -0.0000000000000002220446  0.0000000000000006106227
+## 15 -0.0000000000000004440892  0.0000000000000021371793
+## 16 -0.0000000000000002220446  0.0000000000000007771561
+## 17 -0.0000000000000011102230  0.0000000000000009992007
+## 18  0.0000000000000000000000 -0.0000000000000015543122
+## 19 -0.0000000000000008881784  0.0000000000000024424907
+## 20  0.0000000000000004440892 -0.0000000000000017763568
+## 21  0.0000000000000005551115  0.0000000000000002220446
+## 22  0.0000000000000004440892 -0.0000000000000019151347
+## 23  0.0000000000000000000000  0.0000000000000016653345
+## 24 -0.0000000000000015543122 -0.0000000000000008881784
+## 25  0.0000000000000005551115 -0.0000000000000004996004
+## 26 -0.0000000000000008881784  0.0000000000000013322676
+## 27 -0.0000000000000002220446  0.0000000000000013045121
+## 28  0.0000000000000017763568 -0.0000000000000024424907
+## 29 -0.0000000000000008881784  0.0000000000000025257574
+## 30  0.0000000000000008881784 -0.0000000000000006661338
+## 31  0.0000000000000008881784 -0.0000000000000019151347
+## 32  0.0000000000000015543122 -0.0000000000000019984014
+## 33 -0.0000000000000015543122 -0.0000000000000013322676
+## 34 -0.0000000000000017763568  0.0000000000000029976022
+## 35  0.0000000000000003608225  0.0000000000000000000000
+## 36  0.0000000000000001665335  0.0000000000000002775558
+## 37  0.0000000000000006106227  0.0000000000000001110223
+## 38 -0.0000000000000002220446  0.0000000000000007771561
+## 39  0.0000000000000004440892  0.0000000000000002220446
+## 40 -0.0000000000000008881784 -0.0000000000000008881784
+## 41 -0.0000000000000011102230  0.0000000000000022204460
+## 42 -0.0000000000000002220446 -0.0000000000000005551115
+## 43  0.0000000000000006661338 -0.0000000000000014432899
+## 44  0.0000000000000008881784  0.0000000000000004440892
+## 45 -0.0000000000000022204460  0.0000000000000031086245
+## 46 -0.0000000000000002081668  0.0000000000000001665335
+## 47  0.0000000000000008326673  0.0000000000000002220446
+## 48 -0.0000000000000017763568  0.0000000000000019984014
+## 49 -0.0000000000000004440892  0.0000000000000017763568
+## 50 -0.0000000000000005551115  0.0000000000000004996004
+##                           PC3                        PC4
+## 1  -0.00000000000000033306691 -0.00000000000000099920072
+## 2   0.00000000000000044408921  0.00000000000000194289029
+## 3   0.00000000000000155431223  0.00000000000000066613381
+## 4  -0.00000000000000011102230 -0.00000000000000038857806
+## 5   0.00000000000000133226763  0.00000000000000166533454
+## 6   0.00000000000000022204460  0.00000000000000185962357
+## 7   0.00000000000000022204460 -0.00000000000000015265567
+## 8   0.00000000000000111022302 -0.00000000000000055511151
+## 9   0.00000000000000088817842 -0.00000000000000034694470
+## 10 -0.00000000000000111022302 -0.00000000000000066613381
+## 11 -0.00000000000000083266727  0.00000000000000066613381
+## 12  0.00000000000000022204460  0.00000000000000005551115
+## 13  0.00000000000000066613381 -0.00000000000000036082248
+## 14 -0.00000000000000055511151  0.00000000000000033306691
+## 15 -0.00000000000000066613381  0.00000000000000009714451
+## 16 -0.00000000000000038857806  0.00000000000000008326673
+## 17 -0.00000000000000111022302 -0.00000000000000055511151
+## 18 -0.00000000000000044408921 -0.00000000000000111022302
+## 19 -0.00000000000000022204460 -0.00000000000000044408921
+## 20  0.00000000000000088817842 -0.00000000000000044408921
+## 21  0.00000000000000044408921  0.00000000000000000000000
+## 22  0.00000000000000033306691  0.00000000000000069388939
+## 23 -0.00000000000000033306691  0.00000000000000029143354
+## 24 -0.00000000000000066613381 -0.00000000000000188737914
+## 25 -0.00000000000000005551115  0.00000000000000061062266
+## 26 -0.00000000000000044408921 -0.00000000000000009714451
+## 27 -0.00000000000000011102230  0.00000000000000024286129
+## 28  0.00000000000000022204460  0.00000000000000177635684
+## 29 -0.00000000000000044408921 -0.00000000000000011102230
+## 30  0.00000000000000022204460 -0.00000000000000016653345
+## 31  0.00000000000000077715612  0.00000000000000038857806
+## 32  0.00000000000000066613381 -0.00000000000000022898350
+## 33  0.00000000000000099920072 -0.00000000000000188737914
+## 34 -0.00000000000000044408921 -0.00000000000000022204460
+## 35 -0.00000000000000041633363  0.00000000000000022204460
+## 36 -0.00000000000000002775558  0.00000000000000011102230
+## 37  0.00000000000000033306691  0.00000000000000138777878
+## 38 -0.00000000000000044408921 -0.00000000000000033306691
+## 39  0.00000000000000111022302 -0.00000000000000088817842
+## 40  0.00000000000000005551115 -0.00000000000000108246745
+## 41 -0.00000000000000044408921 -0.00000000000000005551115
+## 42 -0.00000000000000077715612 -0.00000000000000011102230
+## 43 -0.00000000000000033306691 -0.00000000000000033306691
+## 44  0.00000000000000022204460  0.00000000000000090205621
+## 45 -0.00000000000000088817842  0.00000000000000030531133
+## 46 -0.00000000000000029837244 -0.00000000000000008326673
+## 47  0.00000000000000033306691  0.00000000000000111022302
+## 48 -0.00000000000000088817842 -0.00000000000000072164497
+## 49 -0.00000000000000055511151 -0.00000000000000005551115
+## 50  0.00000000000000000000000 -0.00000000000000047184479</code></pre>
+</div>
+<div id="lab-3-pca-and-clustering" class="section level2">
+<h2>Lab 3: PCA and Clustering</h2>
+<pre class="r"><code># Data Load
+nci_labs &lt;- NCI60$labs
+nci_data &lt;- NCI60$data
+
+# Combine
+nci &lt;- as.tibble(nci_data)
+nci$labels &lt;- nci_labs
+
+# It&#39;s a large dataset! 
+dim(nci)</code></pre>
+<pre><code>## [1]   64 6831</code></pre>
+<pre class="r"><code># Let&#39;s see what are the possible labels
+unique(nci$labels)</code></pre>
+<pre><code>##  [1] &quot;CNS&quot;         &quot;RENAL&quot;       &quot;BREAST&quot;      &quot;NSCLC&quot;       &quot;UNKNOWN&quot;    
+##  [6] &quot;OVARIAN&quot;     &quot;MELANOMA&quot;    &quot;PROSTATE&quot;    &quot;LEUKEMIA&quot;    &quot;K562B-repro&quot;
+## [11] &quot;K562A-repro&quot; &quot;COLON&quot;       &quot;MCF7A-repro&quot; &quot;MCF7D-repro&quot;</code></pre>
+<pre class="r"><code># Let&#39;s see how many of each label:
+nci %&gt;% group_by(labels) %&gt;% summarize(n())</code></pre>
+<pre><code>## # A tibble: 14 x 2
+##    labels      `n()`
+##    &lt;chr&gt;       &lt;int&gt;
+##  1 BREAST          7
+##  2 CNS             5
+##  3 COLON           7
+##  4 K562A-repro     1
+##  5 K562B-repro     1
+##  6 LEUKEMIA        6
+##  7 MCF7A-repro     1
+##  8 MCF7D-repro     1
+##  9 MELANOMA        8
+## 10 NSCLC           9
+## 11 OVARIAN         6
+## 12 PROSTATE        2
+## 13 RENAL           9
+## 14 UNKNOWN         1</code></pre>
+<pre class="r"><code># Not very many data points, with a lot of features!</code></pre>
+<p>Are all of those features really necessary? Let’s try doing PCA and seeing what proportion of variance can be explained by taking just a few:</p>
+<pre class="r"><code># I don&#39;t want to rescale the labels (which are not numerical in the first place!)
+nci_pca &lt;- nci_data %&gt;% prcomp(scale = TRUE)
+
+# Since we will be plotting this data, we would like a function that assigns 
+# a color based on the value of the label to each of the datapoints:
+
+Colors = function(vec) {
+    colors = rainbow(length(unique(vec)))
+    return(colors[as.numeric(as.factor(vec))])
+}
+
+# Now let&#39;s plot the PCs 
+par(mfrow = c(1,2))
+
+# plot the first and second PC
+plot(nci_pca$x[,1:2], col = Colors(nci_labs), pch = 19, xlab = &quot;PC1&quot;,ylab = &quot;PC2&quot;)
+# plot the first and third PC
+plot(nci_pca$x[,c(1,3)], col = Colors(nci_labs), pch = 19, xlab = &quot;PC1&quot;, ylab = &quot;PC3&quot;)</code></pre>
+<p><img src="STA314_files/figure-html/NCI60%20PCA-1.png" width="672" /></p>
+<pre class="r"><code># Get back to regular plotting:
+par(mfrow = c(1,1))</code></pre>
+<p>Now if we want to plot without having to write a function to assign colors each time, we can use ggplot:</p>
+<pre class="r"><code># Save as tibble for convenience (you could probably get away with not doing this)
+nci_pca_tb &lt;- as.tibble(nci_pca$x)
+# Add back the labels 
+nci_pca_tb$labels &lt;- nci$labels
+
+# Plot (I&#39;m dropping the argument names beyond this point)
+ggplot(nci_pca_tb, aes(x = PC1, y = PC2, color = labels)) +
+    geom_point()</code></pre>
+<p><img src="STA314_files/figure-html/Plotting%20PCA%20with%20ggplot-1.png" width="672" /></p>
+<pre class="r"><code># Doesn&#39;t this look 100 times simpler to do ?
+ggplot(nci_pca_tb, aes(x = PC1, y = PC3, color = labels)) +
+    geom_point()</code></pre>
+<p><img src="STA314_files/figure-html/Plotting%20PCA%20with%20ggplot-2.png" width="672" /></p>
+<p>For this reason, beyond this point, I will be rewriting all of visualizations from the labs into tidyverse code and omit the base R code.</p>
+<pre class="r"><code># Extract the variances
+df &lt;- tibble(PCA = 1:length(nci_pca$sdev), VarianceProportion = nci_pca$sdev^2 / sum(nci_pca$sdev^2))
+
+# Plot just the variance explanation proportions
+ggplot(data = df, aes(x = PCA, y = VarianceProportion)) +
+    geom_line() +
+    geom_point() +
+    labs(x = &quot;Principal Component&quot;, y = &quot;Proportion of Variance Explained&quot;) +
+    scale_y_continuous(limits = c(0, 1))</code></pre>
+<p><img src="STA314_files/figure-html/NCI60%20PCA%20proportion%20of%20variance-1.png" width="672" /></p>
+<pre class="r"><code># Plot the cumulative variance explanation proportions 
+ggplot(data = df, aes(x = PCA, y = cumsum(VarianceProportion))) +
+    geom_line(color = if_else(cumsum(df$VarianceProportion) &gt; 0.9, &quot;red&quot;, &quot;green&quot;)) +
+    geom_point(color = if_else(cumsum(df$VarianceProportion) &gt; 0.9, &quot;red&quot;, &quot;green&quot;)) +
+    labs(x = &quot;Principal Component&quot;, y = &quot;Cumulative Proportion of Variance Explained&quot;) +
+    scale_y_continuous(limits = c(0, 1)) +
+    geom_line(y = 0.9)</code></pre>
+<p><img src="STA314_files/figure-html/NCI60%20PCA%20proportion%20of%20variance-2.png" width="672" /></p>
+<p>The line on the second plot shows at which point you can cut out to keep <span class="math inline">\(90\)</span>% of variance (<span class="math inline">\(90\)</span>% of information about data), which looks to be about 20 features.</p>
+<p>Note that this is an improvent of an improvements since by just doing the PCA we have decreased the number of features from 6830 to 64 which is a 99.06% decrease, without losing much information!</p>
+<p>Now let’s do some clustering to review what we were doing 2 weeks ago:</p>
+<p>Again for simplicity of visualization I will be using the ggdendro package.</p>
+<pre class="r"><code># Create a vector of types of Hierarchical clustering we covered
+clustering_types &lt;- c(&quot;complete&quot;, &quot;average&quot;, &quot;single&quot;)
+
+# Perform HC in a loop and plotting
+for (method in clustering_types) {
+    # Good example of why %&gt;% is a great operator and method chaining is important
+    nci_data %&gt;% # Take the data
+    scale %&gt;% # Rescale it
+    dist %&gt;%  # Create a distance matrix 
+    hclust(method = method) %&gt;% # Perform HC
+    as.dendrogram %&gt;% # Change type to dendrogram
+    set(&quot;labels&quot;, nci_labs) %&gt;% # Add the labels from the original data
+    set(&quot;branches_k_color&quot;, k = 4) %&gt;% # Split the tree into 4 classes and color
+    set(&quot;labels_cex&quot;, 0.5) %&gt;%
+    plot(main = paste0(method,&quot; linkage&quot;))
+}</code></pre>
+<p><img src="STA314_files/figure-html/NCI60%20Hierarichical%20Clustering-1.png" width="672" /><img src="STA314_files/figure-html/NCI60%20Hierarichical%20Clustering-2.png" width="672" /><img src="STA314_files/figure-html/NCI60%20Hierarichical%20Clustering-3.png" width="672" /></p>
+<p>This illustrates just how different results can be for the types of HC we learned. Complete and average linkages usually result in similarily sized clusters, while Single linkage usually results in a single large cluster that has single leaves added to it at each step. Now let’s compare Complete Linkage with K-Means clustering</p>
+<pre class="r"><code># Create the complete linkage clustering
+cl_clusters &lt;- nci_data %&gt;% # Take the data
+    scale %&gt;% # Rescale it
+    dist %&gt;%  # Create a distance matrix 
+    hclust(method = &quot;complete&quot;) %&gt;% # Perform HC
+    cutree(k = 4) # cut 4 clusters
+
+# Create the kmeans clustering
+kmeans_clusters &lt;- nci_data %&gt;% # Take the data
+    scale %&gt;%
+    kmeans(centers = 4, nstart = 20) # Perform K-Means for 4 clusters 20 times
+    
+# Create a comparison Table:
+table(kmeans_clusters$cluster, cl_clusters)</code></pre>
+<pre><code>##    cl_clusters
+##      1  2  3  4
+##   1 20  7  0  0
+##   2  9  0  0  0
+##   3 11  0  0  9
+##   4  0  0  8  0</code></pre>
+<p>From this table we can see that cluster 4 in k-means is the same as cluster 3 in complete linkage, but the other clusters are a mixture. For example cluster 3 in k-means is a combination of 11 elements from cluster 1 in CL and 9 elements of cluster 4 in CL.</p>
+</div>
+<div id="question-3-1" class="section level2">
+<h2>Question 3:</h2>
+<div id="question" class="section level3">
+<h3>Question:</h3>
+<p>By modifying the argument used in the lecture, argue that the second principal component of a (centred) feature matrix <span class="math inline">\(X\)</span> should maximise the Rayleigh quotent of <span class="math inline">\(X^TX\)</span> over all vectors that are orthogonal to the first principal component and show that this implies that the second prinicipal component is the eigenvector of <span class="math inline">\(X^TX\)</span> that corresponds to the second largest eigenvalue.</p>
+</div>
+<div id="solution" class="section level3">
+<h3>Solution:</h3>
+<p><em>Solution adapted from <a href="https://a-morariu.github.io/">Alin Morariu</a></em></p>
+<p> The second principle component of a centred feature matrix <span class="math inline">\(X\)</span> should maximize Rayleigh’s quotient up to being orthogonal to the fist principle component.</p>
+<p> Note, this argument is almost trivial once we understand that we can order our set of eigenvalues and combining this with the following notation:</p>
+<p><span class="math display">\[ v_2 = \text{arg} \max_{v \in \mathbb{R}^p, v \perp v_1 } \frac{v^T X^T X v}{v^T v} \]</span></p>
+<p>All that this is asking, is that we find the eigenvector that maximizes the quotient with respect to all vectors in <span class="math inline">\(\mathbb{R}^p\)</span> which are orthogonal to <span class="math inline">\(v_1\)</span>. Furthermore, this corresponds to taking the second largest eignevalue from our ordered set. However, we will show this more rigorously using the argument made in class. We begin with the spectral decomposition of our feature matrix.</p>
+<p><span class="math display">\[X^T X = UDU^T \text{ and define } Z = U^Tv \text{ where } v \in \mathbb{R}^p \]</span></p>
+<p><span class="math display">\[ \Rightarrow v^T X^T X v =
+z^T D z =
+\sum_{i=1}^{p} \lambda_i z_i z_i^T \leq \sum_{i=1}^{p} \lambda_2 z_i z_i^T =
+\lambda_2 \sum_{i=1}^{p} z_i z_I^T =
+\lambda_2 v^T U^T U v\]</span></p>
+<p>The inequality above turns into an equality in the case where <span class="math inline">\(z_3 = z_4 = \ldots = z_p = 0\)</span>; otherwise we can say that <span class="math inline">\(\lambda_2 \geq \lambda_i\)</span> for <span class="math inline">\(i \in \{3, 4, \ldots, p\}\)</span> which in turn maximizes the quotient with respect to the constraints. This concludes the proof.</p>
+</div>
+</div>
+<div id="question-4-1" class="section level2">
+<h2>Question 4</h2>
+<div id="question-1" class="section level3">
+<h3>Question:</h3>
+<p>An experiment was undertaken to exmaine differences in burritos made across Toronto. 400 burritos were purchased at commercial venues and four measurements were taken of each burrito: mass (in grams), length (in centimetres), sturdiness (scored from 1-10), and taste (scored from 1-10). The scaled sample covariance matrix was calculated and its four eigenvalues were found to be 14.1, 4.3, 1.2 and 0.4. The corresponding first and second eigenvectors were:</p>
+<p><span class="math display">\[v_1^T = [0.39, 0.42, 0.44, 0.69]\]</span> <span class="math display">\[v_2^T = [0.40, 0.39, 0.42,−0.72]\]</span></p>
+<ol style="list-style-type: lower-roman">
+<li><p>What is the proportion of variance explained by the first two prinicple components?</p></li>
+<li><p>Give an interpretation of the first two principal components</p></li>
+<li><p>Suppose that the data were stored by recording the eigenvalues and eigenvectors together with the 400 values of the first and second principal components and the mean values for the original variables. How would you use this information reconstruct approximations to the original covariance matrix and the original data?</p></li>
+</ol>
+</div>
+<div id="solution-1" class="section level3">
+<h3>Solution:</h3>
+<p><em>Slightly modfied solution from <a href="https://a-morariu.github.io/">Alin Morariu</a></em></p>
+<p>Given: <span class="math inline">\(\lambda^* = \{14.1, 4.3, 1.2, 0.4 \}\)</span> , <span class="math inline">\(v_1^T = [0.39, 0.42, 0.44, 0.69]\)</span> , and <span class="math inline">\(v_2^T = [0.40, 0.39, 0.42, -0.72]\)</span></p>
+<div id="i" class="section level4">
+<h4>i)</h4>
+<p>We are asked to calculate the proportion of variance explained by the fist 2 principle components.</p>
+<p><span class="math display">\[\text{proportion explained} =
+\frac{\sum_{i=1}^{2} \lambda_i }{\sum_{i=1}^{4} \lambda_i } =
+\frac{14.1 + 4.3}{14.1 + 4.3 + 1.2 + 0.4} =
+0.92 \]</span></p>
+</div>
+<div id="ii" class="section level4">
+<h4>ii)</h4>
+<p>Interpreting the principle components:</p>
+<p>First PC: Notice that each of the components have a positive coefficient we can say that heavier and longer burritos have a tendency to be tastier.</p>
+<p>Second PC: Here we see that the component corresponding to taste has a negative coefficient which indicates that we have some burritos that are small, light, unsturdy and tasty OR large, heavy, sturdy, and bland (their scores would be equivalent).</p>
+</div>
+<div id="iii" class="section level4">
+<h4>iii)</h4>
+<p>Here we are tasked with reconstructing the variance-covariance matrix of the centred data based on our 2 eigenvectors, and 4 eigenvalues. We back out the desired result from the spectral decomposition of the variance-covariance matrix.</p>
+<p>Since we only have the first two principal components we can only use the first two eigenvalues:</p>
+<p><span class="math display">\[\hat{\Sigma} = \hat{U}\hat{D}\hat{U}^T = \sum_{i=1}^{2} \lambda_iv_i v_i^T = \lambda_1 v_1 v_1^T + \lambda_2 v_2 v_2^T  \]</span></p>
+<p>Note that we have all of the quantities specified above so now its a matter of plugging in the values and multiplying them together.</p>
+<p><span class="math display">\[\hat{\Sigma} = \left( \begin{array}{cccc} 
+2.833 \\ 
+2.980 &amp; 3.141 \\
+3.142 &amp; 3.310 &amp; 3.488 \\
+2.556 &amp; 2.879 &amp; 2.980 &amp; 8.942
+\end{array} \right) \]</span></p>
+<p>Noting that <span class="math inline">\(\hat{\Sigma}\)</span> is symmetric we can fill in the rest.</p>
+<p>Remember that we framed the original data as: <span class="math display">\[ X = LU \]</span> Where <span class="math inline">\(U\)</span> are the principal components and <span class="math inline">\(L\)</span> is the loading matrix. Thus to retrieve the original data we need to multiply our eigenvectors by our loading factors matrix to get estimates of mean corrected data.</p>
+<p><span class="math display">\[ x_i^T =
+\begin{pmatrix}
+    l_1 &amp; l_2
+\end{pmatrix} 
+\begin{pmatrix}
+    v_1^T\\
+    v_2^T
+\end{pmatrix} = 
+\begin{pmatrix}
+    l_1 &amp; l_2
+\end{pmatrix} 
+\begin{pmatrix}
+    0.39 &amp; 0.42 &amp; 0.44 &amp; 0.69\\
+    0.40 &amp; 0.39 &amp; 0.42 &amp; -0.72
+\end{pmatrix}
+\]</span></p>
+<p>So:</p>
+<p><span class="math display">\[ x_1^T =  \begin{pmatrix}
+    0.39 \cdot l_1 + 0.4 \cdot l_2
+\end{pmatrix}\]</span> <span class="math display">\[ x_2^T =  \begin{pmatrix}
+    0.42 \cdot l_1 + 0.39 \cdot l_2
+\end{pmatrix}\]</span></p>
+<p>etc.</p>
+<p>And then to retrive the original we need to add back the mean.</p>
+</div>
+</div>
+</div>
+<div id="questions-from-the-tutorial" class="section level2">
+<h2>Questions from the tutorial:</h2>
+<div id="spectral-decomposition-explanation" class="section level3">
+<h3>Spectral Decomposition explanation</h3>
+<p>Any symmetric matrix A has a spectral decomposition of the form:</p>
+<p><span class="math display">\[ A = Q \Lambda Q^{-1} \]</span></p>
+<p>Where <span class="math inline">\(Q\)</span> is Orthogonal (its column vectors are orthogonal), and <span class="math inline">\(\Lambda\)</span> is diagonal.</p>
+<p>Let <span class="math inline">\(v_i\)</span> denote the <span class="math inline">\(i\)</span>-th column of <span class="math inline">\(Q\)</span>. Then <span class="math inline">\(v_i^Tv_j\)</span> is the <span class="math inline">\(i,j\)</span>-th element of <span class="math inline">\(Q^TQ = Q^{-1}Q = I\)</span>. This means that each column of <span class="math inline">\(Q\)</span> has length <span class="math inline">\(1\)</span> and is perpendicular to every other column.</p>
+<p>Multiplying the equation by <span class="math inline">\(Q\)</span> from the right yields:</p>
+<p><span class="math display">\[ AQ = Q \Lambda Q^{-1} Q = Q \Lambda \]</span></p>
+<p>If we interpret this by looking at columns of <span class="math inline">\(Q\)</span>, <span class="math inline">\(v_i\)</span>:</p>
+<p><span class="math display">\[ Av_i = \lambda_i v_i \]</span></p>
+<p>Where <span class="math inline">\(\lambda_i\)</span> is the <span class="math inline">\(i\)</span>-th diagonal entry of <span class="math inline">\(\Lambda\)</span>.</p>
+<p>Which means that the <span class="math inline">\(v_i\)</span>’s are eigenvectors of <span class="math inline">\(A\)</span> with eigenvalues <span class="math inline">\(\lambda_i\)</span>!</p>
+</div>
+<div id="why-is-variance-covariance-positive-semi-definite-i.e.why-is-s-q-lambda-qt" class="section level3">
+<h3>Why is variance-covariance positive semi-definite? i.e. why is <span class="math inline">\(S = Q \Lambda Q^T\)</span></h3>
+<p>A matrix <span class="math inline">\(V\)</span> is called positive semi-definite if for any vector <span class="math inline">\(a\)</span>:</p>
+<p><span class="math display">\[ a^T V a \geq 0  \]</span></p>
+<p><a href="https://stats.stackexchange.com/a/53105">link to stack exchange for this answer</a></p>
+<p>And for the variance-covariance matrix <span class="math inline">\(S\)</span>:</p>
+<p><span class="math display">\[ S = \frac{1}{n}\sum_{i=1}^{n}{(x_i - \bar{x})(x_i - \bar{x})^T} \]</span></p>
+<p>Then for every non-zero vector <span class="math inline">\(a\)</span> we have:</p>
+<p><span class="math display">\[ a^TSa = a^T(\frac{1}{n}\sum_{i=1}^{n}{(x_i - \bar{x})(x_i - \bar{x})^T} )a\]</span> <span class="math display">\[ = \frac{1}{n}(\sum_{i=1}^{n}{(a^T(x_i - \bar{x})(x_i - \bar{x})^Ta)} ) \]</span> <span class="math display">\[ = \frac{1}{n}\sum_{i=1}^{n}{(((x_i - \bar{x})^Ta^T)((x_i - \bar{x})^Ta))} \]</span></p>
+<p><span class="math display">\[ = \frac{1}{n}\sum_{i=1}^{n}{((x_i - \bar{x})^Ta)^2} \geq 0  \]</span></p>
+<p>So the variance-covariance matrix <span class="math inline">\(S\)</span> is always positive semi-definite and symmetric.</p>
+</div>
+</div>
+</div>
+<div id="week-6" class="section level1">
+<h1>Week 6</h1>
+<p>The solutions provided can be found <a href="https://michalmalyska.github.io/STA314_T5_Sol.pdf">here</a></p>
+</div>
+<div id="week-7" class="section level1">
+<h1>Week 7</h1>
+<div id="lab-6" class="section level2">
+<h2>Lab 6</h2>
+<p>We will be using the Stock Market Data which is the part of the ISLR library.</p>
+<p>This data set consists of percentage returns for the S&amp;P 500 stock index over 1, 250 days, from the beginning of 2001 until the end of 2005. For each date, we have recorded the percentage returns for each of the five previous trading days, Lag1 through Lag5. We have also recorded Volume (the number of shares traded on the previous day, in billions), Today (the percentage return on the date in question) and Direction (whether the market was Up or Down on this date).</p>
+<pre class="r"><code># Get rid of the Today variable since it&#39;s not relevant (we only care about)
+# the sign of it which is encoded in the direction variable
+df &lt;- as.tibble(Smarket) %&gt;% dplyr::select(-Today)
+glimpse(df)</code></pre>
+<pre><code>## Observations: 1,250
+## Variables: 8
+## $ Year      &lt;dbl&gt; 2001, 2001, 2001, 2001, 2001, 2001, 2001, 2001, 2001, …
+## $ Lag1      &lt;dbl&gt; 0.381, 0.959, 1.032, -0.623, 0.614, 0.213, 1.392, -0.4…
+## $ Lag2      &lt;dbl&gt; -0.192, 0.381, 0.959, 1.032, -0.623, 0.614, 0.213, 1.3…
+## $ Lag3      &lt;dbl&gt; -2.624, -0.192, 0.381, 0.959, 1.032, -0.623, 0.614, 0.…
+## $ Lag4      &lt;dbl&gt; -1.055, -2.624, -0.192, 0.381, 0.959, 1.032, -0.623, 0…
+## $ Lag5      &lt;dbl&gt; 5.010, -1.055, -2.624, -0.192, 0.381, 0.959, 1.032, -0…
+## $ Volume    &lt;dbl&gt; 1.1913, 1.2965, 1.4112, 1.2760, 1.2057, 1.3491, 1.4450…
+## $ Direction &lt;fct&gt; Up, Up, Down, Up, Up, Up, Down, Up, Up, Up, Down, Down…</code></pre>
+<pre class="r"><code>dfSummary(df)</code></pre>
+<pre><code>## Data Frame Summary  
+##   
+## Dimensions: 1250 x 8  
+## Duplicates: 0  
+## 
+## ------------------------------------------------------------------------------------------------------------
+## No   Variable     Stats / Values            Freqs (% of Valid)     Graph                  Valid    Missing  
+## ---- ------------ ------------------------- ---------------------- ---------------------- -------- ---------
+## 1    Year         Mean (sd) : 2003 (1.4)    2001 : 242 (19.4%)     III                    1250     0        
+##      [numeric]    min &lt; med &lt; max:          2002 : 252 (20.2%)     IIII                   (100%)   (0%)     
+##                   2001 &lt; 2003 &lt; 2005        2003 : 252 (20.2%)     IIII                                     
+##                   IQR (CV) : 2 (0)          2004 : 252 (20.2%)     IIII                                     
+##                                             2005 : 252 (20.2%)     IIII                                     
+## 
+## 2    Lag1         Mean (sd) : 0 (1.1)       1044 distinct values           :              1250     0        
+##      [numeric]    min &lt; med &lt; max:                                         :              (100%)   (0%)     
+##                   -4.9 &lt; 0 &lt; 5.7                                           : :                              
+##                   IQR (CV) : 1.2 (296.3)                                 : : :                              
+##                                                                        . : : : .                            
+## 
+## 3    Lag2         Mean (sd) : 0 (1.1)       1045 distinct values           :              1250     0        
+##      [numeric]    min &lt; med &lt; max:                                         :              (100%)   (0%)     
+##                   -4.9 &lt; 0 &lt; 5.7                                           : :                              
+##                   IQR (CV) : 1.2 (289.9)                                 : : :                              
+##                                                                        . : : : .                            
+## 
+## 4    Lag3         Mean (sd) : 0 (1.1)       1045 distinct values           :              1250     0        
+##      [numeric]    min &lt; med &lt; max:                                         :              (100%)   (0%)     
+##                   -4.9 &lt; 0 &lt; 5.7                                           : :                              
+##                   IQR (CV) : 1.2 (663.6)                                 : : :                              
+##                                                                        . : : : .                            
+## 
+## 5    Lag4         Mean (sd) : 0 (1.1)       1044 distinct values           :              1250     0        
+##      [numeric]    min &lt; med &lt; max:                                         :              (100%)   (0%)     
+##                   -4.9 &lt; 0 &lt; 5.7                                           : :                              
+##                   IQR (CV) : 1.2 (696.1)                                 : : :                              
+##                                                                        . : : : .                            
+## 
+## 6    Lag5         Mean (sd) : 0 (1.1)       1044 distinct values           :              1250     0        
+##      [numeric]    min &lt; med &lt; max:                                         :              (100%)   (0%)     
+##                   -4.9 &lt; 0 &lt; 5.7                                           : :                              
+##                   IQR (CV) : 1.2 (204.6)                                 : : :                              
+##                                                                        . : : : .                            
+## 
+## 7    Volume       Mean (sd) : 1.5 (0.4)     1181 distinct values         :                1250     0        
+##      [numeric]    min &lt; med &lt; max:                                       : .              (100%)   (0%)     
+##                   0.4 &lt; 1.4 &lt; 3.2                                        : :                                
+##                   IQR (CV) : 0.4 (0.2)                                 : : :                                
+##                                                                      . : : : : . .                          
+## 
+## 8    Direction    1. Down                   602 (48.2%)            IIIIIIIII              1250     0        
+##      [factor]     2. Up                     648 (51.8%)            IIIIIIIIII             (100%)   (0%)     
+## ------------------------------------------------------------------------------------------------------------</code></pre>
+<pre class="r"><code># Extract the covariance matrix:
+varcov &lt;- df %&gt;% dplyr::select(-Direction) %&gt;% cov()</code></pre>
+<pre class="r"><code># Fit the model
+glm.fit &lt;- glm(formula = Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume ,
+data = df ,family = &quot;binomial&quot; )
+# Look at the summary
+summary(glm.fit)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + 
+##     Volume, family = &quot;binomial&quot;, data = df)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.446  -1.203   1.065   1.145   1.326  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) -0.126000   0.240736  -0.523    0.601
+## Lag1        -0.073074   0.050167  -1.457    0.145
+## Lag2        -0.042301   0.050086  -0.845    0.398
+## Lag3         0.011085   0.049939   0.222    0.824
+## Lag4         0.009359   0.049974   0.187    0.851
+## Lag5         0.010313   0.049511   0.208    0.835
+## Volume       0.135441   0.158360   0.855    0.392
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1731.2  on 1249  degrees of freedom
+## Residual deviance: 1727.6  on 1243  degrees of freedom
+## AIC: 1741.6
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<pre class="r"><code># Look at coefficients
+coef(glm.fit)</code></pre>
+<pre><code>##  (Intercept)         Lag1         Lag2         Lag3         Lag4 
+## -0.126000257 -0.073073746 -0.042301344  0.011085108  0.009358938 
+##         Lag5       Volume 
+##  0.010313068  0.135440659</code></pre>
+<pre class="r"><code>summary(glm.fit)$coef #Equivalent</code></pre>
+<pre><code>##                 Estimate Std. Error    z value  Pr(&gt;|z|)
+## (Intercept) -0.126000257 0.24073574 -0.5233966 0.6006983
+## Lag1        -0.073073746 0.05016739 -1.4565986 0.1452272
+## Lag2        -0.042301344 0.05008605 -0.8445733 0.3983491
+## Lag3         0.011085108 0.04993854  0.2219750 0.8243333
+## Lag4         0.009358938 0.04997413  0.1872757 0.8514445
+## Lag5         0.010313068 0.04951146  0.2082966 0.8349974
+## Volume       0.135440659 0.15835970  0.8552723 0.3924004</code></pre>
+<pre class="r"><code># Make predictions on the original data
+glm.probs &lt;- predict(glm.fit ,type = &quot;response&quot;)
+
+# What are the probabilities (0 = Baseline)
+contrasts(df$Direction)</code></pre>
+<pre><code>##      Up
+## Down  0
+## Up    1</code></pre>
+<pre class="r"><code># Look at the first few probabilities
+glm.probs[1:10]</code></pre>
+<pre><code>##         1         2         3         4         5         6         7 
+## 0.5070841 0.4814679 0.4811388 0.5152224 0.5107812 0.5069565 0.4926509 
+##         8         9        10 
+## 0.5092292 0.5176135 0.4888378</code></pre>
+<p>Looks really bad! Probabilies are all very close to 50% so our model is not very certain of either of the classes. We will take the threshold of 50% and see our accuracy based on that.</p>
+<pre class="r"><code># Initialize the vector of predictions
+preds &lt;- rep(&quot;Down&quot;, 1250)
+
+# Replace to be the correct classes
+preds[glm.probs &gt; 0.5] &lt;- &quot;Up&quot;
+
+# See the table of counts of predictions (TP, FP , FN, TN)
+table(preds, df$Direction)</code></pre>
+<pre><code>##       
+## preds  Down  Up
+##   Down  145 141
+##   Up    457 507</code></pre>
+<pre class="r"><code># Calculate the accuracy
+mean(preds == df$Direction )</code></pre>
+<pre><code>## [1] 0.5216</code></pre>
+<p>We get an accuracy of 52% on the training set, this is only a bit better than a monkey throwing darts. But we have made a very significant error in practice: We are looking at the error on the data the model was trained on, so in reality we don’t know how well it will generalize. Let’s fix this.</p>
+<p>In a classification problem we should make sure that both the training and the test set will have a similar proportion of classes as the actual problem. In case of imbalanced problems (where one class is much more prevalent in data than the other) we will be trying to up or down sample one of the classes so that the model is better at predictions, or we will be changing the loss function penalties for misclassifying classes.</p>
+<pre class="r"><code># Split the data
+df %&gt;% filter(Direction == &quot;Down&quot;) -&gt; down_data
+df %&gt;% filter(Direction == &quot;Up&quot;) -&gt; up_data
+
+# Sample 70% of both datasets and combine
+train_down &lt;- sample_frac(down_data, size = 0.7)
+train_up &lt;- sample_frac(up_data, size = 0.7)
+train = rbind(train_down, train_up)
+
+# Take the test set to be the other 30%
+test &lt;- setdiff(df, train)</code></pre>
+<p>Now we can fit the model on the train and evaluate the performance on test</p>
+<pre class="r"><code>glm.fit &lt;- glm(data = train, formula = Direction ~.,family = &quot;binomial&quot;)
+summary(glm.fit)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = Direction ~ ., family = &quot;binomial&quot;, data = train)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.352  -1.213   1.057   1.134   1.376  
+## 
+## Coefficients:
+##                 Estimate   Std. Error z value Pr(&gt;|z|)  
+## (Intercept) -201.6054812  114.1891575  -1.766   0.0775 .
+## Year           0.1007919    0.0570943   1.765   0.0775 .
+## Lag1          -0.0539463    0.0593200  -0.909   0.3631  
+## Lag2          -0.0403815    0.0605243  -0.667   0.5046  
+## Lag3           0.0285137    0.0586468   0.486   0.6268  
+## Lag4           0.0349263    0.0589278   0.593   0.5534  
+## Lag5           0.0009878    0.0586114   0.017   0.9866  
+## Volume        -0.1414658    0.2231482  -0.634   0.5261  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1211.8  on 874  degrees of freedom
+## Residual deviance: 1206.8  on 867  degrees of freedom
+## AIC: 1222.8
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<pre class="r"><code>test$probs &lt;- predict(object = glm.fit, newdata = test, type = &quot;response&quot;)
+
+test$preds &lt;- if_else(test$probs &gt; 0.5, &quot;Up&quot;, &quot;Down&quot;)
+
+mean(test$preds == test$Direction)</code></pre>
+<pre><code>## [1] 0.576</code></pre>
+<p>So the predictions are bad in general. Either the model is not apppropriate, or data is not enough, or possibly both.</p>
+</div>
+<div id="question-1-1" class="section level2">
+<h2>Question 1</h2>
+<div id="question-5" class="section level3">
+<h3>Question</h3>
+<p>The loss function:</p>
+<p><span class="math display">\[
+L(h(x),y) = 
+    \left\{ \begin{array}{rcl}
+         0, &amp;&amp; h(x)=y \\
+         \alpha_{FP},  &amp;&amp; h(x) = 1 \text{ and } y = 0 \\
+         \alpha_{FN},  &amp;&amp; h(x) = 0 \text{ and } y = 1 \\ 
+    \end{array} \right.
+\]</span></p>
+<p>penalises false positives by <span class="math inline">\(\alpha_{FP}\)</span> and false negatives by <span class="math inline">\(\alpha{FN}\)</span>. Derive the optimal classifier under the assumption that both the labels and the features are independently and identically distributed. ### Solution</p>
+<p>For any classification function <span class="math inline">\(h\)</span>, the expected loss can be given directly as:</p>
+<p><span class="math display">\[ R(h) = \alpha_{FN}\mathbb{P}(h(x)=0,y=1|X=x) + \alpha_{FP}\mathbb{P}(h(x)=1, y = 0 | X=x) \\
+= \alpha_{FN}\mathbb{P}(y=1|h(x)=0,X=x)\mathbb{P}(h(x)= 0|X=x) + \\
+\alpha_{FP}\mathbb{P}(y=0|h(x)=1,X=x)\mathbb{P}(h(x)=1|X=x)
+\]</span> Now, writing <span class="math inline">\(m(x) = \mathbb{P}(y=1 | X=x)\)</span> we can rewrite this as:</p>
+<p><span class="math display">\[
+R(h) = \alpha_{FN}m(x)(1-h(x)) + \alpha_{PN}(1-m(x))h(x)
+\]</span></p>
+<p>Now let <span class="math inline">\(h^*\)</span> be the optimal classifier. And let <span class="math inline">\(h\)</span> be any classifier. We know that <span class="math inline">\(R(h^*)-R(h) \leq 0\)</span>. And then:</p>
+<p><span class="math display">\[R(h^*)- R(h) = -\alpha_{FN}m(x)h^*(x)+\alpha_{FP}h^*(x) - \alpha_{FP}m(x)h^*(x) \\
++ \alpha_{FN}m(x)h(x) - \alpha_{FN}h(x) + \alpha_{FP}m(x)h(x) = \\
+= (h^*(x) - h(x))[\alpha_{FP}-(\alpha_{FN}+\alpha_{FP})m(x)]= \\
+(\alpha_{FN}+\alpha_{FP})(h^*(x) - h(x))(\frac{\alpha_{FN}}{\alpha_{FN}+\alpha_{FP}} - m(x)) \leq 0
+\]</span> We can see that his is exactly <span class="math inline">\(0\)</span> when:</p>
+<p><span class="math display">\[
+\mathbb{P}(y=1 | X=x) = m(x) = \frac{\alpha_{FN}}{\alpha_{FN}+\alpha_{FP}}
+\]</span></p>
+</div>
+</div>
+<div id="question-2-1" class="section level2">
+<h2>Question 2</h2>
+<div id="question-6" class="section level3">
+<h3>Question</h3>
+<p>This question generalizes logistic regression to the case where we have K labels/groups. To do so, we set the Kth class as the baseline and use a K-1 encoding system to solve the problem. We are given the log-odds ratio for the i-th class.</p>
+</div>
+<div id="solution-2" class="section level3">
+<h3>Solution</h3>
+<p><span class="math display">\[ \log \frac{\mathbb{P} (G = i | X = x) }{\mathbb{P} (G = K | X = x)} = \beta_{i,0} + \beta_i^Tx \]</span></p>
+<p>We now exponentiate to get rid of the log.</p>
+<p><span class="math display">\[ \frac{\mathbb{P} (G = i | X = x) }{\mathbb{P} (G = K | X = x)} = \exp \{\beta_{i,0} + \beta_i^Tx \} \]</span></p>
+<p>We can sum the above over all possible values of i.</p>
+<p><span class="math display">\[\frac{ \sum_{i=1}^{K-1}\mathbb{P} (G = i | X = x) }{\mathbb{P} (G = K | X = x)} = \sum_{i=1}^{K-1} \exp \{\beta_{i,0} + \beta_i^Tx \]</span></p>
+<p>The numerator of the left hand side can we simplified if we apply the law of total conditional probability with respect to G.</p>
+<p><span class="math display">\[ \sum_{i=1}^{K-1}\mathbb{P} (G = i | X = x) = 1 - \mathbb{P} (G = K | X = x) \]</span></p>
+<p><span class="math display">\[ \frac{1}{\mathbb{P} (G = K | X = x)} - 1 =  \sum_{i=1}^{K-1} \exp \{\beta_{i,0} + \beta_i^Tx \} \Rightarrow  \mathbb{P} (G = K | X = x) = \frac{1}{ 1 + \sum_{i=1}^{K-1} \exp \{\beta_{i,0} + \beta_i^Tx \}}\]</span></p>
+<p>From the above, we can apply Bayes’ Theorem to get the conditional probabilty of a single class.</p>
+<p><span class="math display">\[ \mathbb{P} (G = j | X = x) = \frac{ \exp \{\beta_{j,0} + \beta_j^Tx \}}{ 1 + \sum_{i=1}^{K-1} \exp \{\beta_{i,0} + \beta_i^Tx \}}\]</span> This completes the proof.</p>
+</div>
+</div>
+</div>
+<div id="week-8" class="section level1">
+<h1>Week 8</h1>
+<p>Solutions to the practice midterm questions we did in class can be found <a href="https://michalmalyska.github.io/STA314_T7_Sol.pdf">here</a></p>
+</div>
+<div id="week-9" class="section level1">
+<h1>Week 9</h1>
+<div id="lab-5" class="section level2">
+<h2>Lab 5</h2>
+<p>To fit an SVC, it is enough to call the svm(.) function with an argument kernel = “linear”. It has the advantage over our formulation of directly specifying the cost of violating the Marigin. Small cost -&gt; wide marigins.</p>
+<pre class="r"><code>x &lt;- matrix(rnorm(50*2), ncol = 2)
+y &lt;- c(rep(-1,25), rep(1,25))
+x[y == 1,] &lt;- x[y == 1,] + 1
+plot(x, col = (3 - y))</code></pre>
+<p><img src="STA314_files/figure-html/Generate%20Data-1.png" width="672" /> Data is clearly not linearly separable. There are two options:</p>
+<ul>
+<li><p>Try to find a transformation of data that results in it being linearly separable and then fit a linear model (See Linear Basis Function Models at the end)</p></li>
+<li><p>Fit a model that handles non-linearly separable data.</p></li>
+</ul>
+<pre class="r"><code>df &lt;- data.frame(x = x, y = as.factor(y))
+svcfit &lt;- svm( y~., # Y as a function of all the other (so just x)
+               data = df, # Specify where the data comes from
+               kernel = &quot;linear&quot;, # Fit an SVC (linear kernel)
+               cost = 10, # This is the cost of crossing the Margin
+               scale = FALSE) # Should the variables be scaled?
+plot(svcfit , df)</code></pre>
+<p><img src="STA314_files/figure-html/Prepare%20data%20and%20fit%20SVC-1.png" width="672" /></p>
+<pre class="r"><code>plot(x[,2], x[,1], col = (3 - y))</code></pre>
+<p><img src="STA314_files/figure-html/Prepare%20data%20and%20fit%20SVC-2.png" width="672" /></p>
+<p>The light blue side corresponds to the <span class="math inline">\(-1\)</span> class and the pink one is the <span class="math inline">\(1\)</span> class. The support vectors are plotted as crosses, and the rest as circles. In the plot we can see 36 support vectors. We can also identify them by looking at the index of the svm object. We would also like to see what is in the summary of said object.</p>
+<pre class="r"><code>svcfit$index</code></pre>
+<pre><code>##  [1]  1  2  3  5  6  7  8  9 12 15 16 17 18 19 20 22 24 25 26 27 30 31 32
+## [24] 33 34 35 37 38 39 41 43 44 46 47 49 50</code></pre>
+<pre class="r"><code>summary(svcfit)</code></pre>
+<pre><code>## 
+## Call:
+## svm(formula = y ~ ., data = df, kernel = &quot;linear&quot;, cost = 10, 
+##     scale = FALSE)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  10 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  36
+## 
+##  ( 18 18 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<p>Let’s now comare how changing the cost parameter changes the decision boundary.</p>
+<pre class="r"><code>svcfit2 &lt;- svm( y~., # Y as a function of all the other (so just x)
+               data = df, # Specify where the data comes from
+               kernel = &quot;linear&quot;, # Fit an SVC (linear kernel)
+               cost = 0.1, # This is the cost of crossing the Margin
+               scale = FALSE) # Should the variables be scaled?
+plot(svcfit2 , df)</code></pre>
+<p><img src="STA314_files/figure-html/Changing%20SVC%20Cost-1.png" width="672" /></p>
+<pre class="r"><code>plot(x[,2], x[,1], col = (3 - y))</code></pre>
+<p><img src="STA314_files/figure-html/Changing%20SVC%20Cost-2.png" width="672" /> In this case the number of support vectors is expected to be higher, and as we can see it’s 41. This is due to the fact that the penalty for crossing the margin is relaxed. Now let’s look at what parameter results in the lowest possible loss via cross-validation:</p>
+<pre class="r"><code>tune.out &lt;- tune(svm ,y~.,data = df ,kernel = &quot;linear&quot;,
+                 ranges = list(cost = c(0.001, 0.01, 0.1, 1,5,10,100)))
+summary(tune.out)</code></pre>
+<pre><code>## 
+## Parameter tuning of &#39;svm&#39;:
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  cost
+##    10
+## 
+## - best performance: 0.3 
+## 
+## - Detailed performance results:
+##      cost error dispersion
+## 1   0.001  0.68  0.1398412
+## 2   0.010  0.66  0.1646545
+## 3   0.100  0.36  0.2065591
+## 4   1.000  0.34  0.1646545
+## 5   5.000  0.32  0.1398412
+## 6  10.000  0.30  0.1414214
+## 7 100.000  0.32  0.1932184</code></pre>
+<p>This function stores the best iteration of the model which can be accessed in the following way:</p>
+<pre class="r"><code>best &lt;- tune.out$best.model
+summary(best)</code></pre>
+<pre><code>## 
+## Call:
+## best.tune(method = svm, train.x = y ~ ., data = df, ranges = list(cost = c(0.001, 
+##     0.01, 0.1, 1, 5, 10, 100)), kernel = &quot;linear&quot;)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  10 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  36
+## 
+##  ( 18 18 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<pre class="r"><code>xtest &lt;- matrix(rnorm(50*2) , ncol = 2)
+ytest &lt;- sample(c(-1,1), 50, rep = TRUE)
+xtest[ytest == 1,] &lt;- xtest[ytest == 1,] + 1
+testdat &lt;- data.frame(x = xtest, y = as.factor(ytest))
+
+ypred &lt;- predict(best ,testdat)
+table(predict = ypred , truth = testdat$y )</code></pre>
+<pre><code>##        truth
+## predict -1  1
+##      -1 17 10
+##      1   4 19</code></pre>
+<p>Now let’s see what would happen if the data was linearly separable.</p>
+<pre class="r"><code>x[y == 1,] &lt;- x[y == 1,] + 4
+plot(x, col = (y + 5)/2, pch = 19)</code></pre>
+<p><img src="STA314_files/figure-html/Linearly%20Separable%20Data-1.png" width="672" /></p>
+<pre class="r"><code>df2 &lt;- data.frame(x = x, y = as.factor(y))
+svcfit_new &lt;- svm(y~., data = df2, kernel = &quot;linear&quot;, cost = 1e5)
+summary(svcfit_new)</code></pre>
+<pre><code>## 
+## Call:
+## svm(formula = y ~ ., data = df2, kernel = &quot;linear&quot;, cost = 100000)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  100000 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  3
+## 
+##  ( 1 2 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<pre class="r"><code>plot(svcfit_new, df2)</code></pre>
+<p><img src="STA314_files/figure-html/Linearly%20Separable%20Data-2.png" width="672" /></p>
+<p>Let’s try a smaller value of cost since this might not be very good at performing on test data.</p>
+<pre class="r"><code>svcfit_new2 &lt;- svm(y~., data = df2, kernel = &quot;linear&quot;, cost = 1)
+summary(svcfit_new2)</code></pre>
+<pre><code>## 
+## Call:
+## svm(formula = y ~ ., data = df2, kernel = &quot;linear&quot;, cost = 1)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  1 
+##       gamma:  0.5 
+## 
+## Number of Support Vectors:  5
+## 
+##  ( 3 2 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1</code></pre>
+<pre class="r"><code>plot(svcfit_new2, df2)</code></pre>
+<p><img src="STA314_files/figure-html/Linearly%20Separable%20Data%20low%20cost-1.png" width="672" /></p>
+<p>The decision boundary was linear as we expected, given that we specified it to be linear. Let’s see what happens if we remove that constraint.</p>
+<pre class="r"><code>svmfit &lt;- svm( y~., # Y as a function of all the other (so just x)
+               data = df, # Specify where the data comes from
+               cost = 10, # This is the cost of crossing the Margin
+               kernel = &quot;polynomial&quot;,
+               scale = FALSE) # Should the variables be scaled?
+plot(svmfit , df)</code></pre>
+<p><img src="STA314_files/figure-html/Prepare%20data%20and%20fit%20SVM-1.png" width="672" /></p>
+</div>
+<div id="question-3-2" class="section level2">
+<h2>Question 3</h2>
+<div id="question-7" class="section level3">
+<h3>Question:</h3>
+<p>Consider the support vector classifier with the Lagrangian <span class="math display">\[
+L(\beta,\beta_0,\xi,\lambda,\mu) = \frac{1}{2} \beta^T\beta + C\sum_{i=1}^n \xi_i - \sum_{i=1}^n\lambda_i\left[y_i(x_i^T\beta + \beta_0)-1 + \xi_i\right] - \sum_{i=1}^n \mu_i \xi_i
+\]</span> Using the KKT equations, show that the optimal <span class="math inline">\(\beta\)</span> can be written as</p>
+<p><span class="math display">\[
+\beta = \sum_{i=1}^n \lambda_iy_i x_i.
+\]</span></p>
+<p>Show that <span class="math inline">\(\lambda\)</span> solves <span class="math display">\[\begin{align*}
+&amp;\max_\lambda \sum_{i=1}^n\lambda_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n y_iy_j\lambda_i\lambda_j x_i^Tx_j\\
+&amp;\text{Subject to:}\\
+&amp;\qquad 0\leq \lambda_i \leq C,\quad i=1,\ldots, n \\
+&amp;\qquad \sum_{i=1}^n \lambda_i y_i = 0.
+\end{align*}\]</span> Argue that <span class="math display">\[\begin{align*}
+\lambda_i = 0 &amp; \Rightarrow y_i( \beta^T x_i + \beta_0) \geq 1 \\
+\lambda_i = C &amp; \Rightarrow y_i( \beta^T x_i + \beta_0) \leq 1 \\
+0 &lt; \lambda_i &lt; C &amp; \Rightarrow y_i( \beta^T x_i + \beta_0) = 1.
+\end{align*}\]</span></p>
+</div>
+<div id="solution-3" class="section level3">
+<h3>Solution:</h3>
+<p>The KKT conditions say that we need to satisfy <span class="math inline">\(\frac{\partial L}{\partial \beta_0} = 0\)</span>. This implies <span class="math display">\[
+- \sum_{i=1}^n \lambda_i y_i \beta_0 = 0
+\]</span> which is satisfied if <span class="math inline">\(\sum_{i=1}^n \lambda_iy_i=0\)</span>.</p>
+<p>We also need <span class="math inline">\(\nabla_\beta L = 0\)</span>. Doing the derivative, this condition is <span class="math display">\[
+\beta -\sum_{i=1}^n\lambda_i y_i x_i = 0
+\]</span> or, equivalently, <span class="math inline">\(\beta =\sum_{i=1}^n\lambda_i y_i x_i\)</span>.</p>
+<p>We also need <span class="math inline">\(\nabla_\xi L =0\)</span> which holds when <span class="math display">\[
+C1 - \lambda - \mu = 0,
+\]</span> where <span class="math inline">\(1\)</span> is the vector of 1s. This implies <span class="math inline">\(\mu_i = C - \lambda_i\)</span>. Combining this with the condition that <span class="math inline">\(\mu_i \geq 0\)</span> and <span class="math inline">\(\lambda_i \geq 0\)</span>, it follows that <span class="math inline">\(0 \leq \lambda_i \leq C\)</span>.</p>
+<p>Substituting all of this into the Lagrangian we get <span class="math display">\[\begin{align*}
+L &amp;= \frac{1}{2} \left(\sum_{i=1}^n\lambda_i y_i x_i\right)^T\left(\sum_{j=1}^n\lambda_j y_j x_j\right)
++ C\sum_{i=1}^n \xi_i - \sum_{i=1}^n\lambda_i\left[y_i(x_i^T\left(\sum_{j=1}^n\lambda_j y_j x_j\right) 
++ \beta_0)-1 + \xi_i\right] - \sum_{i=1}^n (C-\lambda_i) \xi_i \\
+&amp;=\frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n\lambda_i\lambda_j y_iy_j x_i^Tx_j + C \sum_{i=1}^n \xi_i - 
+\sum_{i=1}^n\sum_{j=1}^n \lambda_i\lambda_jy_iy_j x_i^Tx_j - \beta_0\sum_{i=1}^n \lambda_i y_i +  
+\sum_{i=1}^n\lambda_i - \sum_{i=1}^n\lambda_i\xi_i - C\sum_{i=1}^n \xi_i + \sum_{i=1}^n \lambda_i\xi_i \\
+&amp;=\sum_{i=1}^n \lambda_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n\lambda_i\lambda_j y_iy_j x_i^Tx_j .
+\end{align*}\]</span></p>
+<p>By strong duality, we want to find the <span class="math inline">\(\lambda\)</span> that maximizes this Lagrangian under the constraints, which gives <span class="math display">\[\begin{align*}
+&amp;\max_\lambda \sum_{i=1}^n\lambda_i - \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n y_iy_j\lambda_i\lambda_j x_i^Tx_j\\
+&amp;\text{Subject to:}\\
+&amp;\qquad 0\leq \lambda_i \leq C,\quad i=1,\ldots, n \\
+&amp;\qquad \sum_{i=1}^n \lambda_i y_i = 0.
+\end{align*}\]</span></p>
+<p>Finally, by complementatry slackness we know that <span class="math inline">\(\lambda_i[y_i(\beta_0 + \beta^Tx_i ) - 1 + \xi_i] = 0\)</span> and <span class="math inline">\(\xi_i(C-\lambda_i)=0\)</span>. When <span class="math inline">\(\lambda_i=0\)</span>, that means that <span class="math inline">\(C \xi_i=0\)</span> which implies <span class="math inline">\(\xi_i=0\)</span>, which means that the observation is on the correct side of the margin. When <span class="math inline">\(\lambda_i=C\)</span>, that means that <span class="math inline">\(\xi_i\geq 0\)</span> and hence, we are on teh wrong side of the margin. If <span class="math inline">\(0&lt;\lambda &lt; C\)</span>, the second complementary slackness condition gives <span class="math inline">\(\xi=0\)</span>, while the first gives <span class="math inline">\([y_i(\beta_0 + \beta^Tx_i ) = 1\)</span>.</p>
+</div>
+</div>
+<div id="linear-basis-function-models" class="section level2">
+<h2>Linear Basis Function Models</h2>
+<p><em>Again with thanks to Alex Stringer</em></p>
+<p><img src="figures/LBFM.jpg" /></p>
+<p><img src="figures/LBFM2.jpg" /></p>
+<p><img src="figures/LBFM3.jpg" /></p>
+<p><img src="figures/LBFM4.jpg" /></p>
+</div>
+</div>
+<div id="week-10" class="section level1">
+<h1>Week 10</h1>
+<div id="question-2-2" class="section level2">
+<h2>Question 2</h2>
+<pre class="r"><code>par(xpd = NA)
+plot(NA, NA, type = &quot;n&quot;, xlim = c(-2, 2), ylim = c(-3, 3), xlab = &quot;X1&quot;, ylab = &quot;X2&quot;)
+# X2 &lt; 1
+lines(x = c(-2, 2), y = c(1, 1))
+# X1 &lt; 1 with X2 &lt; 1
+lines(x = c(1, 1), y = c(-3, 1))
+text(x = (-2 + 1)/2, y = -1, labels = c(-1.8))
+text(x = 1.5, y = -1, labels = c(0.63))
+# X2 &lt; 2 with X2 &gt;= 1
+lines(x = c(-2, 2), y = c(2, 2))
+text(x = 0, y = 2.5, labels = c(2.49))
+# X1 &lt; 0 with X2&lt;2 and X2&gt;=1
+lines(x = c(0, 0), y = c(1, 2))
+text(x = -1, y = 1.5, labels = c(-1.06))
+text(x = 1, y = 1.5, labels = c(0.21))</code></pre>
+<p><img src="STA314_files/figure-html/DT%20Exercise%205-1.png" width="672" /></p>
+</div>
+<div id="question-3-3" class="section level2">
+<h2>Question 3</h2>
+<pre class="r"><code>p &lt;- seq(0, 1, by = 0.01)
+gini &lt;- p * (1 - p) * 2
+CE &lt;- -(p * log(p) + (1 - p) * log(1 - p))
+Class.Err &lt;- 1 - pmax(p, 1 - p)
+df &lt;- tibble(p = p, gini = gini, CE = CE, ClassError = Class.Err)
+ggplot(data = df, mapping = aes(x = p)) +
+    geom_point(mapping = aes(x = p, y = gini), color = &quot;red&quot;, shape = &quot;G&quot;) +
+    geom_point(mapping = aes(x = p, y = CE), color = &quot;blue&quot;, shape = &quot;C&quot;) +
+    geom_point(mapping = aes(x = p, y = Class.Err), color = &quot;green&quot;, shape = &quot;E&quot;)</code></pre>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="STA314_files/figure-html/DT%20Exercise%204-1.png" width="672" /></p>
+</div>
+<div id="additional-material" class="section level2">
+<h2>Additional Material</h2>
+<p>This week we talked about Decision Tree algorithms, boosting, bagging, and model explainability.</p>
+<div id="algorithms-in-practice" class="section level3">
+<h3>Algorithms in Practice</h3>
+<p>If you are interested more in how we use those algorithms in practice, implementations, parameters etc.</p>
+<p>My code in Python using LightGBM package can be found <a href="https://www.kaggle.com/michalmalyska/testing-script-v3/code">here</a>. ** note that the runtime of the kernel is just shy of 6 hours on the server **</p>
+<p>What you mind find interesting in particular are the <a href="https://lightgbm.readthedocs.io/en/latest/Parameters.html">parameters</a> for the Tree Models:</p>
+<ul>
+<li><p>n_estimators=10000; number of boosting iterations (so 10000 weak models)</p></li>
+<li><p>learning_rate=0.02; shrinkage rate (what should be the “strength” of each model)</p></li>
+<li><p>num_leaves=34; max number of leaves in one tree</p></li>
+<li><p>colsample_bytree=0.9497036; fraction of features to be considered for each tree note that this is very far from <span class="math inline">\(\sqrt{p}\)</span> since p was around 1000, this could be ~3% not 95%</p></li>
+<li><p>subsample=0.8715623; fraction of data in each bag (I am not using the full dataset size at each step)</p></li>
+<li><p>max_depth=8; max deapth of each tree</p></li>
+<li><p>reg_alpha=0.041545473; L1 regularization parameter</p></li>
+<li><p>reg_lambda=0.0735294; L2 regularization parameter</p></li>
+<li><p>min_split_gain=0.0222415; minimum loss decrease for a split to be kept</p></li>
+<li><p>min_child_weight=39.3259775; minimum amount of data in each rectangle</p></li>
+</ul>
+<p>If you are interested in how the parameter values were found I highly recommend taking a deeper dive into <a href="https://arxiv.org/pdf/1807.02811.pdf">Bayesian Optimization</a>.</p>
+<p>Let’s now see how we can use the xgboost package in R to analyze some data. I will be using the wine classification challenge from UCI. <a href="https://archive.ics.uci.edu/ml/datasets/wine">link</a></p>
+<pre class="r"><code>rm(list = ls()) 
+# Load the data
+df &lt;- read_csv(&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data&quot;,
+         col_names = c(&quot;Class&quot;,
+                      &quot;Alcohol&quot;,
+                      &quot;Malic Acid&quot;,
+                      &quot;Ash&quot;,
+                      &quot;Alcalinity of ash&quot;,
+                      &quot;Magnesium&quot;,
+                      &quot;Total phenols&quot;,
+                      &quot;Flavanoids&quot;,
+                      &quot;Nonflavanoid phenols&quot;,
+                      &quot;Proanthocyanins&quot;,
+                      &quot;Color intensity&quot;,
+                      &quot;Hue&quot;,
+                      &quot;OD280/OD315 of diluted wines&quot;,
+                      &quot;Proline&quot;))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Class = col_double(),
+##   Alcohol = col_double(),
+##   `Malic Acid` = col_double(),
+##   Ash = col_double(),
+##   `Alcalinity of ash` = col_double(),
+##   Magnesium = col_double(),
+##   `Total phenols` = col_double(),
+##   Flavanoids = col_double(),
+##   `Nonflavanoid phenols` = col_double(),
+##   Proanthocyanins = col_double(),
+##   `Color intensity` = col_double(),
+##   Hue = col_double(),
+##   `OD280/OD315 of diluted wines` = col_double(),
+##   Proline = col_double()
+## )</code></pre>
+<pre class="r"><code># Look at the class distribution
+ggplot(data = df, aes(x = Class)) +
+    geom_bar()</code></pre>
+<p><img src="STA314_files/figure-html/xgboost%20setup-1.png" width="672" /></p>
+<pre class="r"><code># We see that the classes are imbalanced but that&#39;s fine.
+# I will try to create a new class feature to make it a binary classification
+df2 &lt;- df %&gt;% mutate(Hue_class = if_else(Hue &lt; 1, 0, 1)) %&gt;% dplyr::select(-Hue)
+df2 %&gt;% group_by(Hue_class) %&gt;% summarise(n = n())</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   Hue_class     n
+##       &lt;dbl&gt; &lt;int&gt;
+## 1         0    94
+## 2         1    84</code></pre>
+<pre class="r"><code># Now the classes are closer to balanced and we can drop the class variable.</code></pre>
+<p>Our task is now to predict wether Hue will be lower or higher than 1 for a given wine. Hue_Class is our new response variable. Now I will walk you through setting up the data to use xgboost. We need to convert our dataset into a Model Matrix.</p>
+<pre class="r"><code># Create a model matrix object, this is usually a way of dealing with data
+# for xgboost.
+MM &lt;- model.matrix(df2, object = Hue_class ~. - 1)
+
+# Create a training set
+indexes = sample(1:nrow(df2), size = 0.7*nrow(df2),replace = FALSE)
+MM_train &lt;- MM[indexes,]
+MM_test &lt;- MM[-indexes,]
+
+testset &lt;- as.tibble(MM_test)
+
+# Create the DMatrix type for xgboost.
+dtrain &lt;- xgb.DMatrix(data = MM_train, label = df2[indexes,]$Hue_class)
+
+# Fit the model
+xgb_model &lt;- xgboost(data = dtrain,
+        max.depth = 3,
+        eta = 0.1,
+        nrounds = 30,
+        verbose = 1,
+        objective = &quot;binary:logistic&quot;
+        ) </code></pre>
+<pre><code>## [1]  train-error:0.129032 
+## [2]  train-error:0.112903 
+## [3]  train-error:0.112903 
+## [4]  train-error:0.120968 
+## [5]  train-error:0.112903 
+## [6]  train-error:0.112903 
+## [7]  train-error:0.112903 
+## [8]  train-error:0.104839 
+## [9]  train-error:0.080645 
+## [10] train-error:0.104839 
+## [11] train-error:0.080645 
+## [12] train-error:0.096774 
+## [13] train-error:0.096774 
+## [14] train-error:0.072581 
+## [15] train-error:0.104839 
+## [16] train-error:0.096774 
+## [17] train-error:0.080645 
+## [18] train-error:0.088710 
+## [19] train-error:0.064516 
+## [20] train-error:0.064516 
+## [21] train-error:0.072581 
+## [22] train-error:0.056452 
+## [23] train-error:0.056452 
+## [24] train-error:0.056452 
+## [25] train-error:0.056452 
+## [26] train-error:0.056452 
+## [27] train-error:0.056452 
+## [28] train-error:0.056452 
+## [29] train-error:0.056452 
+## [30] train-error:0.056452</code></pre>
+<pre class="r"><code># Predict and test
+predictions &lt;- predict(xgb_model, MM_test)
+predictions</code></pre>
+<pre><code>##  [1] 0.89971471 0.60700309 0.72016245 0.89838022 0.83709133 0.83709133
+##  [7] 0.53477526 0.87417066 0.87417066 0.89688659 0.90761697 0.69116461
+## [13] 0.91588581 0.84545153 0.93360460 0.89893305 0.45040813 0.69739366
+## [19] 0.47278783 0.67081732 0.79557145 0.82979441 0.79681903 0.81793749
+## [25] 0.57207704 0.59815872 0.45542544 0.83328837 0.81031150 0.73475832
+## [31] 0.87586248 0.55923474 0.26004949 0.46169394 0.90761697 0.38402253
+## [37] 0.13899085 0.86506653 0.83328837 0.59759778 0.66894746 0.36792031
+## [43] 0.66902781 0.04567467 0.04620805 0.15619531 0.06908250 0.03994283
+## [49] 0.03709861 0.05416891 0.04552164 0.03994283 0.04564524 0.03947878</code></pre>
+<pre class="r"><code># Plot the ROC for our tree
+roc &lt;- roc(response = df2[-indexes,]$Hue_class, predictions)
+plot(roc)</code></pre>
+<p><img src="STA314_files/figure-html/xgboost%20data%20load-1.png" width="672" /></p>
+<pre class="r"><code>print(roc$auc)</code></pre>
+<pre><code>## Area under the curve: 0.8278</code></pre>
+<pre class="r"><code># This is not horrible!
+# Let&#39;s see what our trees actually look like:
+xgb.plot.tree(model = xgb_model, trees = 0)</code></pre>
+<div id="htmlwidget-4c1bc77b43a9c927408b" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4c1bc77b43a9c927408b">{"x":{"diagram":"digraph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\"]\n\nnode [color = \"DimGray\",\n      style = \"filled\",\n      fontname = \"Helvetica\"]\n\nedge [color = \"DimGray\",\n     arrowsize = \"1.5\",\n     arrowhead = \"vee\",\n     fontname = \"Helvetica\"]\n\n  \"1\" [label = \"Tree 0\n`OD280/OD315 of diluted wines`\nCover: 31\nGain: 45.8295441\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"2\" [label = \"Alcohol\nCover: 10\nGain: 0.0818214417\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"3\" [label = \"`Malic Acid`\nCover: 21\nGain: 15.4714794\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"4\" [label = \"Leaf\nCover: 1\nValue: -0.0500000007\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"5\" [label = \"Leaf\nCover: 9\nValue: -0.179999992\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"6\" [label = \"Proline\nCover: 16\nGain: 4.46120834\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"7\" [label = \"Magnesium\nCover: 5\nGain: 2.81025624\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"8\" [label = \"Leaf\nCover: 1.75\nValue: -0.0181818195\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"9\" [label = \"Leaf\nCover: 14.25\nValue: 0.140983611\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"10\" [label = \"Leaf\nCover: 2.75\nValue: -0.120000005\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"11\" [label = \"Leaf\nCover: 2.25\nValue: 0.0153846163\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n\"1\"->\"2\" [label = \"< 2.13000011\", style = \"bold\"] \n\"2\"->\"4\" [label = \"< 12.4099998\", style = \"bold\"] \n\"3\"->\"6\" [label = \"< 2.08999991\", style = \"bold\"] \n\"6\"->\"8\" [label = \"< 388.5\", style = \"bold\"] \n\"7\"->\"10\" [label = \"< 98.5\", style = \"bold\"] \n\"1\"->\"3\" [style = \"bold\", style = \"solid\"] \n\"2\"->\"5\" [style = \"solid\", style = \"solid\"] \n\"3\"->\"7\" [style = \"solid\", style = \"solid\"] \n\"6\"->\"9\" [style = \"solid\", style = \"solid\"] \n\"7\"->\"11\" [style = \"solid\", style = \"solid\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>xgb.plot.tree(model = xgb_model, trees = 1)</code></pre>
+<div id="htmlwidget-544bcf95936618b4ebef" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-544bcf95936618b4ebef">{"x":{"diagram":"digraph {\n\ngraph [layout = \"dot\",\n       rankdir = \"LR\"]\n\nnode [color = \"DimGray\",\n      style = \"filled\",\n      fontname = \"Helvetica\"]\n\nedge [color = \"DimGray\",\n     arrowsize = \"1.5\",\n     arrowhead = \"vee\",\n     fontname = \"Helvetica\"]\n\n  \"1\" [label = \"Tree 1\n`Malic Acid`\nCover: 30.846138\nGain: 38.0837173\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"2\" [label = \"`OD280/OD315 of diluted wines`\nCover: 17.9168835\nGain: 9.75284481\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"3\" [label = \"Flavanoids\nCover: 12.9292545\nGain: 5.4197216\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"4\" [label = \"Leaf\nCover: 1.98760295\nValue: -0.0905653164\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"5\" [label = \"Proline\nCover: 15.9292793\nGain: 3.73276329\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"6\" [label = \"Leaf\nCover: 9.4356432\nValue: -0.167852372\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"7\" [label = \"Magnesium\nCover: 3.49361157\nGain: 2.55223322\", shape = \"rectangle\", fontcolor = \"black\", fillcolor = \"Beige\"] \n  \"8\" [label = \"Leaf\nCover: 1.74985528\nValue: -0.0170257166\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"9\" [label = \"Leaf\nCover: 14.1794243\nValue: 0.128425866\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"10\" [label = \"Leaf\nCover: 1.74371517\nValue: -0.0834726542\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n  \"11\" [label = \"Leaf\nCover: 1.74989641\nValue: 0.0535684638\", shape = \"oval\", fontcolor = \"black\", fillcolor = \"Khaki\"] \n\"1\"->\"2\" [label = \"< 2.08999991\", style = \"bold\"] \n\"2\"->\"4\" [label = \"< 2.05000019\", style = \"bold\"] \n\"3\"->\"6\" [label = \"< 1.88999999\", style = \"bold\"] \n\"5\"->\"8\" [label = \"< 388.5\", style = \"bold\"] \n\"7\"->\"10\" [label = \"< 98.5\", style = \"bold\"] \n\"1\"->\"3\" [style = \"bold\", style = \"solid\"] \n\"2\"->\"5\" [style = \"solid\", style = \"solid\"] \n\"3\"->\"7\" [style = \"solid\", style = \"solid\"] \n\"5\"->\"9\" [style = \"solid\", style = \"solid\"] \n\"7\"->\"11\" [style = \"solid\", style = \"solid\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

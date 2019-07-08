@@ -1,0 +1,30 @@
+fwht2d <- function(x) {
+             h <- 1
+             len <- ncol(x)
+             while (h < len) {
+                for (i in seq(1,len,by=h*2)) {
+                   for (j in seq(i,i+h-1)) {
+                     a <- x[,j]
+                     b <- x[,j+h]
+                     x[,j] <- a + b
+                     x[,j+h] <- a - b
+                     }
+                }
+             h <- 2*h
+             }
+             h <- 1
+             len <- nrow(x)
+             while (h < len) {
+                for (i in seq(1,len,by=h*2)) {
+                   for (j in seq(i,i+h-1)) {
+                     a <- x[j,]
+                     b <- x[j+h,]
+                     x[j,] <- a + b
+                     x[j+h,] <- a - b
+                     }
+                }
+             h <- 2*h
+             }
+             x
+             }
+

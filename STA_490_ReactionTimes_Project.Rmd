@@ -1,0 +1,211 @@
+---
+title: "Reaction Time project EDA"
+author: "Michal Malyska"
+output:
+  html_document:
+    theme: flatly
+---
+
+```{r Library and Data Load, message=FALSE, warning=FALSE}
+# Library Load
+library(summarytools)
+library(xgboost)
+library(lubridate)
+library(corrplot)
+library(gridExtra)
+library(lme4)
+# tidyverse at the end so that it doesn't get overwritten.
+library(tidyverse)
+
+# Set options 
+options(scipen = 999)
+set.seed(271828)
+
+# Read the data
+df <- read_csv("~/Desktop/University/Statistics/STA490/Reaction Time Project/clean_data.csv")
+
+# See the data
+head(df)
+
+```
+
+Let's start with looking at the distribution of all variables that are meaningful (not ID):
+
+```{r Summary statistics}
+# Convert time (character) variable to factors 
+df$time <- factor(df$time, levels = c("Morning", "Early Afternoon", "Late Afternoon", "Night"))
+
+# Remove the ones with missing reaction time since that's what we care about
+df <- df %>% filter(!is.na(reaction))
+
+# Look at distributions:
+df %>% select(-ID) %>% summarize_if(is.numeric,.funs = c("mean", "var"), na.rm = TRUE) %>% t()
+
+# Check for missing values in columns:
+df %>% summarise_all(funs(sum(is.na(.)))) %>% t()
+
+# Print a text summary of the data
+df %>% dfSummary()
+```
+
+```{r Looking at reaction times}
+# See the distribution of reaction times (box and whiskers plot)
+ggplot(data = df, aes(y = reaction)) +
+	geom_boxplot() +
+	scale_x_continuous(labels = NULL)
+
+# Since there is a lot of outliers let's look at the histogram and density
+ggplot(data = df, aes(x = reaction)) +
+	geom_histogram(bins = 30) +
+	geom_density(fill = "red", alpha = 0.3)
+
+```
+
+The reaction times seem like a heavy tailed version of a normal distribution. 
+Let's see if the normal assumption would hold for them:
+
+```{r Testing normality of reaction times}
+# QQ plot:
+qqnorm(df$reaction)
+qqline(df$reaction)
+# The heavy tails are clearly visible
+
+# Test of normality:
+shapiro.test(df$reaction)
+```
+
+So the reaction times are clearly not normally distributed. It does not impact the analysis as 
+of now, but it is good to keep in mind for the future.
+
+The problem statement was to see if the reaction times vary with time of day, let's see if we
+have a hint of that in the distribution.
+
+```{r reaction vs time}
+ggplot(data = df, aes(x = time, y = reaction)) +
+	geom_point() +
+	stat_summary(fun.y = mean,
+				 color = "red",
+				 geom = "line",
+				 aes(group = 1)) + # To plot the line through means of each group
+	labs(title = "Reaction Time as a function of circadian rythm time",
+		 x = "Circadian Time",
+		 y = "Reaction Time")
+```
+
+Doesn't look very promising. Perhaps there is a tiny trend for mornings and nights to be higher, but 
+it's very hard to tell. There is no point in desting whether means are significantly different 
+since it's clearly visible with the naked eye that the result will be that they aren't.
+
+Now let's see if there are some variables that could explain this better:
+
+```{r Correlations with reaction times}
+# Correlations with reaction times
+cor(x = df$reaction, y = df %>% select(-reaction, -ID, -time, -shame) %>% as.matrix,
+	use = "complete.obs") %>% t()
+
+# Correlation matrix
+corrplot(cor(df %>% select(-ID, -reaction, -time, -shame), use = "complete.obs"),
+		 method = "color",
+		 type = "upper",
+		 order = "hclust")
+```
+
+This is very good to see - very low correlations between variables is what we expected, and it means that 
+all our variables have the potential to contribute on their own and have to be considered. We also see 
+very reasonable results: fatigue has the highest correlation with a positive sign
+(more tired = slower reaction). We also have all the signs that we expect from correlations:
+
+* measurement is negatively correlated (so people get better over trials)
+
+* daytype is positvely correlated (busier days = slower reaction)
+
+* stimulant use is negatively correlated (caffeine = faster reaction)
+
+* hunger is negatively correlated (hungry = slower reaction)
+
+* sleep is negatively correlated (more sleep = faster reaction)
+
+MEQ will be further investigated as the variable probably needs groupping to be more meaningful.
+
+
+Let's see if the time variable could be used at all to predict the reaction times
+```{r First try at Lin Reg}
+summary(lm(data = df, formula = reaction ~ time))
+```
+Short answer: Not really. For the statistically significant indicators, the coefficients are so low
+that it doesn't really matter. i.e. the effect size is too small to matter (Very low $R^2$) . However
+there might be some groupping (like adding individual level effects) that could make this predictive.
+
+Now let's look at the variables on an individual level
+```{r Reaction times per person}
+# Group by ID
+groups <- df %>% group_by(ID)
+
+# Save overall mean and var
+reactions_mean <- mean(df$reaction)
+reactions_var <- var(df$reaction)
+
+# Plot ID mean reaction times vs overall means
+
+groups %>%
+	select(reaction, ID, time) %>%
+	group_by(ID, time) %>%
+	summarize(mean_reaction_time = mean(reaction)) %>%
+	ungroup() %>%
+	ggplot(aes(x = time, y = mean_reaction_time)) +
+	geom_point() + 
+	geom_abline(slope = 0, intercept = reactions_mean, color = "red") +
+	stat_summary(fun.y = mean, color = "green", geom = "point", size = 3) +
+	labs(title = "Individual reaction times vs time",
+		 caption = "Individual means in black \n time means in green \n overall mean in red")
+```
+
+Clearly not much has changed by just groupping by individual. Now let's try 
+refining the simple linear model fitting a random intercept model based on ID.
+
+```{r Random Intercept model}
+mem <- lmer(data = df, formula = reaction ~ time + (1|ID))
+summary(mem)
+```
+
+The model still does not look very good - the variance of residuals is almost 
+as large as the variance of the random effect. The absolute value of t-values
+reported in the summary also seems very low which implies no statistical significance.
+
+The decision will need to be made whether we consider the variable for day business, 
+as otherwise we will have additional precision at the cost of observations.
+
+Last thing to do is to look over the variable importance as perceived through the 
+eyes of a random forest model. It has the advantage on being able to make decisions
+based on whether the data is missing (which is the case with this data).
+
+```{r xgboost and variable importance}
+options(na.action = "na.pass")
+# Create Model Matrix (one hot encoding)
+MM <- model.matrix(df, object = reaction~. -shame -measurement )
+
+# Convert the data to xgboost matrix
+dtrain <- xgb.DMatrix(data = MM, label = df$reaction)
+
+# Fit the tree model
+xgb_model <- xgboost(data = dtrain,
+		max.depth = 5,
+		eta = 0.1,
+		nrounds = 500,
+		booster = "gblinear",
+		verbose = 0
+		) 
+
+# Plot variable importance
+var_importance <- xgb.importance(model = xgb_model)
+
+ggplot(var_importance, aes(x = Feature, y = -Weight)) +
+	geom_point() +
+	theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+	labs(title = "Variable importance")
+```
+
+This is a result that shows promise: the most important variables for predicting
+reaction time are in fact the time of day, and hunger. The Weight is the relative 
+proportion of times the variable was selected to be included in the xgboost component
+which in our case is a weak linear model.
